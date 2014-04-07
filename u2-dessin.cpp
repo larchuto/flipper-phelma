@@ -21,8 +21,8 @@ using namespace std;
 void ZoneDessinDessinerCB( Fl_Widget* widget, void* data )
 {
     // On efface toute la zone ( en dessinant dessus un rectangle plein, noir )
-    fl_color(FL_BLACK);
-    fl_rectf(X_ZONE, Y_ZONE, L_ZONE, H_ZONE);
+    Fl_GIF_Image Imagefond("media/fond.gif") ;
+    Imagefond.draw(X_ZONE, Y_ZONE, L_ZONE, H_ZONE);
 
     //Zone de score
     fl_color(FL_BORDER_BOX);
