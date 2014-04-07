@@ -11,6 +11,8 @@
 // Programmes locaux
 #include "u1-interface.h"
 #include "u4-fonctions.h"
+#include "u5-parametres.h"
+#include <math.h>
 
 // Declaration pour utiliser iostream
 using namespace std;
@@ -38,8 +40,8 @@ void InitialiserDonnees()
 void DeplacerBouleSansRebond()
 {
     // Nouvelle position de la boule ...
-    gDonnees.Boule.X = gDonnees.Boule.X + gDonnees.Boule.VX ;
-    gDonnees.Boule.Y = gDonnees.Boule.Y + gDonnees.Boule.VY ;
+    gDonnees.Boule.X = gDonnees.Boule.X + (-sin(INCLINAISON)*DUREE_CYCLE+gDonnees.Boule.VX)*DUREE_CYCLE ;
+    gDonnees.Boule.Y = gDonnees.Boule.Y + (*DUREE_CYCLE+gDonnees.Boule.VY)*DUREE_CYCLE ;
 
     // ... ramenee sur la sphere
     if ( gDonnees.Boule.X > L_ZONE )
@@ -64,27 +66,27 @@ void DeplacerBouleAvecRebonds()
 
     // Gestion des rebonds sur les bords du rectangle
 
-    if ( gDonnees.Boule.X >= L_ZONE )
+    if ( gDonnees.Boule.X >= L_ZONE-RAYON_BOULE)
     {
-        gDonnees.Boule.X = L_ZONE ;
+        gDonnees.Boule.X = L_ZONE-RAYON_BOULE ;
         gDonnees.Boule.VX = -1 * gDonnees.Boule.VX ;
     }
 
-    if ( gDonnees.Boule.Y >= H_ZONE )
+    if ( gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE)
     {
-        gDonnees.Boule.Y = H_ZONE ;
+        gDonnees.Boule.Y = H_ZONE-RAYON_BOULE ;
         gDonnees.Boule.VY = -1 * gDonnees.Boule.VY ;
     }
 
-    if ( gDonnees.Boule.X <= 0 )
+    if ( gDonnees.Boule.X <= RAYON_BOULE)
     {
-        gDonnees.Boule.X = 0 ;
+        gDonnees.Boule.X = RAYON_BOULE ;
         gDonnees.Boule.VX = -1 * gDonnees.Boule.VX ;
     }
 
-    if ( gDonnees.Boule.Y <= 0 )
+    if ( gDonnees.Boule.Y <= RAYON_BOULE)
     {
-        gDonnees.Boule.Y = 0 ;
+        gDonnees.Boule.Y = RAYON_BOULE ;
         gDonnees.Boule.VY = -1 * gDonnees.Boule.VY ;
     }
 }

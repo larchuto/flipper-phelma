@@ -5,7 +5,7 @@
 
 // Definition des constantes
 #define DUREE_CYCLE 0.015    // 0.500 secondes, depend du materiel utilise
-#define RAYON_BOULE  20
+#define RAYON_BOULE  12
 
 // Declaration des donnees du projet
 
