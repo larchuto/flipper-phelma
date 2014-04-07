@@ -19,7 +19,7 @@ void CreerInterface()
 {
     // Creation de la fenetre principale
     gInterface.Fenetre = new Fl_Double_Window(720,720);
-    gInterface.Fenetre->label("Projet Type") ;
+    gInterface.Fenetre->label("Flipper Phelma") ;
     gInterface.Fenetre->begin() ;
 
     // Creation de la zone de dessin
