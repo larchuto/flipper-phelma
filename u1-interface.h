@@ -23,6 +23,14 @@
 #define L_ZONE  430     // Largeur de la zone
 #define H_ZONE  650     // Hauteur de la zone
 
+#define X_SCORE 470
+#define Y_SCORE 40
+#define L_SCORE 230
+#define H_SCORE 400
+
+#define L_ZONE2 700
+
+
 // Declaration des objets de l'interface
 struct Interface
 {
