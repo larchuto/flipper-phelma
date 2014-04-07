@@ -18,7 +18,7 @@ struct Interface gInterface ;
 void CreerInterface()
 {
     // Creation de la fenetre principale
-    gInterface.Fenetre = new Fl_Double_Window(800,600);
+    gInterface.Fenetre = new Fl_Double_Window(680,720);
     gInterface.Fenetre->label("Projet Type") ;
     gInterface.Fenetre->begin() ;
 
@@ -29,15 +29,15 @@ void CreerInterface()
     gInterface.ZoneDessin->keyboard_callback( ZoneDessinClavierCB, NULL ) ;
 
     // Creation du bouton Quitter
-    gInterface.BoutonQuitter = new Fl_Button(20, 460, 100, 20, "Quitter") ;
+    gInterface.BoutonQuitter = new Fl_Button(570, 670, 100, 20, "Quitter") ;
     gInterface.BoutonQuitter->callback( BoutonQuitterCB, NULL ) ;
 
     // Creation de la case a cocher Rebond
-    gInterface.CaseRebond = new Fl_Check_Button(140, 460, 100, 20, "Rebond") ;
+    gInterface.CaseRebond = new Fl_Check_Button(570, 200, 100, 20, "Rebond") ;
     gInterface.CaseRebond->callback( CaseRebondCB, NULL ) ;
 
     // Creation du bouton Action
-    gInterface.BoutonAction = new Fl_Button(580, 50, 100, 20, "Action") ;
+    gInterface.BoutonAction = new Fl_Button(570, 50, 100, 20, "Action") ;
     gInterface.BoutonAction->callback( BoutonActionCB, NULL ) ;
 
     // Affichage de la fenetre
