@@ -12,8 +12,8 @@
 // Structure de definition de la boule
 struct Boule
 {
-    int X;
-    int Y;
+    float X;
+    float Y;
     float VX;
     float VY;
 } ;
