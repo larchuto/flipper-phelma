@@ -14,8 +14,8 @@ struct Boule
 {
     int X;
     int Y;
-    int VX;
-    int VY;
+    float VX;
+    float VY;
 } ;
 
 // Structure globale pour les variables fonctionnelles

@@ -1,1 +1,3 @@
-#define INCLINAISON
+#define INCLINAISON 10
+#define MASSEBILLE 20
+#define GRAVITE 9

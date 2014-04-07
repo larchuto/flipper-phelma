@@ -30,7 +30,7 @@ void InitialiserDonnees()
     // On initialise la boule
     gDonnees.Boule.X = L_ZONE / 2 ;
     gDonnees.Boule.Y = L_ZONE / 2 ;
-    gDonnees.Boule.VX = 5 ;
+    gDonnees.Boule.VX = 1 ;
     gDonnees.Boule.VY = 3 ;
 
     // Exemple son
@@ -40,8 +40,10 @@ void InitialiserDonnees()
 void DeplacerBouleSansRebond()
 {
     // Nouvelle position de la boule ...
-    gDonnees.Boule.X = gDonnees.Boule.X + (-sin(INCLINAISON)*DUREE_CYCLE+gDonnees.Boule.VX)*DUREE_CYCLE ;
-    gDonnees.Boule.Y = gDonnees.Boule.Y + (*DUREE_CYCLE+gDonnees.Boule.VY)*DUREE_CYCLE ;
+    //double inclinaison = INCLINAISON;
+    gDonnees.Boule.X = gDonnees.Boule.X + gDonnees.Boule.VX;//*DUREE_CYCLE;
+    gDonnees.Boule.Y = gDonnees.Boule.Y + gDonnees.Boule.VY;//+sin(INCLINAISON)/2*GRAVITE*DUREE_CYCLE)*DUREE_CYCLE;
+
 
     // ... ramenee sur la sphere
     if ( gDonnees.Boule.X > L_ZONE )
@@ -61,8 +63,17 @@ void DeplacerBouleSansRebond()
 void DeplacerBouleAvecRebonds()
 {
     // Nouvelle position de la boule ...
-    gDonnees.Boule.X = gDonnees.Boule.X + gDonnees.Boule.VX ;
-    gDonnees.Boule.Y = gDonnees.Boule.Y + gDonnees.Boule.VY ;
+    float duree =0.015;
+    float incl = 0.0;
+    float gravite = 9.98;
+    gDonnees.Boule.X = gDonnees.Boule.X + int(ceil(gDonnees.Boule.VX*DUREE_CYCLE));
+    //printf("x : %d",gDonnees.Boule.X);
+    gDonnees.Boule.Y = gDonnees.Boule.Y +int(ceil((gDonnees.Boule.VY+sin(INCLINAISON)/2*GRAVITE*DUREE_CYCLE)*DUREE_CYCLE));
+    //printf("x : %d",gDonnees.Boule.Y);
+    gDonnees.Boule.VX = gDonnees.Boule.VX;
+    //printf("x : %d",gDonnees.Boule.VX);
+    gDonnees.Boule.VY = gDonnees.Boule.VY+sin(INCLINAISON)*GRAVITE*DUREE_CYCLE;
+    //printf("x : %d",gDonnees.Boule.VY);
 
     // Gestion des rebonds sur les bords du rectangle
 
