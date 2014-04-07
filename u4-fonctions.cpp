@@ -28,8 +28,8 @@ void InitialiserDonnees()
     // Initialisation de Rebond
     gDonnees.Rebond = 0 ;
     // On initialise la boule
-    gDonnees.Boule.X = L_ZONE / 2 ;
-    gDonnees.Boule.Y = L_ZONE / 2 ;
+    gDonnees.Boule.X = L_ZONE-RAYON_BOULE;
+    gDonnees.Boule.Y = H_ZONE-RAYON_BOULE-5;
     gDonnees.Boule.VX = 0 ;
     gDonnees.Boule.VY = 0 ;
 
@@ -39,9 +39,10 @@ void InitialiserDonnees()
 
 void DeplacerBouleSansRebond()
 {
+    DeplacerBouleAvecRebonds();
     // Nouvelle position de la boule ...
     //double inclinaison = INCLINAISON;
-    gDonnees.Boule.X = gDonnees.Boule.X + gDonnees.Boule.VX;//*DUREE_CYCLE;
+    /*gDonnees.Boule.X = gDonnees.Boule.X + gDonnees.Boule.VX;//*DUREE_CYCLE;
     gDonnees.Boule.Y = gDonnees.Boule.Y + gDonnees.Boule.VY;//+sin(INCLINAISON)/2*GRAVITE*DUREE_CYCLE)*DUREE_CYCLE;
 
 
@@ -56,20 +57,18 @@ void DeplacerBouleSansRebond()
         gDonnees.Boule.Y = gDonnees.Boule.Y - gDonnees.Boule.Y;
 
     if ( gDonnees.Boule.Y < 0 )
-        gDonnees.Boule.Y = H_ZONE + gDonnees.Boule.Y ;
+        gDonnees.Boule.Y = H_ZONE + gDonnees.Boule.Y ;*/
 }
 
 
 void DeplacerBouleAvecRebonds()
 {
-    gDonnees.Boule.VX = gDonnees.Boule.VX;
-    //printf("x : %d",gDonnees.Boule.VX);
-    gDonnees.Boule.VY = gDonnees.Boule.VY+sin(INCLINAISON)*GRAVITE*DUREE_CYCLE;
     // Nouvelle position de la boule ...
+    gDonnees.Boule.VX = gDonnees.Boule.VX;
+    gDonnees.Boule.VY = gDonnees.Boule.VY+sin(INCLINAISON)*GRAVITE*DUREE_CYCLE;
     gDonnees.Boule.X = gDonnees.Boule.X + gDonnees.Boule.VX;
-    //printf("x : %d",gDonnees.Boule.X);
-    gDonnees.Boule.Y = gDonnees.Boule.Y + gDonnees.Boule.VY;//+(sin(INCLINAISON)/2*GRAVITE*DUREE_CYCLE)*DUREE_CYCLE;
-    // Gestion des rebonds sur les bords du rectangle
+    gDonnees.Boule.Y = gDonnees.Boule.Y + gDonnees.Boule.VY;//+sin(INCLINAISON)/2*GRAVITE*DUREE_CYCLE)*DUREE_CYCLE;
+
 
 
     if ( gDonnees.Boule.X >= L_ZONE-RAYON_BOULE)
