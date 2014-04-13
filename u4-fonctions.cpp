@@ -26,7 +26,7 @@ void InitialiserDonnees()
     // On initialise le generateur de nombres aleatoires
     srand(time(NULL));
     // Initialisation de Rebond
-    gDonnees.Rebond = 0 ;
+    //gDonnees.Rebond = 0 ;
     // On initialise la boule
     gDonnees.Boule.X = L_ZONE-RAYON_BOULE;
     gDonnees.Boule.Y = H_ZONE-RAYON_BOULE-5;
