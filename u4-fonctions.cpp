@@ -12,6 +12,7 @@
 #include "u1-interface.h"
 #include "u4-fonctions.h"
 #include "u5-parametres.h"
+#include "u2-dessin.h"
 #include <math.h>
 
 // Declaration pour utiliser iostream
@@ -63,37 +64,39 @@ void InitialiserDonnees()
 
 void DeplacerBouleAvecRebonds()
 {
-    // Nouvelle position de la boule ...
-    gDonnees.Boule.VX = gDonnees.Boule.VX;
-    gDonnees.Boule.VY = gDonnees.Boule.VY+sin(INCLINAISON)*GRAVITE*DUREE_CYCLE;
-    gDonnees.Boule.X = gDonnees.Boule.X + gDonnees.Boule.VX;
-    gDonnees.Boule.Y = gDonnees.Boule.Y + gDonnees.Boule.VY;//+sin(INCLINAISON)/2*GRAVITE*DUREE_CYCLE)*DUREE_CYCLE;
-
 
 
     if ( gDonnees.Boule.X >= L_ZONE-RAYON_BOULE)
     {
         gDonnees.Boule.X = L_ZONE-RAYON_BOULE ;
-        gDonnees.Boule.VX = -1 * gDonnees.Boule.VX ;
+        gDonnees.Boule.VX = -1 *COEFF_PERTES* gDonnees.Boule.VX ;
     }
 
     if ( gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE)
     {
         gDonnees.Boule.Y = H_ZONE-RAYON_BOULE ;
-        gDonnees.Boule.VY = -1 * gDonnees.Boule.VY ;
+        gDonnees.Boule.VY = -1 *COEFF_PERTES* gDonnees.Boule.VY ;
     }
 
     if ( gDonnees.Boule.X <= RAYON_BOULE)
     {
         gDonnees.Boule.X = RAYON_BOULE ;
-        gDonnees.Boule.VX = -1 * gDonnees.Boule.VX ;
+        gDonnees.Boule.VX = -1*COEFF_PERTES * gDonnees.Boule.VX ;
     }
 
     if ( gDonnees.Boule.Y <= RAYON_BOULE)
     {
         gDonnees.Boule.Y = RAYON_BOULE ;
-        gDonnees.Boule.VY = -1 * gDonnees.Boule.VY ;
+        gDonnees.Boule.VY = -1*COEFF_PERTES * gDonnees.Boule.VY ;
     }
+    // Nouvelle position de la boule ...
+    gDonnees.Boule.VX = gDonnees.Boule.VX;
+    gDonnees.Boule.VY = gDonnees.Boule.VY + sin(INCLINAISON)*GRAVITE*DUREE_CYCLE;
+    gDonnees.Boule.X = gDonnees.Boule.X + gDonnees.Boule.VX;
+    gDonnees.Boule.Y = gDonnees.Boule.Y + gDonnees.Boule.VY - sin(INCLINAISON)/2*GRAVITE*DUREE_CYCLE*DUREE_CYCLE;
+
+
+
 }
 
 // Utilitaires

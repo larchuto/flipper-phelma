@@ -1,3 +1,4 @@
 #define INCLINAISON 1.57
-#define MASSEBILLE 20
+//#define MASSEBILLE 20
 #define GRAVITE 9*1/0.171979167
+#define COEFF_PERTES 0.6

@@ -13,7 +13,6 @@
 
 
 
-
 // Declaration pour utiliser iostream
 using namespace std;
 
@@ -27,6 +26,8 @@ void ZoneDessinDessinerCB( Fl_Widget* widget, void* data )
     //Zone de score
     Fl_GIF_Image Imagefondscore("media/fondscore.gif") ;
     Imagefondscore.draw(X_SCORE, Y_SCORE, L_SCORE, H_SCORE);
+    Fl_GIF_Image Imagescore("media/score.gif") ;
+    Imagescore.draw(X_SCORE, Y_SCORE, L_SCORE, H_SCORE);
     //fl_color(FL_BORDER_BOX);
     //fl_rectf(X_SCORE, Y_SCORE, L_SCORE, H_SCORE);
 
@@ -34,4 +35,10 @@ void ZoneDessinDessinerCB( Fl_Widget* widget, void* data )
     Fl_GIF_Image Imagebille("media/bille.gif") ;
     Imagebille.draw(X_ZONE + gDonnees.Boule.X - RAYON_BOULE, Y_ZONE + gDonnees.Boule.Y - RAYON_BOULE);
     //Imagebille.draw(X_ZONE, Y_ZONE);
+    //(/*"media/bille.gif"*/);
+    //bille ball;
+    //ball.trace();
+    //ball.rebond();
+    //ball.move();
+
 }
