@@ -6,6 +6,7 @@
 // Definition des constantes
 #define DUREE_CYCLE 0.015    // 0.500 secondes, depend du materiel utilise
 #define RAYON_BOULE  12
+//#include "aabb.h"
 
 // Declaration des donnees du projet
 
@@ -17,11 +18,19 @@ struct Boule
     float VX;
     float VY;
 } ;
+struct Aabb
+{
+	int X;
+	int Y;
+	int TX;
+	int TY;
+};
 
 // Structure globale pour les variables fonctionnelles
 struct Donnees
 {
-    struct Boule    Boule ;
+	struct Boule Boule;
+	struct Aabb Barre;
 };
 
 

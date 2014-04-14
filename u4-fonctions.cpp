@@ -14,20 +14,19 @@
 #include "u5-parametres.h"
 #include "u2-dessin.h"
 #include <math.h>
-#include "aabb.h"
+
 
 // Declaration pour utiliser iostream
 using namespace std;
 
 // Definition des donnees fonctionnelles du projet - structure globale de variables
 struct Donnees gDonnees;
-aabb test(10,10);
 
 // Initialiser
 void InitialiserDonnees()
 {
     // On initialise le generateur de nombres aleatoires
-    srand(time(NULL));
+    //srand(time(NULL));
     // Initialisation de Rebond
     //gDonnees.Rebond = 0 ;
     // On initialise la boule
@@ -36,11 +35,23 @@ void InitialiserDonnees()
     gDonnees.Boule.Y = H_ZONE-RAYON_BOULE-5;
     gDonnees.Boule.VX = 10 ;
     gDonnees.Boule.VY = 0 ;
-
+	gDonnees.Barre.X=10;
+	gDonnees.Barre.Y=10;
+	gDonnees.Barre.TX=10;
+	gDonnees.Barre.TY=10;
     // Exemple son
     // JouerSon("media/r2d2.mp3");
 }
 
+
+bool Touche_aabb(struct Aabb barre,struct Boule bille)
+{
+    if ((bille.X>=barre.X-barre.TX/2 && bille.X<=barre.X+barre.TX/2) && (bille.Y>=barre.Y-barre.TY/2 && bille.Y<=barre.Y+barre.TY/2))
+    {
+        return true;
+    }
+    return false;
+}
 
 void DeplacerBouleAvecRebonds()
 {
@@ -74,6 +85,7 @@ void DeplacerBouleAvecRebonds()
     gDonnees.Boule.VY = gDonnees.Boule.VY + sin(INCLINAISON)*GRAVITE*DUREE_CYCLE;
     gDonnees.Boule.X = gDonnees.Boule.X + gDonnees.Boule.VX;
     gDonnees.Boule.Y = gDonnees.Boule.Y + gDonnees.Boule.VY - sin(INCLINAISON)/2*GRAVITE*DUREE_CYCLE*DUREE_CYCLE;
+	Touche_aabb(gDonnees.Barre,gDonnees.Boule);
 
 
 
