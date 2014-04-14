@@ -38,7 +38,7 @@ void InitialiserDonnees()
     gDonnees.Valeur2 = 1 ;
     gInterface.Nb_billes->value(gDonnees.Valeur2) ;
     // Exemple son
-    // JouerSon("media/r2d2.mp3");
+    //JouerSon("media/r2d2.mp3");
 }
 
 
@@ -57,11 +57,11 @@ void DeplacerBouleAvecRebonds()
         gDonnees.Boule.Y = H_ZONE-RAYON_BOULE ;
         gDonnees.Boule.VY = -1 *COEFF_PERTES* gDonnees.Boule.VY ;
 
-        if (gDonnees.Boule.VY < -1 )
+        if (gDonnees.Boule.VY < -1,0 )
         {
         gDonnees.Valeur = gDonnees.Valeur + 1 ;
         gInterface.Score->value(gDonnees.Valeur) ;
-        //JouerSon("media/Sons/bips/bip6.mp3");
+        JouerSon("media/Sons/bips/bip6.mp3");
         }
     }
 
