@@ -27,7 +27,7 @@ void InitialiserDonnees()
     // On initialise le generateur de nombres aleatoires
     srand(time(NULL));
     // Initialisation de Rebond
-    //gDonnees.Rebond = 0 ;
+    gDonnees.Rebond = 0 ;
     // On initialise la boule
     gDonnees.Boule.X = L_ZONE-RAYON_BOULE;
     gDonnees.Boule.Y = H_ZONE-RAYON_BOULE-5;
@@ -38,12 +38,12 @@ void InitialiserDonnees()
     // JouerSon("media/r2d2.mp3");
 }
 
-/*void DeplacerBouleSansRebond()
+void DeplacerBouleSansRebond()
 {
     DeplacerBouleAvecRebonds();
     // Nouvelle position de la boule ...
     //double inclinaison = INCLINAISON;
-    gDonnees.Boule.X = gDonnees.Boule.X + gDonnees.Boule.VX;//*DUREE_CYCLE;
+    /*gDonnees.Boule.X = gDonnees.Boule.X + gDonnees.Boule.VX;//*DUREE_CYCLE;
     gDonnees.Boule.Y = gDonnees.Boule.Y + gDonnees.Boule.VY;//+sin(INCLINAISON)/2*GRAVITE*DUREE_CYCLE)*DUREE_CYCLE;
 
 
@@ -58,8 +58,8 @@ void InitialiserDonnees()
         gDonnees.Boule.Y = gDonnees.Boule.Y - gDonnees.Boule.Y;
 
     if ( gDonnees.Boule.Y < 0 )
-        gDonnees.Boule.Y = H_ZONE + gDonnees.Boule.Y ;
-}*/
+        gDonnees.Boule.Y = H_ZONE + gDonnees.Boule.Y ;*/
+}
 
 
 void DeplacerBouleAvecRebonds()
