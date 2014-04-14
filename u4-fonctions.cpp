@@ -31,9 +31,12 @@ void InitialiserDonnees()
     // On initialise la boule
     gDonnees.Boule.X = L_ZONE-RAYON_BOULE;
     gDonnees.Boule.Y = H_ZONE-RAYON_BOULE-5;
-    gDonnees.Boule.VX = 10 ;
+    gDonnees.Boule.VX = 0 ;
     gDonnees.Boule.VY = 0 ;
-
+    // On initialise Valeur
+    gDonnees.Valeur = 0 ;
+    gDonnees.Valeur2 = 1 ;
+    gInterface.Nb_billes->value(gDonnees.Valeur2) ;
     // Exemple son
     // JouerSon("media/r2d2.mp3");
 }
@@ -53,6 +56,13 @@ void DeplacerBouleAvecRebonds()
     {
         gDonnees.Boule.Y = H_ZONE-RAYON_BOULE ;
         gDonnees.Boule.VY = -1 *COEFF_PERTES* gDonnees.Boule.VY ;
+
+        if (gDonnees.Boule.VY < -1 )
+        {
+        gDonnees.Valeur = gDonnees.Valeur + 1 ;
+        gInterface.Score->value(gDonnees.Valeur) ;
+        //JouerSon("media/Sons/bips/bip6.mp3");
+        }
     }
 
     if ( gDonnees.Boule.X <= RAYON_BOULE)

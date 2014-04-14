@@ -36,11 +36,13 @@ struct Interface
 {
     Fl_Double_Window*   Fenetre ;
     DrawingArea*        ZoneDessin ;
+    DrawingArea*        ZoneDessin2 ;
     Fl_Button*          BoutonQuitter ;
     Fl_Check_Button*    CaseRebond ;
 
     Fl_Button*          BoutonAction ;
     Fl_Value_Output*    Score;
+    Fl_Value_Output*    Nb_billes;
 } ;
 
 // Declaration des objets de l'interface generale - ne pas supprimer

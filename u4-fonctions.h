@@ -22,6 +22,8 @@ struct Boule
 struct Donnees
 {
     struct Boule    Boule ;
+    unsigned int    Valeur ;
+    unsigned int    Valeur2 ;
 };
 
 extern struct Donnees gDonnees;
