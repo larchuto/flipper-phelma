@@ -21,9 +21,9 @@ void TraiterCycleCB()
     // printf(""Appel de TraiterCycleCB");
 
     // Deplacement de la boule
-    //if ( gDonnees.Rebond == 0 )
-      //  DeplacerBouleSansRebond() ;
-    //else
+    if ( gDonnees.Rebond == 0 )
+        DeplacerBouleSansRebond() ;
+    else
         DeplacerBouleAvecRebonds() ;
 
     // On redessine la zone
@@ -34,7 +34,7 @@ void TraiterCycleCB()
     // Solution : On ramene systematiquement le focus des evenements sur la zone de dessin
     // Attention, cela peut perturber certains elements d'interface comme des champs de saisie texte ou numerique
 
-     Fl::focus(gInterface.ZoneDessin);
+    // Fl::focus(gInterface.ZoneDessin);
 
     // Fin code a activer en cas de probleme
 }
@@ -113,10 +113,10 @@ void BoutonQuitterCB(Fl_Widget* w, void* data)
     exit(0) ;
 }
 
-/*void CaseRebondCB(Fl_Widget* w, void* data)
+void CaseRebondCB(Fl_Widget* w, void* data)
 {
     gDonnees.Rebond = gInterface.CaseRebond->value() ;
-}*/
+}
 
 void BoutonActionCB(Fl_Widget* w, void* data)
 {

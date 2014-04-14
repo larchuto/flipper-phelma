@@ -33,8 +33,8 @@ void CreerInterface()
     gInterface.BoutonQuitter->callback( BoutonQuitterCB, NULL ) ;
 
     // Creation de la case a cocher Rebond
-    //gInterface.CaseRebond = new Fl_Check_Button(570, 500, 100, 20, "Rebond") ;
-    //gInterface.CaseRebond->callback( CaseRebondCB, NULL ) ;
+    gInterface.CaseRebond = new Fl_Check_Button(570, 500, 100, 20, "Rebond") ;
+    gInterface.CaseRebond->callback( CaseRebondCB, NULL ) ;
 
     // Creation du bouton Action
     gInterface.BoutonAction = new Fl_Button(570, 450, 100, 20, "Action") ;
@@ -48,5 +48,5 @@ void CreerInterface()
 void ActualiserInterface()
 {
     // Actualisation de Rebond
-    //gInterface.CaseRebond->value( gDonnees.Rebond ) ;
+    gInterface.CaseRebond->value( gDonnees.Rebond ) ;
 }
