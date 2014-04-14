@@ -40,9 +40,6 @@ void CreerInterface()
     gInterface.BoutonAction = new Fl_Button(570, 450, 100, 20, "Action") ;
     gInterface.BoutonAction->callback( BoutonActionCB, NULL ) ;
 
-    //Score
-    gInterface.Score = new Fl_Value_Output(475, 393, 220, 42, "") ;
-
     // Affichage de la fenetre
     gInterface.Fenetre->end();
     gInterface.Fenetre->show();
