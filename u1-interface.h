@@ -40,6 +40,7 @@ struct Interface
     Fl_Check_Button*    CaseRebond ;
 
     Fl_Button*          BoutonAction ;
+    Fl_Value_Output*    Score;
 } ;
 
 // Declaration des objets de l'interface generale - ne pas supprimer

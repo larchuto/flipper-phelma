@@ -24,6 +24,8 @@ void ZoneDessinDessinerCB( Fl_Widget* widget, void* data )
     Imagefond.draw(X_ZONE, Y_ZONE, L_ZONE, H_ZONE);
 
     //Zone de score
+    Fl_GIF_Image Imagefondscore("media/fondscore.gif") ;
+    Imagefondscore.draw(X_SCORE, Y_SCORE, L_SCORE, H_SCORE);
     Fl_GIF_Image Imagescore("media/score.gif") ;
     Imagescore.draw(X_SCORE, Y_SCORE, L_SCORE, H_SCORE);
     //fl_color(FL_BORDER_BOX);
