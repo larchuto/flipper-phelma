@@ -15,6 +15,7 @@
 #include "u2-dessin.h"
 #include <math.h>
 
+
 // Declaration pour utiliser iostream
 using namespace std;
 
@@ -25,22 +26,72 @@ struct Donnees gDonnees;
 void InitialiserDonnees()
 {
     // On initialise le generateur de nombres aleatoires
-    srand(time(NULL));
+    //srand(time(NULL));
     // Initialisation de Rebond
     //gDonnees.Rebond = 0 ;
     // On initialise la boule
+//
     gDonnees.Boule.X = L_ZONE-RAYON_BOULE;
     gDonnees.Boule.Y = H_ZONE-RAYON_BOULE-5;
     gDonnees.Boule.VX = 0 ;
     gDonnees.Boule.VY = 0 ;
+<<<<<<< HEAD
     // On initialise Valeur
     gDonnees.Valeur = 0 ;
     gDonnees.Valeur2 = 1 ;
     gInterface.Nb_billes->value(gDonnees.Valeur2) ;
+=======
+	gDonnees.Barre.X=200;
+	gDonnees.Barre.Y=300;
+	gDonnees.Barre.TX=100;
+	gDonnees.Barre.TY=100;
+>>>>>>> a8b2897570145f5b894f1ee325ab9c76d2602516
     // Exemple son
     //JouerSon("media/r2d2.mp3");
 }
 
+
+bool Touche_aabb(struct Aabb barre,struct Boule bille)
+{
+	float x1=barre.X-barre.TX/2;
+	float x2=barre.X+barre.TX/2;
+	float y1=barre.Y-barre.TY/2;
+	float y2=barre.Y+barre.TY/2;
+    /*if ((bille.X>=x1 && bille.X<=x2) && (bille.Y>=y1 && bille.Y<=y2))
+    {
+        return true;
+    }*/
+    //return false;
+	if(bille.X<x1-RAYON_BOULE
+	|| bille.X>x2+RAYON_BOULE
+	|| bille.Y<y1-RAYON_BOULE
+	|| bille.Y>y2+RAYON_BOULE)
+	{
+		return false;
+	}
+	if(bille.X>=x1 && bille.X<=x2)
+	{
+		if(bille.Y>=y1-RAYON_BOULE || bille.Y<=y2+RAYON_BOULE)
+		{
+			return true;
+		}
+	}
+	if(bille.Y>=y1 && bille.Y<=y2)
+	{
+		if(bille.X>=x1-RAYON_BOULE || bille.X<=x2+RAYON_BOULE)
+		{
+			return true;
+		}
+	}
+	if((bille.X-x1)*(bille.X-x1)+(bille.Y-y1)*(bille.Y-y1)>RAYON_BOULE*RAYON_BOULE
+	|| (bille.X-x2)*(bille.X-x2)+(bille.Y-y2)*(bille.Y-y2)>RAYON_BOULE*RAYON_BOULE
+	|| (bille.X-x1)*(bille.X-x1)+(bille.Y-y2)*(bille.Y-y2)>RAYON_BOULE*RAYON_BOULE
+	|| (bille.X-x2)*(bille.X-x2)+(bille.Y-y1)*(bille.Y-y1)>RAYON_BOULE*RAYON_BOULE)
+	{
+		return false;
+	}
+	return true;
+}
 
 void DeplacerBouleAvecRebonds()
 {
@@ -76,13 +127,16 @@ void DeplacerBouleAvecRebonds()
         gDonnees.Boule.Y = RAYON_BOULE ;
         gDonnees.Boule.VY = -1*COEFF_PERTES * gDonnees.Boule.VY ;
     }
+	if(Touche_aabb(gDonnees.Barre,gDonnees.Boule))
+	{
+        gDonnees.Boule.Y = 250-RAYON_BOULE ;
+        gDonnees.Boule.VY = -1 *COEFF_PERTES* gDonnees.Boule.VY ;
+	}
     // Nouvelle position de la boule ...
     gDonnees.Boule.VX = gDonnees.Boule.VX;
     gDonnees.Boule.VY = gDonnees.Boule.VY + sin(INCLINAISON)*GRAVITE*DUREE_CYCLE;
     gDonnees.Boule.X = gDonnees.Boule.X + gDonnees.Boule.VX;
     gDonnees.Boule.Y = gDonnees.Boule.Y + gDonnees.Boule.VY - sin(INCLINAISON)/2*GRAVITE*DUREE_CYCLE*DUREE_CYCLE;
-
-
 
 }
 

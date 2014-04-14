@@ -3,16 +3,17 @@
 
 #include "obstacle.h"
 
-using namespace std;
-
 class aabb : public obstacle
 {
     public:
-        aabb();
-        void trace();
+        aabb();//int xsize, int ysize);
+	~aabb();
+        void trace(int xsize, int ysize);
         bool touche(int x, int y);
     private:
         int m_xsize;
         int m_ysize;
 
-}
+};
+
+#endif

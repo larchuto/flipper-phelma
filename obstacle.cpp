@@ -1,6 +1,6 @@
 #include "obstacle.h"
 
-obstacle::obstacle(int xpos, int ypos) : m_x_pos(xpos), m_y_pos(ypos) //, m_img(imgPath)
+obstacle::obstacle()//int xpos, int ypos) : m_x_pos(xpos), m_y_pos(ypos) //, m_img(imgPath)
 {
     //ctor
 }
@@ -10,10 +10,10 @@ obstacle::~obstacle()
     //dtor
 }
 
-/*obstacle::obstacle(const obstacle& other)
+obstacle::obstacle(const obstacle& other)
 {
     //copy ctor
-}*/
+}
 
 int obstacle::get_x_pos() const
 {

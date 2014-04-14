@@ -1,7 +1,6 @@
 #ifndef OBSTACLE_H
 #define OBSTACLE_H
 
-using namespace std;
 
 class obstacle
 {
@@ -21,4 +20,4 @@ class obstacle
         //char* m_img;
 };
 
-#endif // BILLE_H
+#endif
