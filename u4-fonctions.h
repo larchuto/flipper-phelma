@@ -24,6 +24,7 @@ struct Donnees
     struct Boule    Boule ;
 };
 
+
 extern struct Donnees gDonnees;
 
 // Déclaration des sous-programmes

@@ -14,12 +14,14 @@
 #include "u5-parametres.h"
 #include "u2-dessin.h"
 #include <math.h>
+#include "aabb.h"
 
 // Declaration pour utiliser iostream
 using namespace std;
 
 // Definition des donnees fonctionnelles du projet - structure globale de variables
 struct Donnees gDonnees;
+aabb test(10,10);
 
 // Initialiser
 void InitialiserDonnees()
@@ -29,6 +31,7 @@ void InitialiserDonnees()
     // Initialisation de Rebond
     //gDonnees.Rebond = 0 ;
     // On initialise la boule
+//
     gDonnees.Boule.X = L_ZONE-RAYON_BOULE;
     gDonnees.Boule.Y = H_ZONE-RAYON_BOULE-5;
     gDonnees.Boule.VX = 10 ;

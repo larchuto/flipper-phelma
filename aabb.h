@@ -8,7 +8,7 @@ using namespace std;
 class aabb : public obstacle
 {
     public:
-        aabb();
+        aabb(int xsize, int ysize);
         void trace();
         bool touche(int x, int y);
     private:
@@ -16,3 +16,4 @@ class aabb : public obstacle
         int m_ysize;
 
 }
+#endif
