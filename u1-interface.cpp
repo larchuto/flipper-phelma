@@ -23,7 +23,13 @@ void CreerInterface()
     gInterface.Fenetre->begin() ;
 
     // Creation de la zone de dessin
-    gInterface.ZoneDessin = new DrawingArea(X_ZONE,Y_ZONE,L_ZONE2,H_ZONE);
+    gInterface.ZoneDessin = new DrawingArea(X_SCORE,Y_SCORE,L_SCORE,H_SCORE);
+    gInterface.ZoneDessin->draw_callback( ZoneDessinDessinerCB, NULL ) ;
+    gInterface.ZoneDessin->mouse_callback( ZoneDessinSourisCB, NULL ) ;
+    gInterface.ZoneDessin->keyboard_callback( ZoneDessinClavierCB, NULL ) ;
+
+    // Creation de la zone de dessin
+    gInterface.ZoneDessin = new DrawingArea(X_ZONE,Y_ZONE,L_ZONE,H_ZONE);
     gInterface.ZoneDessin->draw_callback( ZoneDessinDessinerCB, NULL ) ;
     gInterface.ZoneDessin->mouse_callback( ZoneDessinSourisCB, NULL ) ;
     gInterface.ZoneDessin->keyboard_callback( ZoneDessinClavierCB, NULL ) ;
