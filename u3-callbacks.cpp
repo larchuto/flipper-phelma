@@ -21,10 +21,7 @@ void TraiterCycleCB()
     // printf(""Appel de TraiterCycleCB");
 
     // Deplacement de la boule
-    if ( gDonnees.Rebond == 0 )
-        DeplacerBouleSansRebond() ;
-    else
-        DeplacerBouleAvecRebonds() ;
+    DeplacerBouleAvecRebonds() ;
 
     // On redessine la zone
     gInterface.ZoneDessin->redraw() ;
@@ -113,10 +110,10 @@ void BoutonQuitterCB(Fl_Widget* w, void* data)
     exit(0) ;
 }
 
-void CaseRebondCB(Fl_Widget* w, void* data)
+/*void CaseRebondCB(Fl_Widget* w, void* data)
 {
     gDonnees.Rebond = gInterface.CaseRebond->value() ;
-}
+}*/
 
 void BoutonActionCB(Fl_Widget* w, void* data)
 {

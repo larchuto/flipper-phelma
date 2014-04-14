@@ -22,15 +22,12 @@ struct Boule
 struct Donnees
 {
     struct Boule    Boule ;
-
-    int             Rebond ;
 };
 
 extern struct Donnees gDonnees;
 
 // Déclaration des sous-programmes
 void InitialiserDonnees() ;
-void DeplacerBouleSansRebond() ;
 void DeplacerBouleAvecRebonds() ;
 // Utilitaires
 void JouerSon(char *) ;         // Jouer un son
