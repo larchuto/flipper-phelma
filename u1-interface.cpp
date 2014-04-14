@@ -22,11 +22,11 @@ void CreerInterface()
     gInterface.Fenetre->label("Flipper Phelma") ;
     gInterface.Fenetre->begin() ;
 
-    // Creation de la zone de dessin
-    gInterface.ZoneDessin = new DrawingArea(X_SCORE,Y_SCORE,L_SCORE,H_SCORE);
-    gInterface.ZoneDessin->draw_callback( ZoneDessinDessinerCB, NULL ) ;
-    gInterface.ZoneDessin->mouse_callback( ZoneDessinSourisCB, NULL ) ;
-    gInterface.ZoneDessin->keyboard_callback( ZoneDessinClavierCB, NULL ) ;
+    // Creation de la zone de score
+    gInterface.ZoneDessin2 = new DrawingArea(X_SCORE,Y_SCORE,L_SCORE,H_SCORE);
+    gInterface.ZoneDessin2->draw_callback( ZoneDessinDessinerCB, NULL ) ;
+    gInterface.ZoneDessin2->mouse_callback( ZoneDessinSourisCB, NULL ) ;
+    gInterface.ZoneDessin2->keyboard_callback( ZoneDessinClavierCB, NULL ) ;
 
     // Creation de la zone de dessin
     gInterface.ZoneDessin = new DrawingArea(X_ZONE,Y_ZONE,L_ZONE,H_ZONE);
@@ -45,8 +45,22 @@ void CreerInterface()
     // Creation du bouton Action
     gInterface.BoutonAction = new Fl_Button(570, 450, 100, 20, "Action") ;
     gInterface.BoutonAction->callback( BoutonActionCB, NULL ) ;
-	
- 	gInterface.Score = new Fl_Value_Output(475,393,220,42,"");
+
+    //Score
+    gInterface.Score = new Fl_Value_Output(475, 393, 220, 42, "") ;
+    gInterface.Score->box(FL_THIN_DOWN_FRAME);
+    gInterface.Score->textcolor(FL_WHITE);
+    gInterface.Score->textsize(30);
+    gInterface.Score->textfont(FL_HELVETICA_BOLD);
+
+    //Nombre billes
+    gInterface.Nb_billes = new Fl_Value_Output(653, 340, 42, 42, "") ;
+    gInterface.Nb_billes->box(FL_THIN_DOWN_FRAME);
+    gInterface.Nb_billes->textcolor(FL_WHITE);
+    gInterface.Nb_billes->textsize(30);
+    gInterface.Nb_billes->textfont(FL_HELVETICA_BOLD);
+
+
     // Affichage de la fenetre
     gInterface.Fenetre->end();
     gInterface.Fenetre->show();
