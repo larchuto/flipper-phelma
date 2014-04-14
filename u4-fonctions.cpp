@@ -33,28 +33,42 @@ void InitialiserDonnees()
 //
     gDonnees.Boule.X = L_ZONE-RAYON_BOULE;
     gDonnees.Boule.Y = H_ZONE-RAYON_BOULE-5;
+	gDonnees.Boule.rayon=RAYON_BOULE;
     gDonnees.Boule.VX = 0 ;
     gDonnees.Boule.VY = 0 ;
 	gDonnees.Barre.X=200;
 	gDonnees.Barre.Y=300;
 	gDonnees.Barre.TX=100;
 	gDonnees.Barre.TY=100;
+    gDonnees.Pie.X = 350;
+    gDonnees.Pie.Y = 400;
+	gDonnees.Pie.rayon=20;
     // Exemple son
     // JouerSon("media/r2d2.mp3");
 }
+bool Touche_pie(struct Boule pie,struct Boule bille)//,float* ximp,float* yimp)
+{
+	float dist=pie.rayon+bille.rayon;
+	if(bille.X<pie.X-dist || bille.X>pie.X+dist || bille.Y<pie.Y-dist || bille.Y>pie.Y+dist)
+	{
+		return false;
+	}
+	if((bille.X-pie.X)*(bille.X-pie.X)+(bille.Y-pie.Y)*(bille.Y-pie.Y)>dist*dist)
+	{
+		return false;
+	}
+	//*ximp= bille.X+(pie.X-bille.X)*bille.rayon/(dist);
+	//*yimp= bille.Y+(pie.Y-bille.Y)*bille.rayon/(dist);
+	return true;	
+}
 
-
-bool Touche_aabb(struct Aabb barre,struct Boule bille)
+bool Touche_aabb(struct Aabb barre,struct Boule bille,float* ximp,float* yimp)
 {
 	float x1=barre.X-barre.TX/2;
 	float x2=barre.X+barre.TX/2;
 	float y1=barre.Y-barre.TY/2;
 	float y2=barre.Y+barre.TY/2;
-    /*if ((bille.X>=x1 && bille.X<=x2) && (bille.Y>=y1 && bille.Y<=y2))
-    {
-        return true;
-    }*/
-    //return false;
+
 	if(bille.X<x1-RAYON_BOULE
 	|| bille.X>x2+RAYON_BOULE
 	|| bille.Y<y1-RAYON_BOULE
@@ -64,26 +78,60 @@ bool Touche_aabb(struct Aabb barre,struct Boule bille)
 	}
 	if(bille.X>=x1 && bille.X<=x2)
 	{
-		if(bille.Y>=y1-RAYON_BOULE || bille.Y<=y2+RAYON_BOULE)
+		if(bille.Y>=y1-RAYON_BOULE)
 		{
+			*ximp=bille.X;
+			*yimp=y1-RAYON_BOULE;
+			return true;
+			
+		}
+		if(bille.Y<=y2+RAYON_BOULE)
+		{
+			*ximp=bille.X;
+			*yimp=y2+RAYON_BOULE;
 			return true;
 		}
 	}
 	if(bille.Y>=y1 && bille.Y<=y2)
 	{
-		if(bille.X>=x1-RAYON_BOULE || bille.X<=x2+RAYON_BOULE)
+		if(bille.X>=x1-RAYON_BOULE)
 		{
+			*ximp=x1-RAYON_BOULE;
+			*yimp=bille.Y;
+			return true;
+		}
+		if(bille.X<=x2+RAYON_BOULE)
+		{
+			*ximp=x2+RAYON_BOULE;
+			*yimp=bille.Y;
 			return true;
 		}
 	}
-	if((bille.X-x1)*(bille.X-x1)+(bille.Y-y1)*(bille.Y-y1)>RAYON_BOULE*RAYON_BOULE
-	|| (bille.X-x2)*(bille.X-x2)+(bille.Y-y2)*(bille.Y-y2)>RAYON_BOULE*RAYON_BOULE
-	|| (bille.X-x1)*(bille.X-x1)+(bille.Y-y2)*(bille.Y-y2)>RAYON_BOULE*RAYON_BOULE
-	|| (bille.X-x2)*(bille.X-x2)+(bille.Y-y1)*(bille.Y-y1)>RAYON_BOULE*RAYON_BOULE)
+	if((bille.X-x1)*(bille.X-x1)+(bille.Y-y1)*(bille.Y-y1)<=RAYON_BOULE*RAYON_BOULE)
 	{
-		return false;
+		*ximp=x1;
+		*yimp=y1;
+		return true;
 	}
-	return true;
+	if((bille.X-x2)*(bille.X-x2)+(bille.Y-y2)*(bille.Y-y2)<=RAYON_BOULE*RAYON_BOULE)
+	{
+		*ximp=x2;
+		*yimp=y2;
+		return true;
+	}
+	if((bille.X-x1)*(bille.X-x1)+(bille.Y-y2)*(bille.Y-y2)<=RAYON_BOULE*RAYON_BOULE)
+	{
+		*ximp=x1;
+		*yimp=y2;
+		return true;
+	}
+	if((bille.X-x2)*(bille.X-x2)+(bille.Y-y1)*(bille.Y-y1)<=RAYON_BOULE*RAYON_BOULE)
+	{
+		*ximp=x2;
+		*yimp=y1;
+		return true;
+	}
+	return false;
 }
 
 void DeplacerBouleAvecRebonds()
@@ -113,9 +161,17 @@ void DeplacerBouleAvecRebonds()
         gDonnees.Boule.Y = RAYON_BOULE ;
         gDonnees.Boule.VY = -1*COEFF_PERTES * gDonnees.Boule.VY ;
     }
-	if(Touche_aabb(gDonnees.Barre,gDonnees.Boule))
+	float ximp;
+	float yimp;
+	if(Touche_aabb(gDonnees.Barre,gDonnees.Boule,&ximp,&yimp))
 	{
-        gDonnees.Boule.Y = 250-RAYON_BOULE ;
+        gDonnees.Boule.Y = yimp;//250-RAYON_BOULE ;
+        gDonnees.Boule.VY = -1 *COEFF_PERTES* gDonnees.Boule.VY ;
+	}
+	if(Touche_pie(gDonnees.Pie,gDonnees.Boule))
+	{
+        gDonnees.Boule.Y = 300+gDonnees.Boule.rayon+gDonnees.Pie.rayon;//250-RAYON_BOULE ;
+	gDonnees.Boule.X = 50;
         gDonnees.Boule.VY = -1 *COEFF_PERTES* gDonnees.Boule.VY ;
 	}
     // Nouvelle position de la boule ...

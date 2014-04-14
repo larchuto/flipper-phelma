@@ -17,6 +17,7 @@ struct Boule
     float Y;
     float VX;
     float VY;
+	float rayon;
 } ;
 struct Aabb
 {
@@ -31,6 +32,7 @@ struct Donnees
 {
 	struct Boule Boule;
 	struct Aabb Barre;
+	struct Boule Pie;
 };
 
 
@@ -38,7 +40,7 @@ extern struct Donnees gDonnees;
 
 // Déclaration des sous-programmes
 void InitialiserDonnees() ;
-bool Touche_aabb(struct Aabb barre,struct Boule bille);
+bool Touche_aabb(struct Aabb barre,struct Boule bille,float* ximp,float* yimp);
 void DeplacerBouleAvecRebonds() ;
 // Utilitaires
 void JouerSon(char *) ;         // Jouer un son
