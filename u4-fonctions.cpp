@@ -41,24 +41,24 @@ void InitialiserDonnees()
 	gDonnees.Barre.TX=100;
 	gDonnees.Barre.TY=100;
     gDonnees.Pie.X = 350;
-    gDonnees.Pie.Y = 400;
+    gDonnees.Pie.Y = 350;
 	gDonnees.Pie.rayon=20;
     // Exemple son
     // JouerSon("media/r2d2.mp3");
 }
-bool Touche_pie(struct Boule pie,struct Boule bille)//,float* ximp,float* yimp)
+bool Touche_pie(struct Boule pie,struct Boule bille,float* ximp,float* yimp)
 {
 	float dist=pie.rayon+bille.rayon;
 	if(bille.X<pie.X-dist || bille.X>pie.X+dist || bille.Y<pie.Y-dist || bille.Y>pie.Y+dist)
 	{
 		return false;
 	}
-	if((bille.X-pie.X)*(bille.X-pie.X)+(bille.Y-pie.Y)*(bille.Y-pie.Y)>dist*dist)
+	if(((bille.X-pie.X)*(bille.X-pie.X)+(bille.Y-pie.Y)*(bille.Y-pie.Y))>(dist*dist))
 	{
 		return false;
 	}
-	//*ximp= bille.X+(pie.X-bille.X)*bille.rayon/(dist);
-	//*yimp= bille.Y+(pie.Y-bille.Y)*bille.rayon/(dist);
+	*ximp= bille.X+(pie.X-bille.X)*bille.rayon/(dist);
+	*yimp= bille.Y+(pie.Y-bille.Y)*bille.rayon/(dist);
 	return true;	
 }
 
@@ -168,10 +168,10 @@ void DeplacerBouleAvecRebonds()
         gDonnees.Boule.Y = yimp;//250-RAYON_BOULE ;
         gDonnees.Boule.VY = -1 *COEFF_PERTES* gDonnees.Boule.VY ;
 	}
-	if(Touche_pie(gDonnees.Pie,gDonnees.Boule))
+	if(Touche_pie(gDonnees.Pie,gDonnees.Boule,&ximp,&yimp))
 	{
-        gDonnees.Boule.Y = 300+gDonnees.Boule.rayon+gDonnees.Pie.rayon;//250-RAYON_BOULE ;
-	gDonnees.Boule.X = 50;
+        gDonnees.Boule.Y = yimp;//318;//250-RAYON_BOULE ;
+	gDonnees.Boule.X = ximp;//350;
         gDonnees.Boule.VY = -1 *COEFF_PERTES* gDonnees.Boule.VY ;
 	}
     // Nouvelle position de la boule ...
