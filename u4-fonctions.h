@@ -47,6 +47,7 @@ void InitialiserDonnees() ;
 void rotation(float angle, float* x, float* y);
 bool Touche_pie(struct Pie barre,struct Boule bille,float* ximp,float* yimp);
 bool Touche_aabb(struct Aabb barre,struct Boule bille,float* ximp,float* yimp);
+bool Touche_aabb_rot(struct Aabb barre,struct Boule bille,float* ximp,float* yimp);
 void Rebond(Boule* bille,float ximp,float yimp);
 //void Rebond(float* VX,float* VY,float ux,float uy);
 void DeplacerBouleAvecRebonds() ;

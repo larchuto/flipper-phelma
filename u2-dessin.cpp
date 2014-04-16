@@ -43,6 +43,27 @@ void ZoneDessinDessinerCB( Fl_Widget* widget, void* data )
     fl_arc(350, 350,40,40,0,360);
     fl_rectf(150+20, 250+20, 100, 100);
     fl_polygon(300,500,350,550,300,600,250,550);
+    float x1=-25;
+    float y1=25;
+    float x2=25;
+    float y2=25;
+    float x3=25;
+    float y3=-25;
+    float x4=-25;
+    float y4=-25;
+    rotation(1,&x1,&y1);
+    rotation(1,&x2,&y2);
+    rotation(1,&x3,&y3);
+    rotation(1,&x4,&y4);
+    x1+=100;
+    y1+=500;
+    x2+=100;
+    y2+=500;
+    x3+=100;
+    y3+=500;
+    x4+=100;
+    y4+=500;
+    fl_polygon(x1,y1,x2,y2,x3,y3,x4,y4);
 
     //Zone de menu
     fl_color(FL_DARK_MAGENTA);

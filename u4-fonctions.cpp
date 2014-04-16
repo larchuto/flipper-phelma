@@ -61,8 +61,10 @@ void InitialiserDonnees()
 
 void rotation(float angle, float* x, float* y)
 {
-	*x=*x*cos(angle)-*y*sin(angle);
-	*y=*y*cos(angle)+*x*sin(angle);
+	float xtmp=*x;
+	float ytmp=*y;
+	*x=xtmp*cos(angle)+ytmp*sin(angle);
+	*y=ytmp*cos(angle)-xtmp*sin(angle);
 }
 
 bool Touche_pie(struct Boule pie,struct Boule bille,float* ximp,float* yimp)
@@ -169,14 +171,18 @@ bool Touche_aabb(struct Aabb barre,struct Boule bille,float* ximp,float* yimp)
 
 bool Touche_aabb_rot(struct Aabb barre,struct Boule bille,float* ximp,float* yimp)
 {
-	struct Boule bille_loc;
+	struct Boule bille_loc=bille;
 	bille_loc.X=bille.X-barre.X;
 	bille_loc.Y=bille.Y-barre.Y;
 	rotation(0.7853975,&(bille_loc.X),&(bille_loc.Y));
 	bille_loc.X=bille_loc.X+barre.X;
 	bille_loc.Y=bille_loc.Y+barre.Y;
 	bool retour=Touche_aabb(barre,bille_loc,ximp,yimp);
+	*ximp-=barre.X;
+	*yimp-=barre.Y;
 	rotation(-0.7853975,ximp,yimp);
+	*ximp+=barre.X;
+	*yimp+=barre.Y;
 	return retour;
 }
 
@@ -260,6 +266,8 @@ void DeplacerBouleAvecRebonds()
         //gDonnees.Boule.X = ximp;
         //gDonnees.Boule.VY = -1 *COEFF_PERTES* gDonnees.Boule.VY ;
         Rebond(&(gDonnees.Boule),ximp,yimp);
+        //gDonnees.Boule.Y = yimp;
+        //gDonnees.Boule.X = ximp;
         gravite =0;
         //rebond=true;
 	}
