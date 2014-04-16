@@ -19,7 +19,7 @@
 
 // Definition des constantes
 #define X_ZONE  20      // X de la zone
-#define Y_ZONE  40      // Y de la zone
+#define Y_ZONE  20      // Y de la zone
 #define L_ZONE  430     // Largeur de la zone
 #define H_ZONE  650     // Hauteur de la zone
 

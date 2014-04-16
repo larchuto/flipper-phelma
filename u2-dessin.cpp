@@ -38,5 +38,9 @@ void ZoneDessinDessinerCB( Fl_Widget* widget, void* data )
     //ball.trace();
     //ball.rebond();
     //ball.move();
+    //dessin collision boxes
+    fl_color(FL_WHITE);
+    fl_arc(350, 350,40,40,0,360);
+    fl_rectf(150+20, 250+20, 100, 100);
 
 }
