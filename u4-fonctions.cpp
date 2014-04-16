@@ -47,6 +47,13 @@ void InitialiserDonnees()
     // Exemple son
     // JouerSon("media/r2d2.mp3");
 }
+
+void rotation(float angle, float* x, float* y)
+{
+	*x=*x*cos(angle)-*y*sin(angle);
+	*y=*y*cos(angle)+*x*sin(angle);
+}
+
 bool Touche_pie(struct Boule pie,struct Boule bille,float* ximp,float* yimp)
 {
 	float dist=pie.rayon+bille.rayon;
@@ -65,10 +72,15 @@ bool Touche_pie(struct Boule pie,struct Boule bille,float* ximp,float* yimp)
 
 bool Touche_aabb(struct Aabb barre,struct Boule bille,float* ximp,float* yimp)
 {
+	float x1loc=-barre.TX/2;
+	float y1loc=-barre.TY/2;
+	float x2loc=+barre.TX/2;
+	float y2loc=+barre.TY/2;
 	float x1=barre.X-barre.TX/2;
 	float x2=barre.X+barre.TX/2;
 	float y1=barre.Y-barre.TY/2;
 	float y2=barre.Y+barre.TY/2;
+
 
 	if(bille.X<x1-bille.rayon
 	|| bille.X>x2+bille.rayon

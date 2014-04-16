@@ -40,6 +40,7 @@ extern struct Donnees gDonnees;
 
 // Déclaration des sous-programmes
 void InitialiserDonnees() ;
+void rotation(float angle, float* x, float* y);
 bool Touche_pie(struct Pie barre,struct Boule bille,float* ximp,float* yimp);
 bool Touche_aabb(struct Aabb barre,struct Boule bille,float* ximp,float* yimp);
 void Rebond(Boule* bille,float ximp,float yimp);
