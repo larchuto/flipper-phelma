@@ -25,7 +25,7 @@ void TraiterCycleCB()
 
     // On redessine la zone
     gInterface.ZoneDessin->redraw() ;
-    gInterface.ZoneDessin2->redraw() ;
+    gInterface.ZoneDessin3->redraw() ;
     gInterface.Score->redraw() ;
     gInterface.Nb_billes->redraw() ;
 
@@ -53,10 +53,10 @@ void ZoneDessinSourisCB( Fl_Widget* widget, void* data )
         gDonnees.Boule.Y = Fl::event_y() - Y_ZONE ;
     }
 
-    if ( Fl::event() == FL_MOVE )
-    {
-        printf("Mouse move : x = %i y = %i\n", Fl::event_x(), Fl::event_y());
-    }
+    //if ( Fl::event() == FL_MOVE )
+    //{
+    //    printf("Mouse move : x = %i y = %i\n", Fl::event_x(), Fl::event_y());
+    //}
 }
 
 // ZoneDessinClavierCB

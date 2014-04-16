@@ -18,12 +18,18 @@ struct Interface gInterface ;
 void CreerInterface()
 {
     // Creation de la fenetre principale
-    gInterface.Fenetre = new Fl_Double_Window(720,720);
+    gInterface.Fenetre = new Fl_Double_Window(720,690);
     gInterface.Fenetre->label("Flipper Phelma") ;
     gInterface.Fenetre->begin() ;
 
     // Creation de la zone de score
-    gInterface.ZoneDessin2 = new DrawingArea(X_SCORE,Y_SCORE,L_SCORE,H_SCORE);
+    gInterface.ZoneDessin3 = new DrawingArea(X_SCORE,Y_SCORE,L_SCORE,H_SCORE);
+    gInterface.ZoneDessin3->draw_callback( ZoneDessinDessinerCB, NULL ) ;
+    gInterface.ZoneDessin3->mouse_callback( ZoneDessinSourisCB, NULL ) ;
+    gInterface.ZoneDessin3->keyboard_callback( ZoneDessinClavierCB, NULL ) ;
+
+    // Creation de la zone de menu
+    gInterface.ZoneDessin2 = new DrawingArea(X_MENU,Y_MENU,L_MENU,H_MENU);
     gInterface.ZoneDessin2->draw_callback( ZoneDessinDessinerCB, NULL ) ;
     gInterface.ZoneDessin2->mouse_callback( ZoneDessinSourisCB, NULL ) ;
     gInterface.ZoneDessin2->keyboard_callback( ZoneDessinClavierCB, NULL ) ;
@@ -35,7 +41,7 @@ void CreerInterface()
     gInterface.ZoneDessin->keyboard_callback( ZoneDessinClavierCB, NULL ) ;
 
     // Creation du bouton Quitter
-    gInterface.BoutonQuitter = new Fl_Button(570, 670, 100, 20, "Quitter") ;
+    gInterface.BoutonQuitter = new Fl_Button(590, 640, 100, 20, "Quitter") ;
     gInterface.BoutonQuitter->callback( BoutonQuitterCB, NULL ) ;
 
     // Creation de la case a cocher Rebond
@@ -43,23 +49,22 @@ void CreerInterface()
     //gInterface.CaseRebond->callback( CaseRebondCB, NULL ) ;
 
     // Creation du bouton Action
-    gInterface.BoutonAction = new Fl_Button(570, 450, 100, 20, "Action") ;
+    gInterface.BoutonAction = new Fl_Button(480, 640, 100, 20, "Action") ;
     gInterface.BoutonAction->callback( BoutonActionCB, NULL ) ;
 
     //Score
-    gInterface.Score = new Fl_Value_Output(475, 393, 220, 42, "") ;
+    gInterface.Score = new Fl_Value_Output(475, 393-20, 220, 42, "") ;
     gInterface.Score->box(FL_THIN_DOWN_FRAME);
     gInterface.Score->textcolor(FL_WHITE);
     gInterface.Score->textsize(30);
     gInterface.Score->textfont(FL_HELVETICA_BOLD);
 
     //Nombre billes
-    gInterface.Nb_billes = new Fl_Value_Output(653, 340, 42, 42, "") ;
+    gInterface.Nb_billes = new Fl_Value_Output(653, 340-20, 42, 42, "") ;
     gInterface.Nb_billes->box(FL_THIN_DOWN_FRAME);
     gInterface.Nb_billes->textcolor(FL_WHITE);
     gInterface.Nb_billes->textsize(30);
     gInterface.Nb_billes->textfont(FL_HELVETICA_BOLD);
-
 
     // Affichage de la fenetre
     gInterface.Fenetre->end();

@@ -24,9 +24,14 @@
 #define H_ZONE  650     // Hauteur de la zone
 
 #define X_SCORE 470
-#define Y_SCORE 40
+#define Y_SCORE 20
 #define L_SCORE 230
 #define H_SCORE 400
+
+#define X_MENU 470
+#define Y_MENU 440
+#define L_MENU 230
+#define H_MENU 230
 
 #define L_ZONE2 700
 
@@ -37,6 +42,7 @@ struct Interface
     Fl_Double_Window*   Fenetre ;
     DrawingArea*        ZoneDessin ;
     DrawingArea*        ZoneDessin2 ;
+    DrawingArea*        ZoneDessin3 ;
     Fl_Button*          BoutonQuitter ;
     Fl_Check_Button*    CaseRebond ;
 
