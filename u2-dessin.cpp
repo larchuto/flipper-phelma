@@ -44,4 +44,8 @@ void ZoneDessinDessinerCB( Fl_Widget* widget, void* data )
     fl_rectf(150+20, 250+20, 100, 100);
     fl_polygon(300,500,350,550,300,600,250,550);
 
+    //Zone de menu
+    fl_color(FL_DARK_MAGENTA);
+    fl_rectf(470, 440, 230, 230);
+
 }

@@ -25,6 +25,9 @@ void TraiterCycleCB()
 
     // On redessine la zone
     gInterface.ZoneDessin->redraw() ;
+    gInterface.ZoneDessin3->redraw() ;
+    gInterface.Score->redraw() ;
+    gInterface.Nb_billes->redraw() ;
 
     // Code a activer en cas de probleme pour saisir les evenements du clavier
     // Probleme : si les evenements du clavier ne sont pas bien pris en compte pour agir sur la zone de dessin.
@@ -50,10 +53,10 @@ void ZoneDessinSourisCB( Fl_Widget* widget, void* data )
         gDonnees.Boule.Y = Fl::event_y() - Y_ZONE ;
     }
 
-    if ( Fl::event() == FL_MOVE )
-    {
-        printf("Mouse move : x = %i y = %i\n", Fl::event_x(), Fl::event_y());
-    }
+    //if ( Fl::event() == FL_MOVE )
+    //{
+    //    printf("Mouse move : x = %i y = %i\n", Fl::event_x(), Fl::event_y());
+    //}
 }
 
 // ZoneDessinClavierCB
@@ -88,6 +91,8 @@ void ZoneDessinClavierCB( Fl_Widget* widget, void* data )
             {
                 gDonnees.Boule.VY=-30;
             }
+         gDonnees.Valeur2 = gDonnees.Valeur2 + 1 ;
+         gInterface.Nb_billes->value(gDonnees.Valeur2) ;
             break ;
         case 'a' :
             printf("Appui sur le caractere a\n");

@@ -30,10 +30,13 @@ struct Aabb
 // Structure globale pour les variables fonctionnelles
 struct Donnees
 {
-	struct Boule Boule;
+    struct Boule    Boule ;
+    unsigned int    Valeur ;
+    unsigned int    Valeur2 ;
+
 	struct Aabb Barre;
+
 	struct Boule Pie;
-	struct Aabb los;
 };
 
 
