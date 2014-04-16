@@ -217,7 +217,7 @@ void DeplacerBouleAvecRebonds()
         {
         gDonnees.Valeur = gDonnees.Valeur + 1 ;
         gInterface.Score->value(gDonnees.Valeur) ;
-        JouerSon("media/Sons/bips/bip6.mp3");
+        //JouerSon("media/Sons/bips/bip6.mp3");
         }
 
         //gDonnees.Boule.VY = -1*COEFF_PERTES*gDonnees.Boule.VY ;

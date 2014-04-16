@@ -35,7 +35,7 @@ struct Donnees
     unsigned int    Valeur2 ;
 
 	struct Aabb Barre;
-
+	struct Aabb los;
 	struct Boule Pie;
 };
 
