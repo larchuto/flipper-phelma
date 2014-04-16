@@ -42,5 +42,6 @@ void ZoneDessinDessinerCB( Fl_Widget* widget, void* data )
     fl_color(FL_WHITE);
     fl_arc(350, 350,40,40,0,360);
     fl_rectf(150+20, 250+20, 100, 100);
+    fl_polygon(300,500,350,550,300,600,250,550);
 
 }

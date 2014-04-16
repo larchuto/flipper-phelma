@@ -21,10 +21,10 @@ struct Boule
 } ;
 struct Aabb
 {
-	int X;
-	int Y;
-	int TX;
-	int TY;
+	float X;
+	float Y;
+	float TX;
+	float TY;
 };
 
 // Structure globale pour les variables fonctionnelles
@@ -33,6 +33,7 @@ struct Donnees
 	struct Boule Boule;
 	struct Aabb Barre;
 	struct Boule Pie;
+	struct Aabb los;
 };
 
 
