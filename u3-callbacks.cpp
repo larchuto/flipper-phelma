@@ -89,7 +89,7 @@ void ZoneDessinClavierCB( Fl_Widget* widget, void* data )
             printf("Appui sur la touche Espace\n");
             if(gDonnees.Boule.X >= L_ZONE-RAYON_BOULE-20 && gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE-20)
             {
-                gDonnees.Boule.VY=-30;
+                gDonnees.Boule.VY=-35;
             }
          gDonnees.Valeur2 = gDonnees.Valeur2 + 1 ;
          gInterface.Nb_billes->value(gDonnees.Valeur2) ;

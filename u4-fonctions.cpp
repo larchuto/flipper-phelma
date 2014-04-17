@@ -55,6 +55,10 @@ void InitialiserDonnees()
 	gDonnees.los.Y=550-20;
 	gDonnees.los.TX=50*sqrt(2);
 	gDonnees.los.TY=50*sqrt(2);
+	gDonnees.haut.X=430-20;
+	gDonnees.haut.Y=55-20;
+	gDonnees.haut.TX=10;
+	gDonnees.haut.TY=100;
     // Exemple son
     //JouerSon("media/r2d2.mp3");
 }
@@ -169,18 +173,18 @@ bool Touche_aabb(struct Aabb barre,struct Boule bille,float* ximp,float* yimp)
 	//bille.Y=ylocb+barre.Y;
 }
 
-bool Touche_aabb_rot(struct Aabb barre,struct Boule bille,float* ximp,float* yimp)
+bool Touche_aabb_rot(struct Aabb barre,struct Boule bille,float angle, float* ximp,float* yimp)
 {
 	struct Boule bille_loc=bille;
 	bille_loc.X=bille.X-barre.X;
 	bille_loc.Y=bille.Y-barre.Y;
-	rotation(0.7853975,&(bille_loc.X),&(bille_loc.Y));
+	rotation(angle,&(bille_loc.X),&(bille_loc.Y));
 	bille_loc.X=bille_loc.X+barre.X;
 	bille_loc.Y=bille_loc.Y+barre.Y;
 	bool retour=Touche_aabb(barre,bille_loc,ximp,yimp);
 	*ximp-=barre.X;
 	*yimp-=barre.Y;
-	rotation(-0.7853975,ximp,yimp);
+	rotation(-angle,ximp,yimp);
 	*ximp+=barre.X;
 	*yimp+=barre.Y;
 	return retour;
@@ -216,7 +220,6 @@ void DeplacerBouleAvecRebonds()
     if ( gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE)
     {
         gDonnees.Boule.Y = H_ZONE-RAYON_BOULE ;
-
         gDonnees.Boule.VY = -1 *COEFF_PERTES* gDonnees.Boule.VY ;
 
         if (gDonnees.Boule.VY < -1,0 )
@@ -260,7 +263,7 @@ void DeplacerBouleAvecRebonds()
         gravite =0;
         //rebond=true;
 	}
-	if(Touche_aabb_rot(gDonnees.los,gDonnees.Boule,&ximp,&yimp))
+	if(Touche_aabb_rot(gDonnees.los,gDonnees.Boule,0.7853975,&ximp,&yimp))
 	{
         //gDonnees.Boule.Y = yimp;//250-RAYON_BOULE ;
         //gDonnees.Boule.X = ximp;
@@ -277,6 +280,17 @@ void DeplacerBouleAvecRebonds()
 		//gDonnees.Boule.X = ximp;//350;
         //gDonnees.Boule.VY = -1 *COEFF_PERTES* gDonnees.Boule.VY ;
         Rebond(&(gDonnees.Boule),ximp,yimp);
+        gravite =0;
+        //rebond=true;
+	}
+	if(Touche_aabb_rot(gDonnees.haut,gDonnees.Boule,-0.78,&ximp,&yimp))
+	{
+        //gDonnees.Boule.Y = yimp;//250-RAYON_BOULE ;
+        //gDonnees.Boule.X = ximp;
+        //gDonnees.Boule.VY = -1 *COEFF_PERTES* gDonnees.Boule.VY ;
+        Rebond(&(gDonnees.Boule),ximp,yimp);
+        //gDonnees.Boule.Y = yimp;
+        //gDonnees.Boule.X = ximp;
         gravite =0;
         //rebond=true;
 	}
