@@ -37,6 +37,7 @@ struct Donnees
 	struct Aabb Barre;
 	struct Aabb los;
 	struct Boule Pie;
+	struct Boule Pieh;
 	struct Aabb haut;
 };
 

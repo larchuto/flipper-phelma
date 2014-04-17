@@ -51,6 +51,8 @@ void ZoneDessinSourisCB( Fl_Widget* widget, void* data )
         // On repositionne la boule a l'endroit du clic
         gDonnees.Boule.X = Fl::event_x() - X_ZONE ;
         gDonnees.Boule.Y = Fl::event_y() - Y_ZONE ;
+        gDonnees.Boule.VX=0;
+        gDonnees.Boule.VY=0;
     }
 
     //if ( Fl::event() == FL_MOVE )
