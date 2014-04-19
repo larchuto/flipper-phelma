@@ -47,6 +47,7 @@ void InitialiserDonnees()
 	gDonnees.Barre.Y=300;
 	gDonnees.Barre.TX=100;
 	gDonnees.Barre.TY=100;
+	gDonnees.Barre.angle=0;
 
     gDonnees.Pie.X = 350;
     gDonnees.Pie.Y = 350;
@@ -55,13 +56,20 @@ void InitialiserDonnees()
 	gDonnees.los.Y=550-20;
 	gDonnees.los.TX=50*sqrt(2);
 	gDonnees.los.TY=50*sqrt(2);
+	gDonnees.los.angle=0.7853975;
 	gDonnees.haut.X=430-20;
 	gDonnees.haut.Y=55-20;
 	gDonnees.haut.TX=10;
 	gDonnees.haut.TY=100;
+	gDonnees.haut.angle=-0.78;
 	gDonnees.Pieh.X = 215;//-2*RAYON_BOULE;
     gDonnees.Pieh.Y = 215;//-2*RAYON_BOULE;
 	gDonnees.Pieh.rayon=215;
+	gDonnees.Flip.X=100-20;
+	gDonnees.Flip.Y=550-20;
+	gDonnees.Flip.TX=100;
+	gDonnees.Flip.TY=20;
+	gDonnees.Flip.angle=0;
     // Exemple son
     //JouerSon("media/r2d2.mp3");
 }
@@ -105,7 +113,7 @@ bool Touche_pie_int(struct Boule pie,struct Boule bille,float* ximp,float* yimp)
 	return true;
 }
 
-bool Touche_aabb(struct Aabb barre,struct Boule bille,float* ximp,float* yimp)
+bool Touche_aabb(struct Obb barre,struct Boule bille,float* ximp,float* yimp)
 {
 	float x1loc=-barre.TX/2;
 	float y1loc=-barre.TY/2;
@@ -191,18 +199,18 @@ bool Touche_aabb(struct Aabb barre,struct Boule bille,float* ximp,float* yimp)
 	//bille.Y=ylocb+barre.Y;
 }
 
-bool Touche_aabb_rot(struct Aabb barre,struct Boule bille,float angle, float* ximp,float* yimp)
+bool Touche_obb(struct Obb barre,struct Boule bille, float* ximp,float* yimp)
 {
 	struct Boule bille_loc=bille;
 	bille_loc.X=bille.X-barre.X;
 	bille_loc.Y=bille.Y-barre.Y;
-	rotation(angle,&(bille_loc.X),&(bille_loc.Y));
+	rotation(barre.angle,&(bille_loc.X),&(bille_loc.Y));
 	bille_loc.X=bille_loc.X+barre.X;
 	bille_loc.Y=bille_loc.Y+barre.Y;
 	bool retour=Touche_aabb(barre,bille_loc,ximp,yimp);
 	*ximp-=barre.X;
 	*yimp-=barre.Y;
-	rotation(-angle,ximp,yimp);
+	rotation(-barre.angle,ximp,yimp);
 	*ximp+=barre.X;
 	*yimp+=barre.Y;
 	return retour;
@@ -281,7 +289,7 @@ void DeplacerBouleAvecRebonds()
         gravite =0;
         //rebond=true;
 	}
-	if(Touche_aabb_rot(gDonnees.los,gDonnees.Boule,0.7853975,&ximp,&yimp))
+	if(Touche_obb(gDonnees.los,gDonnees.Boule,&ximp,&yimp))
 	{
         //gDonnees.Boule.Y = yimp;//250-RAYON_BOULE ;
         //gDonnees.Boule.X = ximp;
@@ -310,7 +318,18 @@ void DeplacerBouleAvecRebonds()
        	//gravite =0;
         //rebond=true;
     }
-	if(Touche_aabb_rot(gDonnees.haut,gDonnees.Boule,-0.78,&ximp,&yimp))
+	if(Touche_obb(gDonnees.haut,gDonnees.Boule,&ximp,&yimp))
+	{
+        //gDonnees.Boule.Y = yimp;//250-RAYON_BOULE ;
+        //gDonnees.Boule.X = ximp;
+        //gDonnees.Boule.VY = -1 *COEFF_PERTES* gDonnees.Boule.VY ;
+        Rebond(&(gDonnees.Boule),ximp,yimp);
+        //gDonnees.Boule.Y = yimp;
+        //gDonnees.Boule.X = ximp;
+        gravite =0;
+        //rebond=true;
+	}
+	if(Touche_obb(gDonnees.Flip,gDonnees.Boule,&ximp,&yimp))
 	{
         //gDonnees.Boule.Y = yimp;//250-RAYON_BOULE ;
         //gDonnees.Boule.X = ximp;

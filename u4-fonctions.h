@@ -19,12 +19,13 @@ struct Boule
     float VY;
 	float rayon;
 } ;
-struct Aabb
+struct Obb
 {
 	float X;
 	float Y;
 	float TX;
 	float TY;
+	float angle;
 };
 
 // Structure globale pour les variables fonctionnelles
@@ -34,11 +35,12 @@ struct Donnees
     unsigned int    Valeur ;
     unsigned int    Valeur2 ;
 
-	struct Aabb Barre;
-	struct Aabb los;
+	struct Obb Barre;
+	struct Obb los;
 	struct Boule Pie;
 	struct Boule Pieh;
-	struct Aabb haut;
+	struct Obb haut;
+	struct Obb Flip;
 };
 
 
@@ -48,8 +50,8 @@ extern struct Donnees gDonnees;
 void InitialiserDonnees() ;
 void rotation(float angle, float* x, float* y);
 bool Touche_pie(struct Pie barre,struct Boule bille,float* ximp,float* yimp);
-bool Touche_aabb(struct Aabb barre,struct Boule bille,float* ximp,float* yimp);
-bool Touche_aabb_rot(struct Aabb barre,struct Boule bille,float angle,float* ximp,float* yimp);
+bool Touche_aabb(struct Obb barre,struct Boule bille,float* ximp,float* yimp);
+bool Touche_obb(struct Obb barre,struct Boule bille,float* ximp,float* yimp);
 void Rebond(Boule* bille,float ximp,float yimp);
 //void Rebond(float* VX,float* VY,float ux,float uy);
 void DeplacerBouleAvecRebonds() ;

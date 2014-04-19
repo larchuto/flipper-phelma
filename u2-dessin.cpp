@@ -86,7 +86,27 @@ void ZoneDessinDessinerCB( Fl_Widget* widget, void* data )
     x4h+=430;
     y4h+=55;
     fl_polygon(x1h,y1h,x2h,y2h,x3h,y3h,x4h,y4h);
-
+    float x1f=-gDonnees.Flip.TX/2;
+    float y1f=-gDonnees.Flip.TY/2;
+    float x2f=gDonnees.Flip.TX/2;
+    float y2f=-gDonnees.Flip.TY/2;
+    float x3f=gDonnees.Flip.TX/2;
+    float y3f=gDonnees.Flip.TY/2;
+    float x4f=-gDonnees.Flip.TX/2;
+    float y4f=gDonnees.Flip.TY/2;
+    rotation(gDonnees.Flip.angle,&x1f,&y1f);
+    rotation(gDonnees.Flip.angle,&x2f,&y2f);
+    rotation(gDonnees.Flip.angle,&x3f,&y3f);
+    rotation(gDonnees.Flip.angle,&x4f,&y4f);
+    x1f+=gDonnees.Flip.X+20;
+    y1f+=gDonnees.Flip.Y+20;
+    x2f+=gDonnees.Flip.X+20;
+    y2f+=gDonnees.Flip.Y+20;
+    x3f+=gDonnees.Flip.X+20;
+    y3f+=gDonnees.Flip.Y+20;
+    x4f+=gDonnees.Flip.X+20;
+    y4f+=gDonnees.Flip.Y+20;
+    fl_polygon(x1f,y1f,x2f,y2f,x3f,y3f,x4f,y4f);
     //Zone de menu
     fl_color(FL_DARK_MAGENTA);
     fl_rectf(470, 440, 230, 230);

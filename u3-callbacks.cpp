@@ -14,12 +14,40 @@
 // Declaration pour utiliser iostream
 using namespace std;
 
+bool Flip_left_is_touched =false;
+int Flip_wait =0;
+
 // TraiterCycle
 void TraiterCycleCB()
 {
     // Trace pour bien montrer que la fonction est appelee cycliquement
     // printf(""Appel de TraiterCycleCB");
-
+    if(Flip_left_is_touched)
+    {
+        Flip_wait=0;
+        gDonnees.Flip.angle+=50*DUREE_CYCLE;//*(gDonnees.Flip.angle<0.80);
+        if (gDonnees.Flip.angle>0.95)
+        {
+            gDonnees.Flip.angle=0.95;
+            //Flip_wait+=1;
+            Flip_left_is_touched=false;
+            //gDonnees.Flip.angle+=25*DUREE_CYCLE;
+        }
+    }
+    //else// if (gDonnees.Flip.angle>=0.90 && gDonnees.Flip.angle>0)
+    //{
+        Flip_wait+=1;
+        gDonnees.Flip.angle-=25*DUREE_CYCLE*(Flip_wait>4 && gDonnees.Flip.angle>0);
+        if (gDonnees.Flip.angle<0)
+        {
+            gDonnees.Flip.angle=0;
+        }
+        
+    //}
+    /*else
+    {
+        gDonnees.Flip.angle=0;
+    }*/
     // Deplacement de la boule
     DeplacerBouleAvecRebonds() ;
 
@@ -28,6 +56,7 @@ void TraiterCycleCB()
     gInterface.ZoneDessin3->redraw() ;
     gInterface.Score->redraw() ;
     gInterface.Nb_billes->redraw() ;
+
 
     // Code a activer en cas de probleme pour saisir les evenements du clavier
     // Probleme : si les evenements du clavier ne sont pas bien pris en compte pour agir sur la zone de dessin.
@@ -76,6 +105,8 @@ void ZoneDessinClavierCB( Fl_Widget* widget, void* data )
         // Touches speciales
         case FL_Left :
             printf("Appui sur la touche Gauche\n");
+            //gDonnees.Flip.angle+=20*DUREE_CYCLE*(gDonnees.Flip.angle<0.80);
+            Flip_left_is_touched =true;
             break;
         case FL_Right :
             printf("Appui sur la touche Droite\n");
