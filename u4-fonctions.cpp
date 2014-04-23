@@ -63,13 +63,17 @@ void InitialiserDonnees()
 	gDonnees.haut.TY=100;
 	gDonnees.haut.angle=-0.78;
 	gDonnees.Pieh.X = 215;//-2*RAYON_BOULE;
-    gDonnees.Pieh.Y = 215;//-2*RAYON_BOULE;
-	gDonnees.Pieh.rayon=215;
+    gDonnees.Pieh.Y = 220;//-2*RAYON_BOULE;
+	gDonnees.Pieh.rayon=210;
 	gDonnees.Flip.X=100-20;
 	gDonnees.Flip.Y=550-20;
 	gDonnees.Flip.TX=100;
 	gDonnees.Flip.TY=20;
 	gDonnees.Flip.angle=0;
+	gDonnees.Lanceur.X=L_ZONE-31;//+20;
+	gDonnees.Lanceur.Y=H_ZONE-433/2;//399;//+20;//H_ZONE-433/2-20;
+	gDonnees.Lanceur.TX=5;
+	gDonnees.Lanceur.TY=433;
     // Exemple son
     //JouerSon("media/r2d2.mp3");
 }
@@ -234,9 +238,9 @@ void Rebond(Boule *bille,float ximp,float yimp)
 void DeplacerBouleAvecRebonds()
 {
 	//bool rebond=false;
-    if ( gDonnees.Boule.X >= L_ZONE-RAYON_BOULE)
+    if ( gDonnees.Boule.X >= L_ZONE-RAYON_BOULE-5)
     {
-        gDonnees.Boule.X = L_ZONE-RAYON_BOULE ;
+        gDonnees.Boule.X = L_ZONE-RAYON_BOULE-5 ;
         gDonnees.Boule.VX = -1*COEFF_PERTES*gDonnees.Boule.VX ;
         //gDonnees.Boule.VY = 1*COEFF_PERTES*gDonnees.Boule.VY;
         //gravite =0;
@@ -261,9 +265,9 @@ void DeplacerBouleAvecRebonds()
         //rebond=true;
     }
 
-    if ( gDonnees.Boule.X <= RAYON_BOULE)
+    if ( gDonnees.Boule.X <= RAYON_BOULE+5)
     {
-        gDonnees.Boule.X = RAYON_BOULE ;
+        gDonnees.Boule.X = RAYON_BOULE+5 ;
         gDonnees.Boule.VX = -1*COEFF_PERTES*gDonnees.Boule.VX ;
         //gDonnees.Boule.VY = 1*COEFF_PERTES*gDonnees.Boule.VY;
         //gravite =0;
@@ -319,6 +323,17 @@ void DeplacerBouleAvecRebonds()
         //rebond=true;
     }
 	if(Touche_obb(gDonnees.haut,gDonnees.Boule,&ximp,&yimp))
+	{
+        //gDonnees.Boule.Y = yimp;//250-RAYON_BOULE ;
+        //gDonnees.Boule.X = ximp;
+        //gDonnees.Boule.VY = -1 *COEFF_PERTES* gDonnees.Boule.VY ;
+        Rebond(&(gDonnees.Boule),ximp,yimp);
+        //gDonnees.Boule.Y = yimp;
+        //gDonnees.Boule.X = ximp;
+        gravite =0;
+        //rebond=true;
+	}
+	if (Touche_obb(gDonnees.Lanceur,gDonnees.Boule,&ximp,&yimp))
 	{
         //gDonnees.Boule.Y = yimp;//250-RAYON_BOULE ;
         //gDonnees.Boule.X = ximp;

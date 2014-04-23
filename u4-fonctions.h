@@ -41,6 +41,7 @@ struct Donnees
 	struct Boule Pieh;
 	struct Obb haut;
 	struct Obb Flip;
+	struct Obb Lanceur;
 };
 
 

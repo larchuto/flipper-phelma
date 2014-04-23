@@ -20,7 +20,7 @@ using namespace std;
 void ZoneDessinDessinerCB( Fl_Widget* widget, void* data )
 {
     // On efface toute la zone ( en dessinant dessus un rectangle plein, noir )
-    Fl_GIF_Image Imagefond("media/fond.gif") ;
+    Fl_GIF_Image Imagefond("media/fond1.gif") ;
     Imagefond.draw(X_ZONE, Y_ZONE, L_ZONE, H_ZONE);
 
     //Zone de score
@@ -28,6 +28,9 @@ void ZoneDessinDessinerCB( Fl_Widget* widget, void* data )
     Imagescore.draw(X_SCORE, Y_SCORE, L_SCORE, H_SCORE);
     //fl_color(FL_BORDER_BOX);
     //fl_rectf(X_SCORE, Y_SCORE, L_SCORE, H_SCORE);
+        //Zone de menu
+    Fl_GIF_Image Imagemenu("media/menu.gif") ;
+    Imagemenu.draw(X_MENU, Y_MENU, L_MENU, H_MENU);
 
     // On dessine la boule
     Fl_GIF_Image Imagebille("media/bille.gif") ;
@@ -108,7 +111,7 @@ void ZoneDessinDessinerCB( Fl_Widget* widget, void* data )
     y4f+=gDonnees.Flip.Y+20;
     fl_polygon(x1f,y1f,x2f,y2f,x3f,y3f,x4f,y4f);
     //Zone de menu
-    fl_color(FL_DARK_MAGENTA);
-    fl_rectf(470, 440, 230, 230);
+    //fl_color(FL_DARK_MAGENTA);
+    //fl_rectf(470, 440, 230, 230);
 
 }
