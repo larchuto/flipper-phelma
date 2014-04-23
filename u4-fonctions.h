@@ -42,6 +42,11 @@ struct Donnees
 	struct Obb haut;
 	struct Obb Flip;
 	struct Obb Lanceur;
+	struct Boule Bp1;
+	struct Boule Bp2;
+	struct Boule Bp3;
+	struct Obb PenteG;
+	struct Obb PenteD;
 };
 
 
