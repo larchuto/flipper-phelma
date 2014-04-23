@@ -77,7 +77,7 @@ void ZoneDessinSourisCB( Fl_Widget* widget, void* data )
     {
         printf("Mouse push = %i x = %i y = %i\n", Fl::event_button(), Fl::event_x(), Fl::event_y());
 
-        // On repositionne la boule a l'endroit du clic
+        // On repositionne la boule a l'endroit du clic avec une vitesse nulle
         gDonnees.Boule.X = Fl::event_x() - X_ZONE ;
         gDonnees.Boule.Y = Fl::event_y() - Y_ZONE ;
         gDonnees.Boule.VX=0;
@@ -120,12 +120,12 @@ void ZoneDessinClavierCB( Fl_Widget* widget, void* data )
         // Caracteres
         case ' ' :
             printf("Appui sur la touche Espace\n");
-            if(gDonnees.Boule.X >= L_ZONE-RAYON_BOULE-20 && gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE-20)
+            if(gDonnees.Boule.X >= L_ZONE-RAYON_BOULE-8 && gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE-46)
             {
-                gDonnees.Boule.VY=-35;
+                gDonnees.Boule.VY=-30;
             }
-         gDonnees.Valeur2 = gDonnees.Valeur2 + 1 ;
-         gInterface.Nb_billes->value(gDonnees.Valeur2) ;
+         //gDonnees.Valeur2 = gDonnees.Valeur2 + 1 ;
+         //gInterface.Nb_billes->value(gDonnees.Valeur2) ;
             break ;
         case 'a' :
             printf("Appui sur le caractere a\n");

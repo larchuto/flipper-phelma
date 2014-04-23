@@ -32,8 +32,8 @@ void InitialiserDonnees()
     //gDonnees.Rebond = 0 ;
     // On initialise la boule
 //
-    gDonnees.Boule.X = L_ZONE-RAYON_BOULE;
-    gDonnees.Boule.Y = H_ZONE-RAYON_BOULE-5;
+    gDonnees.Boule.X = L_ZONE-RAYON_BOULE-5;
+    gDonnees.Boule.Y = H_ZONE-RAYON_BOULE-50;
 	gDonnees.Boule.rayon=RAYON_BOULE;
     gDonnees.Boule.VX = 0 ;
     gDonnees.Boule.VY = 0 ;
@@ -70,7 +70,7 @@ void InitialiserDonnees()
 	gDonnees.Flip.TX=100;
 	gDonnees.Flip.TY=20;
 	gDonnees.Flip.angle=0;
-	gDonnees.Lanceur.X=L_ZONE-31;//+20;
+	gDonnees.Lanceur.X=L_ZONE-31-2;//+20;
 	gDonnees.Lanceur.Y=H_ZONE-433/2;//399;//+20;//H_ZONE-433/2-20;
 	gDonnees.Lanceur.TX=5;
 	gDonnees.Lanceur.TY=433;
@@ -329,8 +329,8 @@ void Rebond(Boule *bille,float ximp,float yimp)
 	float ux=(bille->X-ximp)/sqrt((bille->X-ximp)*(bille->X-ximp)+(bille->Y-yimp)*(bille->Y-yimp));
 	float uy=(bille->Y-yimp)/sqrt((bille->X-ximp)*(bille->X-ximp)+(bille->Y-yimp)*(bille->Y-yimp));
   	float prod_scal = (bille->VX *ux + bille->VY *uy);
-  	bille->VX = bille->VX -2*prod_scal*ux;
-  	bille->VY = bille->VY -2*prod_scal*uy;
+  	bille->VX = (bille->VX -2*prod_scal*ux);
+  	bille->VY = (bille->VY -2*prod_scal*uy);
 }
 /*void Rebond(float* VX,float* VY,float ux,float uy)
 {
@@ -350,9 +350,19 @@ void DeplacerBouleAvecRebonds()
         //gravite =0;
         //rebond=true;
     }
+    if ( gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE-46
+	&& gDonnees.Boule.X<=L_ZONE-RAYON_BOULE-4 
+	&& gDonnees.Boule.X>=L_ZONE-RAYON_BOULE-8)
+    {
+        gDonnees.Boule.Y = H_ZONE-RAYON_BOULE-46 ;
+        gDonnees.Boule.VY = -1 /**COEFF_PERTES*/* gDonnees.Boule.VY ;
+        gDonnees.Boule.VX = 1*COEFF_PERTES*gDonnees.Boule.VX;
 
+    }
     if ( gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE)
     {
+	//perdu !
+	/*
         gDonnees.Boule.Y = H_ZONE-RAYON_BOULE ;
         gDonnees.Boule.VY = -1 *COEFF_PERTES* gDonnees.Boule.VY ;
 
@@ -367,6 +377,13 @@ void DeplacerBouleAvecRebonds()
         gDonnees.Boule.VX = 1*COEFF_PERTES*gDonnees.Boule.VX;
         //gravite =0;
         //rebond=true;
+	*/
+    	gDonnees.Boule.X = L_ZONE-RAYON_BOULE-5;
+    	gDonnees.Boule.Y = H_ZONE-RAYON_BOULE-50;
+	gDonnees.Boule.VX=0;
+	gDonnees.Boule.VY=0;
+        gDonnees.Valeur2 = gDonnees.Valeur2 + 1 ;
+        gInterface.Nb_billes->value(gDonnees.Valeur2) ;
     }
 
     if ( gDonnees.Boule.X <= RAYON_BOULE+5)
