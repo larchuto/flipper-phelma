@@ -63,7 +63,7 @@ void InitialiserDonnees()
 	gDonnees.haut.TY=100;
 	gDonnees.haut.angle=-0.78;
 	gDonnees.Pieh.X = 215;//-2*RAYON_BOULE;
-    	gDonnees.Pieh.Y = 220;//-2*RAYON_BOULE;
+    	gDonnees.Pieh.Y = 215;//-2*RAYON_BOULE;
 	gDonnees.Pieh.rayon=210;
 	gDonnees.Flip.X=100-20;
 	gDonnees.Flip.Y=550-20;

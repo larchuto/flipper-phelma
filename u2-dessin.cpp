@@ -16,6 +16,37 @@
 // Declaration pour utiliser iostream
 using namespace std;
 
+void Display_PieBB(struct Boule CBB)
+{
+    fl_color(FL_GREEN);
+    //fl_arc(CBB.X/*+CBB.rayon*/, CBB.Y/*+CBB.rayon*/, 2*CBB.rayon, 2*CBB.rayon, 0,360);
+    fl_circle(CBB.X+20,CBB.Y+20,CBB.rayon);
+}
+void Display_OBB(struct Obb OBB)
+{
+    fl_color(FL_GREEN);
+    float x1=-OBB.TX/2;
+    float y1=OBB.TY/2;
+    float x2=OBB.TX/2;
+    float y2=OBB.TY/2;
+    float x3=OBB.TX/2;
+    float y3=-OBB.TY/2;
+    float x4=-OBB.TX/2;
+    float y4=-OBB.TY/2;
+    rotation(OBB.angle,&x1,&y1);
+    rotation(OBB.angle,&x2,&y2);
+    rotation(OBB.angle,&x3,&y3);
+    rotation(OBB.angle,&x4,&y4);
+    x1+=OBB.X+20;
+    y1+=OBB.Y+20;
+    x2+=OBB.X+20;
+    y2+=OBB.Y+20;
+    x3+=OBB.X+20;
+    y3+=OBB.Y+20;
+    x4+=OBB.X+20;
+    y4+=OBB.Y+20;
+    fl_polygon(x1,y1,x2,y2,x3,y3,x4,y4);
+}
 // DessinerZone
 void ZoneDessinDessinerCB( Fl_Widget* widget, void* data )
 {
@@ -113,5 +144,14 @@ void ZoneDessinDessinerCB( Fl_Widget* widget, void* data )
     //Zone de menu
     //fl_color(FL_DARK_MAGENTA);
     //fl_rectf(470, 440, 230, 230);
-
+    Display_PieBB(gDonnees.TriGC1);
+    Display_PieBB(gDonnees.TriGC2);
+    Display_PieBB(gDonnees.TriGC3);
+    Display_PieBB(gDonnees.Pie);
+    Display_PieBB(gDonnees.Pieh);
+    Display_PieBB(gDonnees.Bp1);
+    Display_PieBB(gDonnees.Bp2);
+    Display_PieBB(gDonnees.Bp3);
+    Display_OBB(gDonnees.Lanceur);
+    Display_OBB(gDonnees.los);
 }
