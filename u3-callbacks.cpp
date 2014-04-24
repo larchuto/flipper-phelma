@@ -22,7 +22,7 @@ void TraiterCycleCB()
 {
     // Trace pour bien montrer que la fonction est appelee cycliquement
     // printf(""Appel de TraiterCycleCB");
-    if(Flip_left_is_touched)
+    /*if(Flip_left_is_touched)
     {
         Flip_wait=0;
         gDonnees.Flip.angle+=50*DUREE_CYCLE;//*(gDonnees.Flip.angle<0.80);
@@ -41,7 +41,7 @@ void TraiterCycleCB()
         if (gDonnees.Flip.angle<0)
         {
             gDonnees.Flip.angle=0;
-        }
+        }*/
         
     //}
     /*else

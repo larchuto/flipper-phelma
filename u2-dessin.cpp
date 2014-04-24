@@ -45,7 +45,11 @@ void Display_OBB(struct Obb OBB)
     y3+=OBB.Y+20;
     x4+=OBB.X+20;
     y4+=OBB.Y+20;
-    fl_polygon(x1,y1,x2,y2,x3,y3,x4,y4);
+    //fl_polygon(x1,y1,x2,y2,x3,y3,x4,y4);
+    fl_line(x1,y1,x2,y2);
+    fl_line(x2,y2,x3,y3);
+    fl_line(x3,y3,x4,y4);
+    fl_line(x4,y4,x1,y1);
 }
 // DessinerZone
 void ZoneDessinDessinerCB( Fl_Widget* widget, void* data )
@@ -74,10 +78,7 @@ void ZoneDessinDessinerCB( Fl_Widget* widget, void* data )
     //ball.move();
     //dessin collision boxes
     fl_color(FL_WHITE);
-    fl_arc(350, 350,40,40,0,360);
-    fl_arc(20, 20,430,430,0,180);
-    fl_rectf(150+20, 250+20, 100, 100);
-    fl_polygon(300,500,350,550,300,600,250,550);
+    //fl_rectf(150+20, 250+20, 100, 100);
     /*float x1=-25;
     float y1=25;
     float x2=25;
@@ -99,7 +100,7 @@ void ZoneDessinDessinerCB( Fl_Widget* widget, void* data )
     x4+=100;
     y4+=500;
     fl_polygon(x1,y1,x2,y2,x3,y3,x4,y4);*/
-    float x1h=-50;
+    /*float x1h=-50;
     float y1h=5;
     float x2h=50;
     float y2h=5;
@@ -119,8 +120,8 @@ void ZoneDessinDessinerCB( Fl_Widget* widget, void* data )
     y3h+=55;
     x4h+=430;
     y4h+=55;
-    fl_polygon(x1h,y1h,x2h,y2h,x3h,y3h,x4h,y4h);
-    float x1f=-gDonnees.Flip.TX/2;
+    fl_polygon(x1h,y1h,x2h,y2h,x3h,y3h,x4h,y4h);*/
+    /*float x1f=-gDonnees.Flip.TX/2;
     float y1f=-gDonnees.Flip.TY/2;
     float x2f=gDonnees.Flip.TX/2;
     float y2f=-gDonnees.Flip.TY/2;
@@ -140,18 +141,21 @@ void ZoneDessinDessinerCB( Fl_Widget* widget, void* data )
     y3f+=gDonnees.Flip.Y+20;
     x4f+=gDonnees.Flip.X+20;
     y4f+=gDonnees.Flip.Y+20;
-    fl_polygon(x1f,y1f,x2f,y2f,x3f,y3f,x4f,y4f);
+    fl_polygon(x1f,y1f,x2f,y2f,x3f,y3f,x4f,y4f);*/
     //Zone de menu
     //fl_color(FL_DARK_MAGENTA);
     //fl_rectf(470, 440, 230, 230);
     Display_PieBB(gDonnees.TriGC1);
     Display_PieBB(gDonnees.TriGC2);
     Display_PieBB(gDonnees.TriGC3);
-    Display_PieBB(gDonnees.Pie);
     Display_PieBB(gDonnees.Pieh);
     Display_PieBB(gDonnees.Bp1);
     Display_PieBB(gDonnees.Bp2);
     Display_PieBB(gDonnees.Bp3);
     Display_OBB(gDonnees.Lanceur);
-    Display_OBB(gDonnees.los);
+    Display_OBB(gDonnees.TriGL1);
+    Display_OBB(gDonnees.TriGL2);
+    Display_OBB(gDonnees.TriGL3);
+    Display_OBB(gDonnees.PenteG);
+    Display_OBB(gDonnees.PenteD);
 }

@@ -23,103 +23,68 @@ using namespace std;
 struct Donnees gDonnees;
 float gravite= GRAVITE;
 
+void InitialiserPieBB(struct Boule* pie, float x, float y, float rayon)
+{
+	pie->X = x;
+    pie->Y = y;
+	pie->rayon=rayon;
+}
+
+void InitialiserOBB(struct Obb* obb, float x, float y, float tailleX, float tailleY, float angle)
+{
+	obb->X=x;
+	obb->Y=y;
+	obb->TX=tailleX;
+	obb->TY=tailleY;
+	obb->angle=angle;
+}
 // Initialiser
 void InitialiserDonnees()
 {
     // On initialise le generateur de nombres aleatoires
     //srand(time(NULL));
-    // Initialisation de Rebond
-    //gDonnees.Rebond = 0 ;
+
     // On initialise la boule
-//
     gDonnees.Boule.X = L_ZONE-RAYON_BOULE-5;
     gDonnees.Boule.Y = H_ZONE-RAYON_BOULE-50;
 	gDonnees.Boule.rayon=RAYON_BOULE;
     gDonnees.Boule.VX = 0 ;
     gDonnees.Boule.VY = 0 ;
 
-    // On initialise Valeur
+    // On initialise le score et le nombre de billes
     gDonnees.Valeur = 0 ;
     gDonnees.Valeur2 = 1 ;
     gInterface.Nb_billes->value(gDonnees.Valeur2) ;
 
-	gDonnees.Barre.X=200;
-	gDonnees.Barre.Y=300;
-	gDonnees.Barre.TX=100;
-	gDonnees.Barre.TY=100;
-	gDonnees.Barre.angle=0;
+    //Bumpers
+	InitialiserPieBB(&gDonnees.Pieh,215,215,210);
+	InitialiserPieBB(&gDonnees.Bp1,115+25,98+25,25);
+	InitialiserPieBB(&gDonnees.Bp2,265+25,98+25,25);
+	InitialiserPieBB(&gDonnees.Bp3,189+25,163+25,25);
 
-    	gDonnees.Pie.X = 350;
-    	gDonnees.Pie.Y = 350;
-	gDonnees.Pie.rayon=20;
-	gDonnees.los.X=300-20;
-	gDonnees.los.Y=550-20;
-	gDonnees.los.TX=50*sqrt(2);
-	gDonnees.los.TY=50*sqrt(2);
-	gDonnees.los.angle=0.7853975;
-	gDonnees.haut.X=430-20;
-	gDonnees.haut.Y=55-20;
-	gDonnees.haut.TX=10;
-	gDonnees.haut.TY=100;
-	gDonnees.haut.angle=-0.78;
-	gDonnees.Pieh.X = 215;//-2*RAYON_BOULE;
-    	gDonnees.Pieh.Y = 215;//-2*RAYON_BOULE;
-	gDonnees.Pieh.rayon=210;
-	gDonnees.Flip.X=100-20;
+	//Lanceur
+	InitialiserOBB(&gDonnees.Lanceur,L_ZONE-31-2,H_ZONE-433/2,9,433,0);
+
+	//Pentes
+	InitialiserOBB(&gDonnees.PenteG,66,535,135,20,-35.0/180*3.14159);
+	InitialiserOBB(&gDonnees.PenteD,354,541,100,20,35.0/180*3.14159);
+
+	//Triangles
+		//gauche
+	InitialiserPieBB(&gDonnees.TriGC1,73,403,10);
+	InitialiserPieBB(&gDonnees.TriGC2,111,501,10);
+	InitialiserPieBB(&gDonnees.TriGC3,76,474,12.5);
+	InitialiserOBB(&gDonnees.TriGL1,64+5,437.5,10,75,0);
+	InitialiserOBB(&gDonnees.TriGL2,87.5+4,494,10,42,54.4/180*3.14159);
+	InitialiserOBB(&gDonnees.TriGL3,98,451,10,105,21.25/180*3.14159);
+	
+	/*gDonnees.Flip.X=100-20;
 	gDonnees.Flip.Y=550-20;
 	gDonnees.Flip.TX=100;
 	gDonnees.Flip.TY=20;
-	gDonnees.Flip.angle=0;
-	gDonnees.Lanceur.X=L_ZONE-31-2;//+20;
-	gDonnees.Lanceur.Y=H_ZONE-433/2;//399;//+20;//H_ZONE-433/2-20;
-	gDonnees.Lanceur.TX=5;
-	gDonnees.Lanceur.TY=433;
-	gDonnees.Bp1.X = 115+25;//+0.5?
-    	gDonnees.Bp1.Y = 98+25;//+0.5?
-	gDonnees.Bp1.rayon=25;
-	gDonnees.Bp2.X = 265+25;//+0.5?
-    	gDonnees.Bp2.Y = 98+25;//+0.5?
-	gDonnees.Bp2.rayon=25;
-	gDonnees.Bp3.X = 189+25;//+0.5?
-    	gDonnees.Bp3.Y = 163+25;//+0.5?
-	gDonnees.Bp3.rayon=25;
-	gDonnees.PenteG.X=66;
-	gDonnees.PenteG.Y=530;
-	gDonnees.PenteG.TX=135;
-	gDonnees.PenteG.TY=20;
-	gDonnees.PenteG.angle=-35.0/180*3.14159;
-	gDonnees.PenteD.X=354;
-	gDonnees.PenteD.Y=540;
-	gDonnees.PenteD.TX=100;
-	gDonnees.PenteD.TY=20;
-	gDonnees.PenteD.angle=35.0/180*3.14159;
-	//Triangle gauche
-	gDonnees.TriGC1.X=73;
-	gDonnees.TriGC1.Y=403;
-	gDonnees.TriGC1.rayon=10;
-	gDonnees.TriGC2.X=111;
-	gDonnees.TriGC2.Y=501;
-	gDonnees.TriGC2.rayon=10;
-	gDonnees.TriGC3.X=76;
-	gDonnees.TriGC3.Y=474;
-	gDonnees.TriGC3.rayon=12.5;
-	/*
-	gDonnees.TriGL1.X;
-	gDonnees.TriGL1.Y;
-	gDonnees.TriGL1.TX;
-	gDonnees.TriGL1.TY;
-	gDonnees.TriGL1.angle;
-	gDonnees.TriGL2.X;
-	gDonnees.TriGL2.Y;
-	gDonnees.TriGL2.TX;
-	gDonnees.TriGL2.TY;
-	gDonnees.TriGL2.angle;
-	gDonnees.TriGL3.X;
-	gDonnees.TriGL3.Y;
-	gDonnees.TriGL3.TX;
-	gDonnees.TriGL3.TY;
-	gDonnees.TriGL3.angle;
-	*/
+	gDonnees.Flip.angle=0;*/
+
+	
     // Exemple son
     //JouerSon("media/r2d2.mp3");
 }
@@ -168,11 +133,6 @@ bool Touche_aabb(struct Obb barre,struct Boule bille,float* ximp,float* yimp)
 	float y1loc=-barre.TY/2;
 	float x2loc=+barre.TX/2;
 	float y2loc=+barre.TY/2;
-	//float xlocb=bille.X-barre.X;
-	//float ylocb=bille.Y-barre.Y;
-	//rotation(0,&(xlocb),&(ylocb));
-	//bille.X=xlocb+barre.X;
-	//bille.Y=xlocb+barre.Y;
 	float x1=barre.X+x1loc;
 	float x2=barre.X+x2loc;
 	float y1=barre.Y+y1loc;
@@ -242,97 +202,7 @@ bool Touche_aabb(struct Obb barre,struct Boule bille,float* ximp,float* yimp)
 		return true;
 	}
 	return false;
-	//rotation(-0,ximp,yimp);
-	//rotation(-0,&(xlocb),&(ylocb));
-	//bille.X=xlocb+barre.X;
-	//bille.Y=ylocb+barre.Y;
 }
-/*
-bool Touche_aabb(struct Obb barre,struct Boule bille,float* ximp,float* yimp)
-{
-	float x1loc=-barre.TX/2;
-	float y1loc=-barre.TY/2;
-	float x2loc=+barre.TX/2;
-	float y2loc=+barre.TY/2;
-	//float xlocb=bille.X-barre.X;
-	//float ylocb=bille.Y-barre.Y;
-	//rotation(0,&(xlocb),&(ylocb));
-	//bille.X=xlocb+barre.X;
-	//bille.Y=xlocb+barre.Y;
-	float x1=barre.X+x1loc;
-	float x2=barre.X+x2loc;
-	float y1=barre.Y+y1loc;
-	float y2=barre.Y+y2loc;
-
-
-	if(bille.X<x1-bille.rayon
-	|| bille.X>x2+bille.rayon
-	|| bille.Y<y1-bille.rayon
-	|| bille.Y>y2+bille.rayon)
-	{
-		return false;
-	}
-	if(bille.X>=x1 && bille.X<=x2)
-	{
-		if(bille.Y>=y1-bille.rayon)
-		{
-			*ximp=bille.X;
-			*yimp=y1-bille.rayon;
-			return true;
-
-		}
-		if(bille.Y<=y2+bille.rayon)
-		{
-			*ximp=bille.X;
-			*yimp=y2+bille.rayon;
-			return true;
-		}
-	}
-	if(bille.Y>=y1 && bille.Y<=y2)
-	{
-		if(bille.X>=x1-bille.rayon)
-		{
-			*ximp=x1-bille.rayon;
-			*yimp=bille.Y;
-			return true;
-		}
-		if(bille.X<=x2+bille.rayon)
-		{
-			*ximp=x2+bille.rayon;
-			*yimp=bille.Y;
-			return true;
-		}
-	}
-	if((bille.X-x1)*(bille.X-x1)+(bille.Y-y1)*(bille.Y-y1)<=bille.rayon*bille.rayon)
-	{
-		*ximp=x1;
-		*yimp=y1;
-		return true;
-	}
-	if((bille.X-x2)*(bille.X-x2)+(bille.Y-y2)*(bille.Y-y2)<=bille.rayon*bille.rayon)
-	{
-		*ximp=x2;
-		*yimp=y2;
-		return true;
-	}
-	if((bille.X-x1)*(bille.X-x1)+(bille.Y-y2)*(bille.Y-y2)<=bille.rayon*bille.rayon)
-	{
-		*ximp=x1;
-		*yimp=y2;
-		return true;
-	}
-	if((bille.X-x2)*(bille.X-x2)+(bille.Y-y1)*(bille.Y-y1)<=bille.rayon*bille.rayon)
-	{
-		*ximp=x2;
-		*yimp=y1;
-		return true;
-	}
-	return false;
-	//rotation(-0,ximp,yimp);
-	//rotation(-0,&(xlocb),&(ylocb));
-	//bille.X=xlocb+barre.X;
-	//bille.Y=ylocb+barre.Y;
-}*/
 
 bool Touche_obb(struct Obb barre,struct Boule bille, float* ximp,float* yimp)
 {
@@ -359,12 +229,6 @@ void Rebond(Boule *bille,float ximp,float yimp)
   	bille->VX = (bille->VX -2*prod_scal*ux);
   	bille->VY = (bille->VY -2*prod_scal*uy);
 }
-/*void Rebond(float* VX,float* VY,float ux,float uy)
-{
-  	float prod_scal = (VX *ux+ VY *uy);
-  	VX = VX -2*prod_scal*ux;
-  	VY = VY -2*prod_scal*uy;
-}*/
 
 void DeplacerBouleAvecRebonds()
 {
@@ -392,14 +256,12 @@ void DeplacerBouleAvecRebonds()
 	/*
         gDonnees.Boule.Y = H_ZONE-RAYON_BOULE ;
         gDonnees.Boule.VY = -1 *COEFF_PERTES* gDonnees.Boule.VY ;
-
         if (gDonnees.Boule.VY < -1,0 )
         {
         gDonnees.Valeur = gDonnees.Valeur + 1 ;
         gInterface.Score->value(gDonnees.Valeur) ;
         //JouerSon("media/Sons/bips/bip6.mp3");
         }
-
         //gDonnees.Boule.VY = -1*COEFF_PERTES*gDonnees.Boule.VY ;
         gDonnees.Boule.VX = 1*COEFF_PERTES*gDonnees.Boule.VX;
         //gravite =0;
@@ -432,6 +294,33 @@ void DeplacerBouleAvecRebonds()
     }
 	float ximp;
 	float yimp;
+	bool rebond=
+	//Touche_aabb(gDonnees.Barre,gDonnees.Boule,&ximp,&yimp)
+	Touche_obb(gDonnees.PenteG,gDonnees.Boule,&ximp,&yimp)
+	|| Touche_obb(gDonnees.PenteD,gDonnees.Boule,&ximp,&yimp)
+	|| Touche_pie(gDonnees.Bp1,gDonnees.Boule,&ximp,&yimp)
+	|| Touche_pie(gDonnees.Bp2,gDonnees.Boule,&ximp,&yimp)
+	|| Touche_pie(gDonnees.Bp3,gDonnees.Boule,&ximp,&yimp)
+	|| (Touche_pie_int(gDonnees.Pieh,gDonnees.Boule,&ximp,&yimp)&&gDonnees.Boule.Y<215-RAYON_BOULE)
+	|| Touche_obb(gDonnees.Lanceur,gDonnees.Boule,&ximp,&yimp)
+	|| Touche_pie(gDonnees.TriGC1,gDonnees.Boule,&ximp,&yimp)
+    || Touche_pie(gDonnees.TriGC2,gDonnees.Boule,&ximp,&yimp)
+	|| Touche_pie(gDonnees.TriGC3,gDonnees.Boule,&ximp,&yimp)
+	|| Touche_obb(gDonnees.TriGL1,gDonnees.Boule,&ximp,&yimp)
+	|| Touche_obb(gDonnees.TriGL2,gDonnees.Boule,&ximp,&yimp)
+	|| Touche_obb(gDonnees.TriGL3,gDonnees.Boule,&ximp,&yimp);
+	if(rebond)
+	{
+		Rebond(&(gDonnees.Boule),ximp,yimp);
+        gravite =0;
+	}
+		// Nouvelle position de la boule ...
+    gDonnees.Boule.VX = gDonnees.Boule.VX;
+    gDonnees.Boule.VY = gDonnees.Boule.VY + sin(INCLINAISON)*gravite*DUREE_CYCLE;
+	gDonnees.Boule.X = gDonnees.Boule.X + gDonnees.Boule.VX;
+    gDonnees.Boule.Y = gDonnees.Boule.Y + gDonnees.Boule.VY + sin(INCLINAISON)/2*gravite*DUREE_CYCLE*DUREE_CYCLE;
+    gravite=GRAVITE;
+/*
 	if(Touche_aabb(gDonnees.Barre,gDonnees.Boule,&ximp,&yimp))
 	{
         //gDonnees.Boule.Y = yimp;//250-RAYON_BOULE ;
@@ -457,36 +346,27 @@ void DeplacerBouleAvecRebonds()
         Rebond(&(gDonnees.Boule),ximp,yimp);
         gravite =0;
 	}
-	if(Touche_obb(gDonnees.PenteD,gDonnees.Boule,&ximp,&yimp))
+	if(Touche_obb(gDonnees.PenteD,gDonnees.Boule,&ximp,&yimp))//
 	{
         Rebond(&(gDonnees.Boule),ximp,yimp);
         gravite =0;
 	}
-	if(Touche_pie(gDonnees.Pie,gDonnees.Boule,&ximp,&yimp))
-	{
-        //gDonnees.Boule.Y = yimp;//-RAYON_BOULE;//318;//250-RAYON_BOULE ;
-		//gDonnees.Boule.X = ximp;//350;
-        //gDonnees.Boule.VY = -1 *COEFF_PERTES* gDonnees.Boule.VY ;
-        Rebond(&(gDonnees.Boule),ximp,yimp);
-        gravite =0;
-        //rebond=true;
-	}
-	if(Touche_pie(gDonnees.Bp1,gDonnees.Boule,&ximp,&yimp))
+	if(Touche_pie(gDonnees.Bp1,gDonnees.Boule,&ximp,&yimp))//
 	{
         Rebond(&(gDonnees.Boule),ximp,yimp);
         gravite =0;
 	}
-	if(Touche_pie(gDonnees.Bp2,gDonnees.Boule,&ximp,&yimp))
+	if(Touche_pie(gDonnees.Bp2,gDonnees.Boule,&ximp,&yimp))//
 	{
         Rebond(&(gDonnees.Boule),ximp,yimp);
         gravite =0;
 	}
-	if(Touche_pie(gDonnees.Bp3,gDonnees.Boule,&ximp,&yimp))
+	if(Touche_pie(gDonnees.Bp3,gDonnees.Boule,&ximp,&yimp))//
 	{
         Rebond(&(gDonnees.Boule),ximp,yimp);
         gravite =0;
 	}
-	if(Touche_pie_int(gDonnees.Pieh,gDonnees.Boule,&ximp,&yimp)&&gDonnees.Boule.Y<215-RAYON_BOULE)
+	if(Touche_pie_int(gDonnees.Pieh,gDonnees.Boule,&ximp,&yimp)&&gDonnees.Boule.Y<215-RAYON_BOULE)//
 	{
         //gDonnees.Boule.Y = 215;//-RAYON_BOULE;//318;//250-RAYON_BOULE ;
 		//gDonnees.Boule.X = 215;//350;
@@ -495,7 +375,7 @@ void DeplacerBouleAvecRebonds()
        	//gravite =0;
         //rebond=true;
     }
-	if(Touche_obb(gDonnees.haut,gDonnees.Boule,&ximp,&yimp))
+	if (Touche_obb(gDonnees.Lanceur,gDonnees.Boule,&ximp,&yimp))//
 	{
         //gDonnees.Boule.Y = yimp;//250-RAYON_BOULE ;
         //gDonnees.Boule.X = ximp;
@@ -505,18 +385,7 @@ void DeplacerBouleAvecRebonds()
         //gDonnees.Boule.X = ximp;
         gravite =0;
         //rebond=true;
-	}
-	if (Touche_obb(gDonnees.Lanceur,gDonnees.Boule,&ximp,&yimp))
-	{
-        //gDonnees.Boule.Y = yimp;//250-RAYON_BOULE ;
-        //gDonnees.Boule.X = ximp;
-        //gDonnees.Boule.VY = -1 *COEFF_PERTES* gDonnees.Boule.VY ;
-        Rebond(&(gDonnees.Boule),ximp,yimp);
-        //gDonnees.Boule.Y = yimp;
-        //gDonnees.Boule.X = ximp;
-        gravite =0;
-        //rebond=true;
-	}
+	}/*
 	if(Touche_obb(gDonnees.Flip,gDonnees.Boule,&ximp,&yimp))
 	{
         //gDonnees.Boule.Y = yimp;//250-RAYON_BOULE ;
@@ -542,14 +411,21 @@ void DeplacerBouleAvecRebonds()
 	{
         Rebond(&(gDonnees.Boule),ximp,yimp);
     }
-	    // Nouvelle position de la boule ...
-    gDonnees.Boule.VX = gDonnees.Boule.VX;
-    gDonnees.Boule.VY = gDonnees.Boule.VY + sin(INCLINAISON)*gravite*DUREE_CYCLE;
-	gDonnees.Boule.X = gDonnees.Boule.X + gDonnees.Boule.VX;
-    gDonnees.Boule.Y = gDonnees.Boule.Y + gDonnees.Boule.VY + sin(INCLINAISON)/2*gravite*DUREE_CYCLE*DUREE_CYCLE;
-    gravite=GRAVITE;
-
-
+    if(Touche_obb(gDonnees.TriGL1,gDonnees.Boule,&ximp,&yimp))
+	{
+        Rebond(&(gDonnees.Boule),ximp,yimp);
+        gravite =0;
+	}
+	if(Touche_obb(gDonnees.TriGL2,gDonnees.Boule,&ximp,&yimp))
+	{
+        Rebond(&(gDonnees.Boule),ximp,yimp);
+        gravite =0;
+	}
+	if(Touche_obb(gDonnees.TriGL3,gDonnees.Boule,&ximp,&yimp))
+	{
+        Rebond(&(gDonnees.Boule),ximp,yimp);
+        gravite =0;
+	}*/
 }
 
 // Utilitaires

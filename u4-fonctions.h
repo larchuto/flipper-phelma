@@ -35,12 +35,9 @@ struct Donnees
     unsigned int    Valeur ;
     unsigned int    Valeur2 ;
 
-	struct Obb Barre;
-	struct Obb los;
-	struct Boule Pie;
+	//struct Obb Barre;
 	struct Boule Pieh;
-	struct Obb haut;
-	struct Obb Flip;
+	//struct Obb Flip;
 	struct Obb Lanceur;
 	struct Boule Bp1;
 	struct Boule Bp2;
@@ -61,7 +58,9 @@ struct Donnees
 extern struct Donnees gDonnees;
 
 // Déclaration des sous-programmes
-void InitialiserDonnees() ;
+void InitialiserPieBB(struct Boule* pie, float x, float y, float rayon);
+void InitialiserOBB(struct Obb* obb, float x, float y, float tailleX, float tailleY, float angle);
+void InitialiserDonnees();
 void rotation(float angle, float* x, float* y);
 bool Touche_pie(struct Pie barre,struct Boule bille,float* ximp,float* yimp);
 bool Touche_aabb(struct Obb barre,struct Boule bille,float* ximp,float* yimp);
