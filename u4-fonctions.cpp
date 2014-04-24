@@ -93,6 +93,33 @@ void InitialiserDonnees()
 	gDonnees.PenteD.TX=100;
 	gDonnees.PenteD.TY=20;
 	gDonnees.PenteD.angle=35.0/180*3.14159;
+	//Triangle gauche
+	gDonnees.TriGC1.X=73;
+	gDonnees.TriGC1.Y=403;
+	gDonnees.TriGC1.rayon=10;
+	gDonnees.TriGC2.X=111;
+	gDonnees.TriGC2.Y=501;
+	gDonnees.TriGC2.rayon=10;
+	gDonnees.TriGC3.X=76;
+	gDonnees.TriGC3.Y=474;
+	gDonnees.TriGC3.rayon=12.5;
+	/*
+	gDonnees.TriGL1.X;
+	gDonnees.TriGL1.Y;
+	gDonnees.TriGL1.TX;
+	gDonnees.TriGL1.TY;
+	gDonnees.TriGL1.angle;
+	gDonnees.TriGL2.X;
+	gDonnees.TriGL2.Y;
+	gDonnees.TriGL2.TX;
+	gDonnees.TriGL2.TY;
+	gDonnees.TriGL2.angle;
+	gDonnees.TriGL3.X;
+	gDonnees.TriGL3.Y;
+	gDonnees.TriGL3.TX;
+	gDonnees.TriGL3.TY;
+	gDonnees.TriGL3.angle;
+	*/
     // Exemple son
     //JouerSon("media/r2d2.mp3");
 }
@@ -501,6 +528,20 @@ void DeplacerBouleAvecRebonds()
         gravite =0;
         //rebond=true;
 	}
+	//test triangle gauche
+	
+	if(Touche_pie(gDonnees.TriGC1,gDonnees.Boule,&ximp,&yimp))
+	{
+        Rebond(&(gDonnees.Boule),ximp,yimp);
+    }
+    if(Touche_pie(gDonnees.TriGC2,gDonnees.Boule,&ximp,&yimp))
+	{
+        Rebond(&(gDonnees.Boule),ximp,yimp);
+    }
+    if(Touche_pie(gDonnees.TriGC3,gDonnees.Boule,&ximp,&yimp))
+	{
+        Rebond(&(gDonnees.Boule),ximp,yimp);
+    }
 	    // Nouvelle position de la boule ...
     gDonnees.Boule.VX = gDonnees.Boule.VX;
     gDonnees.Boule.VY = gDonnees.Boule.VY + sin(INCLINAISON)*gravite*DUREE_CYCLE;

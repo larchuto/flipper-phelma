@@ -47,6 +47,14 @@ struct Donnees
 	struct Boule Bp3;
 	struct Obb PenteG;
 	struct Obb PenteD;
+	//Triangle Gauche
+	struct Boule TriGC1;
+	struct Boule TriGC2;
+	struct Boule TriGC3;
+	struct Obb TriGL1;
+	struct Obb TriGL2;
+	struct Obb TriGL3;
+
 };
 
 
