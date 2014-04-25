@@ -63,7 +63,7 @@ void InitialiserDonnees()
 	InitialiserPieBB(&gDonnees.Bp3,189+25,163+25,25);
 
 	//Lanceur
-	InitialiserOBB(&gDonnees.Lanceur,L_ZONE-31-2,H_ZONE-433/2,9,433,0);
+	InitialiserOBB(&gDonnees.Lanceur,L_ZONE-31-3,H_ZONE-433/2,8,433,0);
 
 	//Pentes
 	InitialiserOBB(&gDonnees.PenteG,66,535,135,20,-35.0/180*3.14159);
@@ -148,14 +148,14 @@ bool Touche_aabb(struct Obb barre,struct Boule bille,float* ximp,float* yimp)
 	}
 	if(bille.X>=x1 && bille.X<=x2)
 	{
-		if(bille.Y>=barre.Y)
+		if(bille.Y<=barre.Y)
 		{
 			*ximp=bille.X;
 			*yimp=y1-bille.rayon;
 			return true;
 
 		}
-		if(bille.Y<=barre.Y)
+		if(bille.Y>=barre.Y)
 		{
 			*ximp=bille.X;
 			*yimp=y2+bille.rayon;
@@ -164,13 +164,13 @@ bool Touche_aabb(struct Obb barre,struct Boule bille,float* ximp,float* yimp)
 	}
 	if(bille.Y>=y1 && bille.Y<=y2)
 	{
-		if(bille.X>=barre.X)
+		if(bille.X<=barre.X)
 		{
 			*ximp=x1-bille.rayon;
 			*yimp=bille.Y;
 			return true;
 		}
-		if(bille.X<=barre.X)
+		if(bille.X>=barre.X)
 		{
 			*ximp=x2+bille.rayon;
 			*yimp=bille.Y;
