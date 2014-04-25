@@ -45,7 +45,7 @@ void InitialiserDonnees()
     //srand(time(NULL));
 
     // On initialise la boule
-    gDonnees.Boule.X = L_ZONE-RAYON_BOULE-5;
+    gDonnees.Boule.X = L_ZONE-RAYON_BOULE-6;
     gDonnees.Boule.Y = H_ZONE-RAYON_BOULE-50;
 	gDonnees.Boule.rayon=RAYON_BOULE;
     gDonnees.Boule.VX = 0 ;
@@ -57,17 +57,17 @@ void InitialiserDonnees()
     gInterface.Nb_billes->value(gDonnees.Valeur2) ;
 
     //Bumpers
-	InitialiserPieBB(&gDonnees.Pieh,215,215,210);
+	InitialiserPieBB(&gDonnees.Pieh,214,215,211);
 	InitialiserPieBB(&gDonnees.Bp1,115+25,98+25,25);
 	InitialiserPieBB(&gDonnees.Bp2,265+25,98+25,25);
 	InitialiserPieBB(&gDonnees.Bp3,189+25,163+25,25);
 
 	//Lanceur
-	InitialiserOBB(&gDonnees.Lanceur,L_ZONE-31-3,H_ZONE-433/2,8,433,0);
+	InitialiserOBB(&gDonnees.Lanceur,L_ZONE-31-3-1,H_ZONE-433/2,8,433,0);
 
 	//Pentes
-	InitialiserOBB(&gDonnees.PenteG,66,535,135,20,-35.0/180*3.14159);
-	InitialiserOBB(&gDonnees.PenteD,354,541,100,20,35.0/180*3.14159);
+	InitialiserOBB(&gDonnees.PenteG,58,529,135,20,-35.0/180*3.14159);
+	InitialiserOBB(&gDonnees.PenteD,354,542,94,20,35.0/180*3.14159);
 
 	//Triangles
 		//gauche
@@ -75,9 +75,31 @@ void InitialiserDonnees()
 	InitialiserPieBB(&gDonnees.TriGC2,111,501,10);
 	InitialiserPieBB(&gDonnees.TriGC3,76,474,12.5);
 	InitialiserOBB(&gDonnees.TriGL1,64+5,437.5,10,75,0);
-	InitialiserOBB(&gDonnees.TriGL2,87.5+4,494,10,42,54.4/180*3.14159);
+	InitialiserOBB(&gDonnees.TriGL2,87.5+4,494,10,42,54.5/180*3.14159);
 	InitialiserOBB(&gDonnees.TriGL3,98,451,10,105,21.25/180*3.14159);
-	
+		//droit
+	InitialiserPieBB(&gDonnees.TriDC1,355,403,10);
+	InitialiserPieBB(&gDonnees.TriDC2,317,501,10);
+	InitialiserPieBB(&gDonnees.TriDC3,352.5,474,12.5);
+	InitialiserOBB(&gDonnees.TriDL1,360,437.5,10,75,0);
+	InitialiserOBB(&gDonnees.TriDL2,340,493,10,42,-54.5/180*3.14159);
+	InitialiserOBB(&gDonnees.TriDL3,332,451,10,105,-21.25/180*3.14159);
+	//Flipper gauche
+//L(120,560,179,601) L(111,582,170,615)
+
+//Flipper droit
+//L(309,560,250,601) L(318,582,259,615)
+	//Flip
+		//gauche
+	InitialiserPieBB(&gDonnees.FliGC1,115,571,12);
+	InitialiserPieBB(&gDonnees.FliGC2,175,608,8.5);
+	InitialiserOBB(&gDonnees.FliGL1,150,585,67,7,-35.0/180*3.14159);
+	InitialiserOBB(&gDonnees.FliGL2,142,596,67,7,-29.2/180*3.14159);
+		//droit
+	InitialiserPieBB(&gDonnees.FliDC1,314,571,12);
+	InitialiserPieBB(&gDonnees.FliDC2,254,608,8.5);
+	InitialiserOBB(&gDonnees.FliDL1,279,585.5,67,7,35.0/180*3.14159);
+	InitialiserOBB(&gDonnees.FliDL2,290-3.5,597,65,7,29.0/180*3.14159);
 	/*gDonnees.Flip.X=100-20;
 	gDonnees.Flip.Y=550-20;
 	gDonnees.Flip.TX=100;
@@ -267,7 +289,7 @@ void DeplacerBouleAvecRebonds()
         //gravite =0;
         //rebond=true;
 	*/
-    	gDonnees.Boule.X = L_ZONE-RAYON_BOULE-5;
+    	gDonnees.Boule.X = L_ZONE-RAYON_BOULE-6;
     	gDonnees.Boule.Y = H_ZONE-RAYON_BOULE-50;
 	gDonnees.Boule.VX=0;
 	gDonnees.Boule.VY=0;
@@ -308,7 +330,22 @@ void DeplacerBouleAvecRebonds()
 	|| Touche_pie(gDonnees.TriGC3,gDonnees.Boule,&ximp,&yimp)
 	|| Touche_obb(gDonnees.TriGL1,gDonnees.Boule,&ximp,&yimp)
 	|| Touche_obb(gDonnees.TriGL2,gDonnees.Boule,&ximp,&yimp)
-	|| Touche_obb(gDonnees.TriGL3,gDonnees.Boule,&ximp,&yimp);
+	|| Touche_obb(gDonnees.TriGL3,gDonnees.Boule,&ximp,&yimp)
+	|| Touche_pie(gDonnees.TriDC1,gDonnees.Boule,&ximp,&yimp)
+    || Touche_pie(gDonnees.TriDC2,gDonnees.Boule,&ximp,&yimp)
+	|| Touche_pie(gDonnees.TriDC3,gDonnees.Boule,&ximp,&yimp)
+	|| Touche_obb(gDonnees.TriDL1,gDonnees.Boule,&ximp,&yimp)
+	|| Touche_obb(gDonnees.TriDL2,gDonnees.Boule,&ximp,&yimp)
+	|| Touche_obb(gDonnees.TriDL3,gDonnees.Boule,&ximp,&yimp)
+	|| Touche_pie(gDonnees.FliGC1,gDonnees.Boule,&ximp,&yimp)
+    || Touche_pie(gDonnees.FliGC2,gDonnees.Boule,&ximp,&yimp)
+	|| Touche_obb(gDonnees.FliGL1,gDonnees.Boule,&ximp,&yimp)
+	|| Touche_obb(gDonnees.FliGL2,gDonnees.Boule,&ximp,&yimp)
+	|| Touche_pie(gDonnees.FliDC1,gDonnees.Boule,&ximp,&yimp)
+    || Touche_pie(gDonnees.FliDC2,gDonnees.Boule,&ximp,&yimp)
+	|| Touche_obb(gDonnees.FliDL1,gDonnees.Boule,&ximp,&yimp)
+	|| Touche_obb(gDonnees.FliDL2,gDonnees.Boule,&ximp,&yimp);
+
 	if(rebond)
 	{
 		Rebond(&(gDonnees.Boule),ximp,yimp);
