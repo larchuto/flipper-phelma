@@ -164,12 +164,12 @@ void ZoneDessinDessinerCB( Fl_Widget* widget, void* data )
     Display_OBB(gDonnees.TriDL1);
     Display_OBB(gDonnees.TriDL2);
     Display_OBB(gDonnees.TriDL3);
-    Display_PieBB(gDonnees.FliGC1);
-    Display_PieBB(gDonnees.FliGC2);
-    Display_OBB(gDonnees.FliGL1);
-    Display_OBB(gDonnees.FliGL2);
-    Display_PieBB(gDonnees.FliDC1);
-    Display_PieBB(gDonnees.FliDC2);
-    Display_OBB(gDonnees.FliDL1);
-    Display_OBB(gDonnees.FliDL2);
+    Display_PieBB(gDonnees.FlipG.C1);
+    Display_PieBB(gDonnees.FlipG.C2);
+    Display_OBB(gDonnees.FlipG.L1);
+    Display_OBB(gDonnees.FlipG.L2);
+    Display_PieBB(gDonnees.FlipD.C1);
+    Display_PieBB(gDonnees.FlipD.C2);
+    Display_OBB(gDonnees.FlipD.L1);
+    Display_OBB(gDonnees.FlipD.L2);
 }

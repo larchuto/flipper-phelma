@@ -27,6 +27,13 @@ struct Obb
 	float TY;
 	float angle;
 };
+struct Flip
+{
+	struct Boule C1;
+	struct Boule C2;
+	struct Obb L1;
+	struct Obb L2;
+};
 
 // Structure globale pour les variables fonctionnelles
 struct Donnees
@@ -59,15 +66,9 @@ struct Donnees
 	struct Obb TriDL2;
 	struct Obb TriDL3;
 	//Flip Gauche
-	struct Boule FliGC1;
-	struct Boule FliGC2;
-	struct Obb FliGL1;
-	struct Obb FliGL2;
+	struct Flip FlipG;
 	//Flip Droit
-	struct Boule FliDC1;
-	struct Boule FliDC2;
-	struct Obb FliDL1;
-	struct Obb FliDL2;
+	struct Flip FlipD;
 
 };
 

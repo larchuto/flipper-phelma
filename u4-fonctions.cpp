@@ -91,15 +91,15 @@ void InitialiserDonnees()
 //L(309,560,250,601) L(318,582,259,615)
 	//Flip
 		//gauche
-	InitialiserPieBB(&gDonnees.FliGC1,115,571,12);
-	InitialiserPieBB(&gDonnees.FliGC2,175,608,8.5);
-	InitialiserOBB(&gDonnees.FliGL1,150,585,67,7,-35.0/180*3.14159);
-	InitialiserOBB(&gDonnees.FliGL2,142,596,67,7,-29.2/180*3.14159);
+	InitialiserPieBB(&gDonnees.FlipG.C1,115,571,12);
+	InitialiserPieBB(&gDonnees.FlipG.C2,175,608,8.5);
+	InitialiserOBB(&gDonnees.FlipG.L1,150,585,67,7,-35.0/180*3.14159);
+	InitialiserOBB(&gDonnees.FlipG.L2,142,596,67,7,-29.2/180*3.14159);
 		//droit
-	InitialiserPieBB(&gDonnees.FliDC1,314,571,12);
-	InitialiserPieBB(&gDonnees.FliDC2,254,608,8.5);
-	InitialiserOBB(&gDonnees.FliDL1,279,585.5,67,7,35.0/180*3.14159);
-	InitialiserOBB(&gDonnees.FliDL2,290-3.5,597,65,7,29.0/180*3.14159);
+	InitialiserPieBB(&gDonnees.FlipD.C1,314,571,12);
+	InitialiserPieBB(&gDonnees.FlipD.C2,254,608,8.5);
+	InitialiserOBB(&gDonnees.FlipD.L1,279,585.5,67,7,35.0/180*3.14159);
+	InitialiserOBB(&gDonnees.FlipD.L2,290-3.5,597,65,7,29.0/180*3.14159);
 	/*gDonnees.Flip.X=100-20;
 	gDonnees.Flip.Y=550-20;
 	gDonnees.Flip.TX=100;
@@ -337,14 +337,14 @@ void DeplacerBouleAvecRebonds()
 	|| Touche_obb(gDonnees.TriDL1,gDonnees.Boule,&ximp,&yimp)
 	|| Touche_obb(gDonnees.TriDL2,gDonnees.Boule,&ximp,&yimp)
 	|| Touche_obb(gDonnees.TriDL3,gDonnees.Boule,&ximp,&yimp)
-	|| Touche_pie(gDonnees.FliGC1,gDonnees.Boule,&ximp,&yimp)
-    || Touche_pie(gDonnees.FliGC2,gDonnees.Boule,&ximp,&yimp)
-	|| Touche_obb(gDonnees.FliGL1,gDonnees.Boule,&ximp,&yimp)
-	|| Touche_obb(gDonnees.FliGL2,gDonnees.Boule,&ximp,&yimp)
-	|| Touche_pie(gDonnees.FliDC1,gDonnees.Boule,&ximp,&yimp)
-    || Touche_pie(gDonnees.FliDC2,gDonnees.Boule,&ximp,&yimp)
-	|| Touche_obb(gDonnees.FliDL1,gDonnees.Boule,&ximp,&yimp)
-	|| Touche_obb(gDonnees.FliDL2,gDonnees.Boule,&ximp,&yimp);
+	|| Touche_pie(gDonnees.FlipG.C1,gDonnees.Boule,&ximp,&yimp)
+    || Touche_pie(gDonnees.FlipG.C2,gDonnees.Boule,&ximp,&yimp)
+	|| Touche_obb(gDonnees.FlipG.L1,gDonnees.Boule,&ximp,&yimp)
+	|| Touche_obb(gDonnees.FlipG.L2,gDonnees.Boule,&ximp,&yimp)
+	|| Touche_pie(gDonnees.FlipD.C1,gDonnees.Boule,&ximp,&yimp)
+    || Touche_pie(gDonnees.FlipD.C2,gDonnees.Boule,&ximp,&yimp)
+	|| Touche_obb(gDonnees.FlipD.L1,gDonnees.Boule,&ximp,&yimp)
+	|| Touche_obb(gDonnees.FlipD.L2,gDonnees.Boule,&ximp,&yimp);
 
 	if(rebond)
 	{
