@@ -20,6 +20,12 @@ int Flip_wait =0;
 // TraiterCycle
 void TraiterCycleCB()
 {
+    if (Flip_left_is_touched==false)
+    {
+        MoveFlip(&(gDonnees.FlipD),0.005);
+        MoveFlip(&(gDonnees.FlipG),+0.005);
+    }
+    Flip_left_is_touched=false;
     // Trace pour bien montrer que la fonction est appelee cycliquement
     // printf(""Appel de TraiterCycleCB");
     /*if(Flip_left_is_touched)
@@ -104,8 +110,10 @@ void ZoneDessinClavierCB( Fl_Widget* widget, void* data )
     {
         // Touches speciales
         case FL_Left :
-            printf("Appui sur la touche Gauche\n");
+            //printf("Appui sur la touche Gauche\n");
             //gDonnees.Flip.angle+=20*DUREE_CYCLE*(gDonnees.Flip.angle<0.80);
+            MoveFlip(&(gDonnees.FlipD),-0.005);
+            MoveFlip(&(gDonnees.FlipG),+0.005);
             Flip_left_is_touched =true;
             break;
         case FL_Right :

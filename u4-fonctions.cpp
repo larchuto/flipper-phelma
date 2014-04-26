@@ -222,8 +222,60 @@ bool Touche_aabb(struct Obb barre,struct Boule bille,float* ximp,float* yimp)
 		*ximp=x2;
 		*yimp=y1;
 		return true;
+	}/*
+	// /!\ experimental
+	if(abs(bille.VX*DUREE_CYCLE)>barre.TX)
+	{
+		if(bille.X<=x1)
+		{
+			*ximp=x1;
+			*yimp=bille.Y;
+		}
+		else
+		{
+			*ximp=x2;
+			*yimp=bille.Y;
+		}
+		return true;
 	}
+	if(abs(bille.VY*DUREE_CYCLE)>barre.TY)
+	{
+		if(bille.Y<=y1)
+		{
+			*ximp=bille.X;
+			*yimp=y1;
+		}
+		else
+		{
+			*ximp=bille.X;
+			*yimp=y2;
+		}
+		return true;
+	}*/
 	return false;
+}
+void MoveFlip(struct Flip* flip, float angle)
+{
+	float x0loc=flip->C1.X;
+	float y0loc=flip->C1.Y;
+	flip->L1.angle+=angle;
+	flip->L2.angle+=angle;
+	flip->C2.X-=x0loc;
+	flip->C2.Y-=y0loc;
+	rotation(angle,&(flip->C2.X),&(flip->C2.Y));
+	flip->C2.X+=x0loc;
+	flip->C2.Y+=y0loc;
+	flip->L1.X-=x0loc;
+	flip->L1.Y-=y0loc;
+	rotation(angle,&(flip->L1.X),&(flip->L1.Y));
+	flip->L1.X+=x0loc;
+	flip->L1.Y+=y0loc;
+	flip->L2.X-=x0loc;
+	flip->L2.Y-=y0loc;
+	rotation(angle,&(flip->L2.X),&(flip->L2.Y));
+	flip->L2.X+=x0loc;
+	flip->L2.Y+=y0loc;
+
 }
 
 bool Touche_obb(struct Obb barre,struct Boule bille, float* ximp,float* yimp)
@@ -349,6 +401,8 @@ void DeplacerBouleAvecRebonds()
 	if(rebond)
 	{
 		Rebond(&(gDonnees.Boule),ximp,yimp);
+		//gDonnees.Boule.VX*=0.9;
+		//gDonnees.Boule.VY*=0.9;
         gravite =0;
 	}
 		// Nouvelle position de la boule ...
@@ -357,14 +411,16 @@ void DeplacerBouleAvecRebonds()
 	gDonnees.Boule.X = gDonnees.Boule.X + gDonnees.Boule.VX;
     gDonnees.Boule.Y = gDonnees.Boule.Y + gDonnees.Boule.VY + sin(INCLINAISON)/2*gravite*DUREE_CYCLE*DUREE_CYCLE;
     gravite=GRAVITE;
-    if(gDonnees.Boule.VX>RAYON_BOULE/DUREE_CYCLE)
+    if(gDonnees.Boule.VX*DUREE_CYCLE>RAYON_BOULE)
     {
     	gDonnees.Boule.VX=RAYON_BOULE/DUREE_CYCLE;
     }
-    if(gDonnees.Boule.VY>RAYON_BOULE/DUREE_CYCLE)
+    if(gDonnees.Boule.VY*DUREE_CYCLE>RAYON_BOULE)
     {
     	gDonnees.Boule.VY=RAYON_BOULE/DUREE_CYCLE;
     }
+    //MoveFlip(&(gDonnees.FlipD),0.005);
+    //MoveFlip(&(gDonnees.FlipG),-0.005);
 /*
 	if(Touche_aabb(gDonnees.Barre,gDonnees.Boule,&ximp,&yimp))
 	{
