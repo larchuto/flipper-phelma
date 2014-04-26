@@ -357,6 +357,14 @@ void DeplacerBouleAvecRebonds()
 	gDonnees.Boule.X = gDonnees.Boule.X + gDonnees.Boule.VX;
     gDonnees.Boule.Y = gDonnees.Boule.Y + gDonnees.Boule.VY + sin(INCLINAISON)/2*gravite*DUREE_CYCLE*DUREE_CYCLE;
     gravite=GRAVITE;
+    if(gDonnees.Boule.VX>RAYON_BOULE/DUREE_CYCLE)
+    {
+    	gDonnees.Boule.VX=RAYON_BOULE/DUREE_CYCLE;
+    }
+    if(gDonnees.Boule.VY>RAYON_BOULE/DUREE_CYCLE)
+    {
+    	gDonnees.Boule.VY=RAYON_BOULE/DUREE_CYCLE;
+    }
 /*
 	if(Touche_aabb(gDonnees.Barre,gDonnees.Boule,&ximp,&yimp))
 	{
