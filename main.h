@@ -13,7 +13,7 @@ public:
     DrawingArea(int X,int Y,int W,int H) ;
     void draw_callback( void (*Function) ( Fl_Widget* w, void* data), void* Data ) ;
     void mouse_callback( void (*Function) ( Fl_Widget* w, void* data), void* Data ) ;
-    void keyboard_callback( void (*Function) ( Fl_Widget* w, void* data), void* Data ) ;
+    void keyboard_callback( void (*Function) ( Fl_Widget* w, void* data, bool key_is_down), void* Data ) ;
 
 private :
     void draw() ;
@@ -25,7 +25,7 @@ private :
     void (*_mouse_callback_function) ( Fl_Widget* w, void* data) ;
     void* _mouse_callback_data ;
 
-    void (*_keyboard_callback_function) ( Fl_Widget* w, void* data) ;
+    void (*_keyboard_callback_function) ( Fl_Widget* w, void* data, bool key_is_down) ;
     void* _keyboard_callback_data ;
 };
 

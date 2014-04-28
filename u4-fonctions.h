@@ -33,6 +33,7 @@ struct Flip
 	struct Boule C2;
 	struct Obb L1;
 	struct Obb L2;
+	float angle;
 };
 
 // Structure globale pour les variables fonctionnelles

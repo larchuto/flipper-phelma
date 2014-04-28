@@ -95,11 +95,13 @@ void InitialiserDonnees()
 	InitialiserPieBB(&gDonnees.FlipG.C2,175,608,8.5);
 	InitialiserOBB(&gDonnees.FlipG.L1,150,585,67,7,-35.0/180*3.14159);
 	InitialiserOBB(&gDonnees.FlipG.L2,142,596,67,7,-29.2/180*3.14159);
+	gDonnees.FlipG.angle=0;
 		//droit
 	InitialiserPieBB(&gDonnees.FlipD.C1,314,571,12);
 	InitialiserPieBB(&gDonnees.FlipD.C2,254,608,8.5);
 	InitialiserOBB(&gDonnees.FlipD.L1,279,585.5,67,7,35.0/180*3.14159);
 	InitialiserOBB(&gDonnees.FlipD.L2,290-3.5,597,65,7,29.0/180*3.14159);
+	gDonnees.FlipD.angle=0;
 	/*gDonnees.Flip.X=100-20;
 	gDonnees.Flip.Y=550-20;
 	gDonnees.Flip.TX=100;
@@ -256,6 +258,7 @@ bool Touche_aabb(struct Obb barre,struct Boule bille,float* ximp,float* yimp)
 }
 void MoveFlip(struct Flip* flip, float angle)
 {
+	flip->angle+=angle;
 	float x0loc=flip->C1.X;
 	float y0loc=flip->C1.Y;
 	flip->L1.angle+=angle;

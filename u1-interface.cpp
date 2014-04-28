@@ -26,7 +26,7 @@ void CreerInterface()
     gInterface.ZoneDessin3 = new DrawingArea(X_SCORE,Y_SCORE,L_SCORE,H_SCORE);
     gInterface.ZoneDessin3->draw_callback( ZoneDessinDessinerCB, NULL ) ;
     //gInterface.ZoneDessin3->mouse_callback( ZoneDessinSourisCB, NULL ) ;
-    gInterface.ZoneDessin3->keyboard_callback( ZoneDessinClavierCB, NULL ) ;
+    gInterface.ZoneDessin3->keyboard_callback( ZoneDessinClavierCB, NULL) ;
 
     // Creation de la zone de menu
     gInterface.ZoneDessin2 = new DrawingArea(X_MENU,Y_MENU,L_MENU,H_MENU);

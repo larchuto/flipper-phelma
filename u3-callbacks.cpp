@@ -15,17 +15,42 @@
 using namespace std;
 
 bool Flip_left_is_touched =false;
-int Flip_wait =0;
+bool Flip_right_is_touched =false;
+int Flip_left_wait =0;
+int Flip_right_wait =0;
 
 // TraiterCycle
 void TraiterCycleCB()
 {
-    if (Flip_left_is_touched==false)
+    if (Flip_left_is_touched && gDonnees.FlipG.angle<1)
     {
-        MoveFlip(&(gDonnees.FlipD),0.005);
-        MoveFlip(&(gDonnees.FlipG),+0.005);
+        //MoveFlip(&(gDonnees.FlipD),0.005);
+        MoveFlip(&(gDonnees.FlipG),+0.25);
     }
-    Flip_left_is_touched=false;
+    else if (gDonnees.FlipG.angle>0)// && Flip_left_wait>=10)
+    {
+        MoveFlip(&(gDonnees.FlipG),-0.25);
+        //Flip_left_wait =0;
+    }
+    /*else
+    {
+        Flip_left_wait +=1;
+    }*/
+    if (Flip_right_is_touched && gDonnees.FlipD.angle>-1)
+    {
+        //MoveFlip(&(gDonnees.FlipD),0.005);
+        MoveFlip(&(gDonnees.FlipD),-0.25);
+    }
+    else if (gDonnees.FlipD.angle<0)// && Flip_right_wait>=10)
+    {
+        MoveFlip(&(gDonnees.FlipD),+0.25);
+        //int Flip_right_wait =0;
+    }
+    /*else
+    {
+        Flip_right_wait +=1;
+    }*/
+    //Flip_left_is_touched=false;
     // Trace pour bien montrer que la fonction est appelee cycliquement
     // printf(""Appel de TraiterCycleCB");
     /*if(Flip_left_is_touched)
@@ -97,7 +122,7 @@ void ZoneDessinSourisCB( Fl_Widget* widget, void* data )
 }
 
 // ZoneDessinClavierCB
-void ZoneDessinClavierCB( Fl_Widget* widget, void* data )
+void ZoneDessinClavierCB( Fl_Widget* widget, void* data, bool key_is_down)
 {
     // Definition des variables
     int Touche ;
@@ -110,14 +135,12 @@ void ZoneDessinClavierCB( Fl_Widget* widget, void* data )
     {
         // Touches speciales
         case FL_Left :
-            //printf("Appui sur la touche Gauche\n");
-            //gDonnees.Flip.angle+=20*DUREE_CYCLE*(gDonnees.Flip.angle<0.80);
-            MoveFlip(&(gDonnees.FlipD),-0.005);
-            MoveFlip(&(gDonnees.FlipG),+0.005);
-            Flip_left_is_touched =true;
+            printf("Appui sur la touche Gauche\n");
+            Flip_left_is_touched = key_is_down;
             break;
         case FL_Right :
             printf("Appui sur la touche Droite\n");
+            Flip_right_is_touched = key_is_down;
             break;
         case FL_Up :
             printf("Appui sur la touche Haut\n");
