@@ -27,7 +27,7 @@ void TraiterCycleCB()
         //MoveFlip(&(gDonnees.FlipD),0.005);
         MoveFlip(&(gDonnees.FlipG),+0.25);
     }
-    else if (gDonnees.FlipG.angle>0)// && Flip_left_wait>=10)
+    else if (!Flip_left_is_touched && gDonnees.FlipG.angle>0)// && Flip_left_wait>=10)
     {
         MoveFlip(&(gDonnees.FlipG),-0.25);
         //Flip_left_wait =0;
@@ -41,7 +41,7 @@ void TraiterCycleCB()
         //MoveFlip(&(gDonnees.FlipD),0.005);
         MoveFlip(&(gDonnees.FlipD),-0.25);
     }
-    else if (gDonnees.FlipD.angle<0)// && Flip_right_wait>=10)
+    else if (!Flip_right_is_touched && gDonnees.FlipD.angle<0)// && Flip_right_wait>=10)
     {
         MoveFlip(&(gDonnees.FlipD),+0.25);
         //int Flip_right_wait =0;
@@ -135,11 +135,13 @@ void ZoneDessinClavierCB( Fl_Widget* widget, void* data, bool key_is_down)
     {
         // Touches speciales
         case FL_Left :
-            printf("Appui sur la touche Gauche\n");
+            if(key_is_down) printf("Appui sur la touche Gauche\n");
+            else printf("Relachement de la touche Gauche\n");
             Flip_left_is_touched = key_is_down;
             break;
         case FL_Right :
-            printf("Appui sur la touche Droite\n");
+            if(key_is_down) printf("Appui sur la touche Droite\n");
+            else printf("Relachement de la touche Droite\n");
             Flip_right_is_touched = key_is_down;
             break;
         case FL_Up :
