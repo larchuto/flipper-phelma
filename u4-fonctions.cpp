@@ -406,13 +406,14 @@ void DeplacerBouleAvecRebonds()
 		Rebond(&(gDonnees.Boule),ximp,yimp);
 		//gDonnees.Boule.VX*=0.9;
 		//gDonnees.Boule.VY*=0.9;
-        gravite =0;
+        //gravite =0;
 	}
 		// Nouvelle position de la boule ...
-    gDonnees.Boule.VX = gDonnees.Boule.VX;
+    //gDonnees.Boule.VX = gDonnees.Boule.VX;
+    gDonnees.Boule.Y += gDonnees.Boule.VY*DUREE_CYCLE + sin(INCLINAISON)*0.5*gravite*DUREE_CYCLE*DUREE_CYCLE;
     gDonnees.Boule.VY = gDonnees.Boule.VY + sin(INCLINAISON)*gravite*DUREE_CYCLE;
-	gDonnees.Boule.X = gDonnees.Boule.X + gDonnees.Boule.VX*DUREE_CYCLE;
-    gDonnees.Boule.Y = gDonnees.Boule.Y + gDonnees.Boule.VY*DUREE_CYCLE + sin(INCLINAISON)/2*gravite*DUREE_CYCLE*DUREE_CYCLE;
+	gDonnees.Boule.X += gDonnees.Boule.VX*DUREE_CYCLE;
+    //gDonnees.Boule.Y += gDonnees.Boule.Y + gDonnees.Boule.VY*DUREE_CYCLE + sin(INCLINAISON)/2*gravite*DUREE_CYCLE*DUREE_CYCLE;
     gravite=GRAVITE;
     if(gDonnees.Boule.VX*DUREE_CYCLE>RAYON_BOULE)
     {

@@ -22,8 +22,12 @@ int Flip_right_wait =0;
 // TraiterCycle
 void TraiterCycleCB()
 {
+    //if(gDonnees.Boule.X!=412){
     //printf("vitesse x = %f\n",gDonnees.Boule.VX);
-    //printf("vitesse y = %f\n",gDonnees.Boule.VY);
+    //printf("vitesse y = %f\n",gDonnees.Boule.VY*DUREE_CYCLE);}
+    //if(gDonnees.Boule.X!=412){
+    //printf("x = %f\n",gDonnees.Boule.X);
+    //printf("y = %f\n",gDonnees.Boule.Y);}
     if (Flip_left_is_touched && gDonnees.FlipG.angle<1)
     {
         //MoveFlip(&(gDonnees.FlipD),0.005);
