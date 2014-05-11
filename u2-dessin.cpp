@@ -59,25 +59,34 @@ void DessineRessort(unsigned int compression)
     Fl_GIF_Image Imageressort(path) ;
     Imageressort.draw(421, 624+10*compression, 24, 41-10*compression);
 }
+
+void ZoneScoreDessinerCB( Fl_Widget* widget, void* data )
+{
+        //Zone de score
+    gInterface.Imagescore->draw(X_SCORE, Y_SCORE, L_SCORE, H_SCORE);
+}
+void ZoneMenuDessinerCB( Fl_Widget* widget, void* data )
+{
+        //Zone de menu
+    gInterface.Imagemenu->draw(X_MENU, Y_MENU, L_MENU, H_MENU);
+}
+
 // DessinerZone
 void ZoneDessinDessinerCB( Fl_Widget* widget, void* data )
 {
-    // On efface toute la zone ( en dessinant dessus un rectangle plein, noir )
-    Fl_GIF_Image Imagefond("media/fondgif.gif") ;
-    Imagefond.draw(X_ZONE, Y_ZONE, L_ZONE, H_ZONE);
+    // On efface toute la zone ( en dessinant dessus l'image de fond )
+    //Fl_GIF_Image Imagefond("media/fondgif.gif") ;
+    gInterface.Imagefond->draw(X_ZONE, Y_ZONE, L_ZONE, H_ZONE);
+    //Attente(0.00005);
 
-    //Zone de score
-    Fl_GIF_Image Imagescore("media/score.gif") ;
-    Imagescore.draw(X_SCORE, Y_SCORE, L_SCORE, H_SCORE);
+
     //fl_color(FL_BORDER_BOX);
     //fl_rectf(X_SCORE, Y_SCORE, L_SCORE, H_SCORE);
-        //Zone de menu
-    Fl_GIF_Image Imagemenu("media/menu.gif") ;
-    Imagemenu.draw(X_MENU, Y_MENU, L_MENU, H_MENU);
+
 
     // On dessine la boule
-    Fl_GIF_Image Imagebille("media/bille.gif") ;
-    Imagebille.draw(X_ZONE + gDonnees.Boule.X - RAYON_BOULE, Y_ZONE + gDonnees.Boule.Y - RAYON_BOULE);
+    //Fl_GIF_Image Imagebille("media/bille.gif") ;
+    gInterface.Imagebille->draw(X_ZONE + gDonnees.Boule.X - RAYON_BOULE, Y_ZONE + gDonnees.Boule.Y - RAYON_BOULE);
     //Imagebille.draw(X_ZONE, Y_ZONE);
     //(/*"media/bille.gif"*/);
     //bille ball;

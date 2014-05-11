@@ -16,6 +16,7 @@
 #include <FL/Fl_Check_Button.H>
 #include <FL/Fl_Choice.H>
 #include <FL/Fl_Value_Input.H>
+#include <FL/Fl_GIF_Image.H>
 
 // Definition des constantes
 #define X_ZONE  20      // X de la zone
@@ -41,14 +42,19 @@ struct Interface
 {
     Fl_Double_Window*   Fenetre ;
     DrawingArea*        ZoneDessin ;
-    DrawingArea*        ZoneDessin2 ;
-    DrawingArea*        ZoneDessin3 ;
+    DrawingArea*        ZoneMenu ;
+    DrawingArea*        ZoneScore ;
     Fl_Button*          BoutonQuitter ;
     Fl_Check_Button*    CaseRebond ;
 
     Fl_Button*          BoutonAction ;
-    Fl_Value_Output*    Score;
+    Fl_Value_Output*    ValueScore;
     Fl_Value_Output*    Nb_billes;
+
+    Fl_GIF_Image* Imagescore;
+    Fl_GIF_Image* Imagemenu;
+    Fl_GIF_Image* Imagefond;
+    Fl_GIF_Image* Imagebille;
 } ;
 
 // Declaration des objets de l'interface generale - ne pas supprimer
