@@ -22,6 +22,8 @@ int Flip_right_wait =0;
 // TraiterCycle
 void TraiterCycleCB()
 {
+    //printf("vitesse x = %f\n",gDonnees.Boule.VX);
+    //printf("vitesse y = %f\n",gDonnees.Boule.VY);
     if (Flip_left_is_touched && gDonnees.FlipG.angle<1)
     {
         //MoveFlip(&(gDonnees.FlipD),0.005);
@@ -153,9 +155,9 @@ void ZoneDessinClavierCB( Fl_Widget* widget, void* data, bool key_is_down)
         // Caracteres
         case ' ' :
             printf("Appui sur la touche Espace\n");
-            if(gDonnees.Boule.X >= L_ZONE-RAYON_BOULE-8 && gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE-46)
+            if(gDonnees.Boule.X >=L_ZONE-RAYON_BOULE-8 && gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE-46)
             {
-                gDonnees.Boule.VY=-30;
+                gDonnees.Boule.VY=-6000; //5000-6000
             }
          //gDonnees.Valeur2 = gDonnees.Valeur2 + 1 ;
          //gInterface.Nb_billes->value(gDonnees.Valeur2) ;

@@ -4,7 +4,7 @@
 #define _u4_fonctions_h
 
 // Definition des constantes
-#define DUREE_CYCLE 0.015    // 0.500 secondes, depend du materiel utilise
+#define DUREE_CYCLE 0.00015    // 0.500 secondes, depend du materiel utilise
 #define RAYON_BOULE  12
 //#include "aabb.h"
 

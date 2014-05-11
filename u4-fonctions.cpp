@@ -99,8 +99,8 @@ void InitialiserDonnees()
 		//droit
 	InitialiserPieBB(&gDonnees.FlipD.C1,314,571,12);
 	InitialiserPieBB(&gDonnees.FlipD.C2,254,608,8.5);
-	InitialiserOBB(&gDonnees.FlipD.L1,279,585.5,67,7,35.0/180*3.14159);
-	InitialiserOBB(&gDonnees.FlipD.L2,290-3.5,597,65,7,29.0/180*3.14159);
+	InitialiserOBB(&gDonnees.FlipD.L1,279/*+4*/,585.5/*+3*/,67,7,35.0/180*3.14159);
+	InitialiserOBB(&gDonnees.FlipD.L2,290-3.5/*-4*/,597/*-3*/,65,7,29.0/180*3.14159);
 	gDonnees.FlipD.angle=0;
 	/*gDonnees.Flip.X=100-20;
 	gDonnees.Flip.Y=550-20;
@@ -323,7 +323,7 @@ void DeplacerBouleAvecRebonds()
 	&& gDonnees.Boule.X>=L_ZONE-RAYON_BOULE-8)
     {
         gDonnees.Boule.Y = H_ZONE-RAYON_BOULE-46 ;
-        gDonnees.Boule.VY = -1 /**COEFF_PERTES*/* gDonnees.Boule.VY ;
+        gDonnees.Boule.VY = -1 *COEFF_PERTES * gDonnees.Boule.VY ;
         gDonnees.Boule.VX = 1*COEFF_PERTES*gDonnees.Boule.VX;
 
     }
@@ -411,8 +411,8 @@ void DeplacerBouleAvecRebonds()
 		// Nouvelle position de la boule ...
     gDonnees.Boule.VX = gDonnees.Boule.VX;
     gDonnees.Boule.VY = gDonnees.Boule.VY + sin(INCLINAISON)*gravite*DUREE_CYCLE;
-	gDonnees.Boule.X = gDonnees.Boule.X + gDonnees.Boule.VX;
-    gDonnees.Boule.Y = gDonnees.Boule.Y + gDonnees.Boule.VY + sin(INCLINAISON)/2*gravite*DUREE_CYCLE*DUREE_CYCLE;
+	gDonnees.Boule.X = gDonnees.Boule.X + gDonnees.Boule.VX*DUREE_CYCLE;
+    gDonnees.Boule.Y = gDonnees.Boule.Y + gDonnees.Boule.VY*DUREE_CYCLE + sin(INCLINAISON)/2*gravite*DUREE_CYCLE*DUREE_CYCLE;
     gravite=GRAVITE;
     if(gDonnees.Boule.VX*DUREE_CYCLE>RAYON_BOULE)
     {
@@ -422,8 +422,6 @@ void DeplacerBouleAvecRebonds()
     {
     	gDonnees.Boule.VY=RAYON_BOULE/DUREE_CYCLE;
     }
-    //MoveFlip(&(gDonnees.FlipD),0.005);
-    //MoveFlip(&(gDonnees.FlipG),-0.005);
 /*
 	if(Touche_aabb(gDonnees.Barre,gDonnees.Boule,&ximp,&yimp))
 	{

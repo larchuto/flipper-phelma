@@ -51,11 +51,19 @@ void Display_OBB(struct Obb OBB)
     fl_line(x3,y3,x4,y4);
     fl_line(x4,y4,x1,y1);
 }
+void DessineRessort(unsigned int compression)
+{
+    compression=compression % 4;
+    char path[] = "media/ressort0.gif";
+    path[13]='0';//+(char)compression;
+    Fl_GIF_Image Imageressort(path) ;
+    Imageressort.draw(421, 624+10*compression, 24, 41-10*compression);
+}
 // DessinerZone
 void ZoneDessinDessinerCB( Fl_Widget* widget, void* data )
 {
     // On efface toute la zone ( en dessinant dessus un rectangle plein, noir )
-    Fl_GIF_Image Imagefond("media/fond1.gif") ;
+    Fl_GIF_Image Imagefond("media/fondgif.gif") ;
     Imagefond.draw(X_ZONE, Y_ZONE, L_ZONE, H_ZONE);
 
     //Zone de score
@@ -77,6 +85,7 @@ void ZoneDessinDessinerCB( Fl_Widget* widget, void* data )
     //ball.rebond();
     //ball.move();
     //dessin collision boxes
+    DessineRessort(0);
     fl_color(FL_WHITE);
     //fl_rectf(150+20, 250+20, 100, 100);
     /*float x1=-25;
