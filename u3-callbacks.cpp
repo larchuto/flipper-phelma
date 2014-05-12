@@ -14,12 +14,71 @@
 // Declaration pour utiliser iostream
 using namespace std;
 
+bool Flip_left_is_touched =false;
+bool Flip_right_is_touched =false;
+int Flip_left_wait =0;
+int Flip_right_wait =0;
+
 // TraiterCycle
 void TraiterCycleCB()
 {
+    if (Flip_left_is_touched && gDonnees.FlipG.angle<1)
+    {
+        //MoveFlip(&(gDonnees.FlipD),0.005);
+        MoveFlip(&(gDonnees.FlipG),+0.25);
+    }
+    else if (!Flip_left_is_touched && gDonnees.FlipG.angle>0)// && Flip_left_wait>=10)
+    {
+        MoveFlip(&(gDonnees.FlipG),-0.25);
+        //Flip_left_wait =0;
+    }
+    /*else
+    {
+        Flip_left_wait +=1;
+    }*/
+    if (Flip_right_is_touched && gDonnees.FlipD.angle>-1)
+    {
+        //MoveFlip(&(gDonnees.FlipD),0.005);
+        MoveFlip(&(gDonnees.FlipD),-0.25);
+    }
+    else if (!Flip_right_is_touched && gDonnees.FlipD.angle<0)// && Flip_right_wait>=10)
+    {
+        MoveFlip(&(gDonnees.FlipD),+0.25);
+        //int Flip_right_wait =0;
+    }
+    /*else
+    {
+        Flip_right_wait +=1;
+    }*/
+    //Flip_left_is_touched=false;
     // Trace pour bien montrer que la fonction est appelee cycliquement
     // printf(""Appel de TraiterCycleCB");
-
+    /*if(Flip_left_is_touched)
+    {
+        Flip_wait=0;
+        gDonnees.Flip.angle+=50*DUREE_CYCLE;//*(gDonnees.Flip.angle<0.80);
+        if (gDonnees.Flip.angle>0.95)
+        {
+            gDonnees.Flip.angle=0.95;
+            //Flip_wait+=1;
+            Flip_left_is_touched=false;
+            //gDonnees.Flip.angle+=25*DUREE_CYCLE;
+        }
+    }
+    //else// if (gDonnees.Flip.angle>=0.90 && gDonnees.Flip.angle>0)
+    //{
+        Flip_wait+=1;
+        gDonnees.Flip.angle-=25*DUREE_CYCLE*(Flip_wait>4 && gDonnees.Flip.angle>0);
+        if (gDonnees.Flip.angle<0)
+        {
+            gDonnees.Flip.angle=0;
+        }*/
+        
+    //}
+    /*else
+    {
+        gDonnees.Flip.angle=0;
+    }*/
     // Deplacement de la boule
     DeplacerBouleAvecRebonds() ;
 
@@ -28,6 +87,7 @@ void TraiterCycleCB()
     gInterface.ZoneDessin3->redraw() ;
     gInterface.Score->redraw() ;
     gInterface.Nb_billes->redraw() ;
+
 
     // Code a activer en cas de probleme pour saisir les evenements du clavier
     // Probleme : si les evenements du clavier ne sont pas bien pris en compte pour agir sur la zone de dessin.
@@ -48,9 +108,11 @@ void ZoneDessinSourisCB( Fl_Widget* widget, void* data )
     {
         printf("Mouse push = %i x = %i y = %i\n", Fl::event_button(), Fl::event_x(), Fl::event_y());
 
-        // On repositionne la boule a l'endroit du clic
+        // On repositionne la boule a l'endroit du clic avec une vitesse nulle
         gDonnees.Boule.X = Fl::event_x() - X_ZONE ;
         gDonnees.Boule.Y = Fl::event_y() - Y_ZONE ;
+        gDonnees.Boule.VX=0;
+        gDonnees.Boule.VY=0;
     }
 
     //if ( Fl::event() == FL_MOVE )
@@ -60,7 +122,7 @@ void ZoneDessinSourisCB( Fl_Widget* widget, void* data )
 }
 
 // ZoneDessinClavierCB
-void ZoneDessinClavierCB( Fl_Widget* widget, void* data )
+void ZoneDessinClavierCB( Fl_Widget* widget, void* data, bool key_is_down)
 {
     // Definition des variables
     int Touche ;
@@ -73,10 +135,14 @@ void ZoneDessinClavierCB( Fl_Widget* widget, void* data )
     {
         // Touches speciales
         case FL_Left :
-            printf("Appui sur la touche Gauche\n");
+            if(key_is_down) printf("Appui sur la touche Gauche\n");
+            else printf("Relachement de la touche Gauche\n");
+            Flip_left_is_touched = key_is_down;
             break;
         case FL_Right :
-            printf("Appui sur la touche Droite\n");
+            if(key_is_down) printf("Appui sur la touche Droite\n");
+            else printf("Relachement de la touche Droite\n");
+            Flip_right_is_touched = key_is_down;
             break;
         case FL_Up :
             printf("Appui sur la touche Haut\n");
@@ -87,12 +153,12 @@ void ZoneDessinClavierCB( Fl_Widget* widget, void* data )
         // Caracteres
         case ' ' :
             printf("Appui sur la touche Espace\n");
-            if(gDonnees.Boule.X >= L_ZONE-RAYON_BOULE-20 && gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE-20)
+            if(gDonnees.Boule.X >= L_ZONE-RAYON_BOULE-8 && gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE-46)
             {
                 gDonnees.Boule.VY=-30;
             }
-         gDonnees.Valeur2 = gDonnees.Valeur2 + 1 ;
-         gInterface.Nb_billes->value(gDonnees.Valeur2) ;
+         //gDonnees.Valeur2 = gDonnees.Valeur2 + 1 ;
+         //gInterface.Nb_billes->value(gDonnees.Valeur2) ;
             break ;
         case 'a' :
             printf("Appui sur le caractere a\n");

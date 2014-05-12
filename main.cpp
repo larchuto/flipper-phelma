@@ -89,7 +89,7 @@ void DrawingArea::mouse_callback( void (*Function) ( Fl_Widget* w, void* data), 
 }
 
 // Methode keyboard_callback
-void DrawingArea::keyboard_callback( void (*Function) ( Fl_Widget* w, void* data), void* Data )
+void DrawingArea::keyboard_callback( void (*Function) ( Fl_Widget* w, void* data, bool key_is_down), void* Data )
 {
     _keyboard_callback_function = Function ;
     _keyboard_callback_data = Data ;
@@ -113,7 +113,7 @@ int DrawingArea::handle(int event)
         case FL_RELEASE :
         case FL_DRAG :
              if ( _mouse_callback_function != NULL )
-                (* _mouse_callback_function ) ( this, _mouse_callback_data ) ;
+                (* _mouse_callback_function ) ( this, _mouse_callback_data) ;
             return 1 ;
             break ;
         case FL_ENTER : // Necessaire pour la prise en compte de FL_MOVE
@@ -127,7 +127,13 @@ int DrawingArea::handle(int event)
 
         case FL_KEYBOARD:
              if ( _keyboard_callback_function != NULL )
-                (* _keyboard_callback_function ) ( this, _keyboard_callback_data ) ;
+                (* _keyboard_callback_function ) ( this, _keyboard_callback_data, true ) ;
+            return 1 ;
+            break ;
+
+        case FL_KEYUP:
+             if ( _keyboard_callback_function != NULL )
+                (* _keyboard_callback_function ) ( this, _keyboard_callback_data, false ) ;
             return 1 ;
             break ;
 

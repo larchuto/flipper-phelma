@@ -4,6 +4,8 @@
 #define _u2_dessin_h
 
 // Declaration des sous-programmes
+void Display_PieBB(struct Boule CBB);
+void Display_OBB(struct Obb OBB);
 void ZoneDessinDessinerCB( Fl_Widget* widget, void* data ) ;
 
 #endif // _u2_dessin_h
