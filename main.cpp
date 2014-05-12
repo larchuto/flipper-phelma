@@ -1,10 +1,10 @@
 // main.cpp
 // Declarations externes - inclusion des fichiers d'entete
 // Librairies standards
-#include <iostream>     // NULL
+#include <iostream> // NULL
 // Librairies fltk
-#include <FL/Fl.H>      // fl::run
-#include <FL/fl_draw.H>      // fl_push_clip et fl_pop_clip
+#include <FL/Fl.H> // fl::run
+#include <FL/fl_draw.H> // fl_push_clip et fl_pop_clip
 // Programmes locaux
 #include "main.h"
 #include "u1-interface.h"

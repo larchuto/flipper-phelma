@@ -1,7 +1,7 @@
 // u1-interface.cpp
 // Declarations externes - inclusion des fichiers d'entete
 // Librairies standards
-#include <iostream>         // cin, cout, ...
+#include <iostream> // cin, cout, ...
 // Programmes locaux
 #include "u1-interface.h"
 #include "u2-dessin.h"
@@ -23,18 +23,23 @@ void CreerInterface()
     gInterface.Fenetre->begin() ;
 
     // Creation de la zone de score
-    gInterface.ZoneDessin3 = new DrawingArea(X_SCORE,Y_SCORE,L_SCORE,H_SCORE);
-    gInterface.ZoneDessin3->draw_callback( ZoneDessinDessinerCB, NULL ) ;
-    //gInterface.ZoneDessin3->mouse_callback( ZoneDessinSourisCB, NULL ) ;
-    gInterface.ZoneDessin3->keyboard_callback( ZoneDessinClavierCB, NULL) ;
+    gInterface.Imagescore= new Fl_GIF_Image("media/score.gif") ;
+    gInterface.ZoneScore = new DrawingArea(X_SCORE,Y_SCORE,L_SCORE,H_SCORE);
+    gInterface.ZoneScore->draw_callback( ZoneScoreDessinerCB, NULL ) ;
+    //gInterface.ZoneScore->mouse_callback( ZoneDessinSourisCB, NULL ) ;
+    gInterface.ZoneScore->keyboard_callback( ZoneDessinClavierCB, NULL) ;
 
     // Creation de la zone de menu
-    gInterface.ZoneDessin2 = new DrawingArea(X_MENU,Y_MENU,L_MENU,H_MENU);
-    gInterface.ZoneDessin2->draw_callback( ZoneDessinDessinerCB, NULL ) ;
-    //gInterface.ZoneDessin2->mouse_callback( ZoneDessinSourisCB, NULL ) ;
-    gInterface.ZoneDessin2->keyboard_callback( ZoneDessinClavierCB, NULL ) ;
+    gInterface.Imagemenu= new Fl_GIF_Image("media/menu.gif") ;
+    gInterface.ZoneMenu = new DrawingArea(X_MENU,Y_MENU,L_MENU,H_MENU);
+    gInterface.ZoneMenu->draw_callback( ZoneMenuDessinerCB, NULL ) ;
+    //gInterface.ZoneMenu->mouse_callback( ZoneDessinSourisCB, NULL ) ;
+    gInterface.ZoneMenu->keyboard_callback( ZoneDessinClavierCB, NULL ) ;
 
     // Creation de la zone de dessin
+    gInterface.Imagefond= new Fl_GIF_Image("media/fond.gif") ;
+    gInterface.Imagedecor= new Fl_GIF_Image("media/decor.gif") ;
+    gInterface.Imagebille= new Fl_GIF_Image("media/bille.gif") ;
     gInterface.ZoneDessin = new DrawingArea(X_ZONE,Y_ZONE,L_ZONE,H_ZONE);
     gInterface.ZoneDessin->draw_callback( ZoneDessinDessinerCB, NULL ) ;
     gInterface.ZoneDessin->mouse_callback( ZoneDessinSourisCB, NULL ) ;
@@ -53,11 +58,11 @@ void CreerInterface()
     gInterface.BoutonAction->callback( BoutonActionCB, NULL ) ;
 
     //Score
-    gInterface.Score = new Fl_Value_Output(475, 393-20, 220, 42, "") ;
-    gInterface.Score->box(FL_THIN_DOWN_FRAME);
-    gInterface.Score->textcolor(FL_WHITE);
-    gInterface.Score->textsize(30);
-    gInterface.Score->textfont(FL_HELVETICA_BOLD);
+    gInterface.ValueScore = new Fl_Value_Output(475, 393-20, 220, 42, "") ;
+    gInterface.ValueScore->box(FL_THIN_DOWN_FRAME);
+    gInterface.ValueScore->textcolor(FL_WHITE);
+    gInterface.ValueScore->textsize(30);
+    gInterface.ValueScore->textfont(FL_HELVETICA_BOLD);
 
     //Nombre billes
     gInterface.Nb_billes = new Fl_Value_Output(653, 340-20, 42, 42, "") ;

@@ -1,10 +1,10 @@
 // u3-callbacks.cpp
 // Declarations externes - inclusion des fichiers d'entete
 // Librairies standards
-#include <iostream>     // cout, cin, ...
+#include <iostream> // cout, cin, ...
 // Librairies fltk
 #include <FL/Fl.H>
-#include <FL/fl_ask.H>  // fl_message, fl_alert, fl_ask
+#include <FL/fl_ask.H> // fl_message, fl_alert, fl_ask
 #include <FL/Fl_File_Chooser.H> // fl_file_chooser
 // Programmes locaux
 #include "u1-interface.h"
@@ -22,6 +22,12 @@ int Flip_right_wait =0;
 // TraiterCycle
 void TraiterCycleCB()
 {
+    //if(gDonnees.Boule.X!=412){
+    //printf("vitesse x = %f\n",gDonnees.Boule.VX);
+    //printf("vitesse y = %f\n",gDonnees.Boule.VY*DUREE_CYCLE);}
+    //if(gDonnees.Boule.X!=412){
+    //printf("x = %f\n",gDonnees.Boule.X);
+    //printf("y = %f\n",gDonnees.Boule.Y);}
     if (Flip_left_is_touched && gDonnees.FlipG.angle<1)
     {
         //MoveFlip(&(gDonnees.FlipD),0.005);
@@ -33,9 +39,9 @@ void TraiterCycleCB()
         //Flip_left_wait =0;
     }
     /*else
-    {
-        Flip_left_wait +=1;
-    }*/
+{
+Flip_left_wait +=1;
+}*/
     if (Flip_right_is_touched && gDonnees.FlipD.angle>-1)
     {
         //MoveFlip(&(gDonnees.FlipD),0.005);
@@ -47,45 +53,45 @@ void TraiterCycleCB()
         //int Flip_right_wait =0;
     }
     /*else
-    {
-        Flip_right_wait +=1;
-    }*/
+{
+Flip_right_wait +=1;
+}*/
     //Flip_left_is_touched=false;
     // Trace pour bien montrer que la fonction est appelee cycliquement
     // printf(""Appel de TraiterCycleCB");
     /*if(Flip_left_is_touched)
-    {
-        Flip_wait=0;
-        gDonnees.Flip.angle+=50*DUREE_CYCLE;//*(gDonnees.Flip.angle<0.80);
-        if (gDonnees.Flip.angle>0.95)
-        {
-            gDonnees.Flip.angle=0.95;
-            //Flip_wait+=1;
-            Flip_left_is_touched=false;
-            //gDonnees.Flip.angle+=25*DUREE_CYCLE;
-        }
-    }
-    //else// if (gDonnees.Flip.angle>=0.90 && gDonnees.Flip.angle>0)
-    //{
-        Flip_wait+=1;
-        gDonnees.Flip.angle-=25*DUREE_CYCLE*(Flip_wait>4 && gDonnees.Flip.angle>0);
-        if (gDonnees.Flip.angle<0)
-        {
-            gDonnees.Flip.angle=0;
-        }*/
-        
+{
+Flip_wait=0;
+gDonnees.Flip.angle+=50*DUREE_CYCLE;//*(gDonnees.Flip.angle<0.80);
+if (gDonnees.Flip.angle>0.95)
+{
+gDonnees.Flip.angle=0.95;
+//Flip_wait+=1;
+Flip_left_is_touched=false;
+//gDonnees.Flip.angle+=25*DUREE_CYCLE;
+}
+}
+//else// if (gDonnees.Flip.angle>=0.90 && gDonnees.Flip.angle>0)
+//{
+Flip_wait+=1;
+gDonnees.Flip.angle-=25*DUREE_CYCLE*(Flip_wait>4 && gDonnees.Flip.angle>0);
+if (gDonnees.Flip.angle<0)
+{
+gDonnees.Flip.angle=0;
+}*/
+
     //}
     /*else
-    {
-        gDonnees.Flip.angle=0;
-    }*/
+{
+gDonnees.Flip.angle=0;
+}*/
     // Deplacement de la boule
     DeplacerBouleAvecRebonds() ;
 
     // On redessine la zone
     gInterface.ZoneDessin->redraw() ;
-    gInterface.ZoneDessin3->redraw() ;
-    gInterface.Score->redraw() ;
+    gInterface.ZoneScore->redraw() ;
+    gInterface.ValueScore->redraw() ;
     gInterface.Nb_billes->redraw() ;
 
 
@@ -117,7 +123,7 @@ void ZoneDessinSourisCB( Fl_Widget* widget, void* data )
 
     //if ( Fl::event() == FL_MOVE )
     //{
-    //    printf("Mouse move : x = %i y = %i\n", Fl::event_x(), Fl::event_y());
+    // printf("Mouse move : x = %i y = %i\n", Fl::event_x(), Fl::event_y());
     //}
 }
 
@@ -153,9 +159,9 @@ void ZoneDessinClavierCB( Fl_Widget* widget, void* data, bool key_is_down)
         // Caracteres
         case ' ' :
             printf("Appui sur la touche Espace\n");
-            if(gDonnees.Boule.X >= L_ZONE-RAYON_BOULE-8 && gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE-46)
+            if(gDonnees.Boule.X >=L_ZONE-RAYON_BOULE-8 && gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE-46)
             {
-                gDonnees.Boule.VY=-30;
+                gDonnees.Boule.VY=-6000; //5000-6000
             }
          //gDonnees.Valeur2 = gDonnees.Valeur2 + 1 ;
          //gInterface.Nb_billes->value(gDonnees.Valeur2) ;
@@ -183,7 +189,7 @@ void BoutonQuitterCB(Fl_Widget* w, void* data)
 
 /*void CaseRebondCB(Fl_Widget* w, void* data)
 {
-    gDonnees.Rebond = gInterface.CaseRebond->value() ;
+gDonnees.Rebond = gInterface.CaseRebond->value() ;
 }*/
 
 void BoutonActionCB(Fl_Widget* w, void* data)
