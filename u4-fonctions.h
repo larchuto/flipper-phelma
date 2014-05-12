@@ -70,7 +70,8 @@ struct Obb TriDL3;
 struct Flip FlipG;
 //Flip Droit
 struct Flip FlipD;
-
+struct Obb Ressort;
+unsigned int CompressionRessort;
 };
 
 
@@ -91,5 +92,7 @@ void DeplacerBouleAvecRebonds() ;
 // Utilitaires
 void JouerSon(char *) ; // Jouer un son
 void Attente(double Seconds); // Procedure d'attente
+void CompressionRessort();
+void RelachementRessort();
 
 #endif // _u4_fonctions_h

@@ -9,6 +9,7 @@ void Display_OBB(struct Obb OBB);
 void ZoneDessinDessinerCB( Fl_Widget* widget, void* data ) ;
 void ZoneMenuDessinerCB( Fl_Widget* widget, void* data ) ;
 void ZoneScoreDessinerCB( Fl_Widget* widget, void* data ) ;
+void DessineRessort(unsigned int compression);
 
 #endif // _u2_dessin_h
 

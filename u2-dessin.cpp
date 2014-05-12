@@ -140,7 +140,7 @@ void ZoneDessinDessinerCB( Fl_Widget* widget, void* data )
             }
 
 
-    DessineRessort(0);
+    DessineRessort(gDonnees.CompressionRessort);
     fl_color(FL_WHITE);
     //fl_rectf(150+20, 250+20, 100, 100);
     /*float x1=-25;
@@ -236,4 +236,5 @@ fl_polygon(x1f,y1f,x2f,y2f,x3f,y3f,x4f,y4f);*/
     Display_PieBB(gDonnees.FlipD.C2);
     Display_OBB(gDonnees.FlipD.L1);
     Display_OBB(gDonnees.FlipD.L2);
+	Display_OBB(gDonnees.Ressort);
 }

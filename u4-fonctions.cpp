@@ -102,6 +102,8 @@ InitialiserPieBB(&gDonnees.FlipD.C2,254,608,8.5);
 InitialiserOBB(&gDonnees.FlipD.L1,279/*+4*/,585.5/*+3*/,67,7,35.0/180*3.14159);
 InitialiserOBB(&gDonnees.FlipD.L2,290-3.5/*-4*/,597/*-3*/,65,7,29.0/180*3.14159);
 gDonnees.FlipD.angle=0;
+InitialiserOBB(&gDonnees.Ressort,L_ZONE-12-6,H_ZONE-20.5-6,24,41,0);
+gDonnees.CompressionRessort=0;
 /*gDonnees.Flip.X=100-20;
 gDonnees.Flip.Y=550-20;
 gDonnees.Flip.TX=100;
@@ -281,6 +283,29 @@ flip->L2.Y+=y0loc;
 
 }
 
+void CompressionRessort()
+{
+	if(gDonnees.Ressort.TY>11)
+	{
+		gDonnees.Ressort.TY-=10;
+		gDonnees.Ressort.Y+=5;
+		gDonnees.CompressionRessort+=1;
+	}
+	DessineRessort(gDonnees.CompressionRessort);
+}
+void RelachementRessort()
+{
+	if(gDonnees.Boule.X >=L_ZONE-RAYON_BOULE-8 && gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE-46)
+        {
+	        gDonnees.Boule.VY=-10*gDonnees.CompressionRessort/DUREE_CYCLE; //5000-6000
+        }
+	gDonnees.Boule.Y=H_ZONE-41-6-RAYON_BOULE;
+	gDonnees.CompressionRessort=0;
+	InitialiserOBB(&gDonnees.Ressort,L_ZONE-12-6,H_ZONE-20.5-6,24,41,0);
+	//DessineRessort(gDonnees.CompressionRessort);
+	//Display_OBB(gDonnees.Ressort);
+}
+
 bool Touche_obb(struct Obb barre,struct Boule bille, float* ximp,float* yimp)
 {
 struct Boule bille_loc=bille;
@@ -318,6 +343,7 @@ void DeplacerBouleAvecRebonds()
         //gravite =0;
         //rebond=true;
     }
+/*
     if ( gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE-46
 && gDonnees.Boule.X<=L_ZONE-RAYON_BOULE-4
 && gDonnees.Boule.X>=L_ZONE-RAYON_BOULE-8)
@@ -326,7 +352,7 @@ void DeplacerBouleAvecRebonds()
         gDonnees.Boule.VY = -1 *COEFF_PERTES * gDonnees.Boule.VY ;
         gDonnees.Boule.VX = 1*COEFF_PERTES*gDonnees.Boule.VX;
 
-    }
+    }*/
     if ( gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE)
     {
 //perdu !
@@ -396,7 +422,8 @@ Touche_obb(gDonnees.PenteG,gDonnees.Boule,&ximp,&yimp)
 || Touche_pie(gDonnees.FlipD.C1,gDonnees.Boule,&ximp,&yimp)
     || Touche_pie(gDonnees.FlipD.C2,gDonnees.Boule,&ximp,&yimp)
 || Touche_obb(gDonnees.FlipD.L1,gDonnees.Boule,&ximp,&yimp)
-|| Touche_obb(gDonnees.FlipD.L2,gDonnees.Boule,&ximp,&yimp);
+|| Touche_obb(gDonnees.FlipD.L2,gDonnees.Boule,&ximp,&yimp)
+|| Touche_obb(gDonnees.Ressort,gDonnees.Boule,&ximp,&yimp);
 
 if(Touche_pie(gDonnees.Bp1,gDonnees.Boule,&ximp,&yimp))
 {

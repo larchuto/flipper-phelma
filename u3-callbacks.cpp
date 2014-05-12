@@ -159,10 +159,8 @@ void ZoneDessinClavierCB( Fl_Widget* widget, void* data, bool key_is_down)
         // Caracteres
         case ' ' :
             printf("Appui sur la touche Espace\n");
-            if(gDonnees.Boule.X >=L_ZONE-RAYON_BOULE-8 && gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE-46)
-            {
-                gDonnees.Boule.VY=-6000; //5000-6000
-            }
+		if(key_is_down){CompressionRessort();}
+		else{RelachementRessort();}
          //gDonnees.Valeur2 = gDonnees.Valeur2 + 1 ;
          //gInterface.Nb_billes->value(gDonnees.Valeur2) ;
             break ;
