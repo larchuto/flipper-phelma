@@ -375,9 +375,6 @@ bool rebond=
 //Touche_aabb(gDonnees.Barre,gDonnees.Boule,&ximp,&yimp)
 Touche_obb(gDonnees.PenteG,gDonnees.Boule,&ximp,&yimp)
 || Touche_obb(gDonnees.PenteD,gDonnees.Boule,&ximp,&yimp)
-|| Touche_pie(gDonnees.Bp1,gDonnees.Boule,&ximp,&yimp)
-|| Touche_pie(gDonnees.Bp2,gDonnees.Boule,&ximp,&yimp)
-|| Touche_pie(gDonnees.Bp3,gDonnees.Boule,&ximp,&yimp)
 || (Touche_pie_int(gDonnees.Pieh,gDonnees.Boule,&ximp,&yimp)&&gDonnees.Boule.Y<215-RAYON_BOULE)
 || Touche_obb(gDonnees.Lanceur,gDonnees.Boule,&ximp,&yimp)
 || Touche_pie(gDonnees.TriGC1,gDonnees.Boule,&ximp,&yimp)
@@ -400,6 +397,19 @@ Touche_obb(gDonnees.PenteG,gDonnees.Boule,&ximp,&yimp)
     || Touche_pie(gDonnees.FlipD.C2,gDonnees.Boule,&ximp,&yimp)
 || Touche_obb(gDonnees.FlipD.L1,gDonnees.Boule,&ximp,&yimp)
 || Touche_obb(gDonnees.FlipD.L2,gDonnees.Boule,&ximp,&yimp);
+
+if(Touche_pie(gDonnees.Bp1,gDonnees.Boule,&ximp,&yimp))
+{
+rebond=true;
+}
+if(Touche_pie(gDonnees.Bp2,gDonnees.Boule,&ximp,&yimp))
+{
+rebond=true;
+}
+if(Touche_pie(gDonnees.Bp3,gDonnees.Boule,&ximp,&yimp))
+{
+rebond=true;
+}
 
 if(rebond)
 {
