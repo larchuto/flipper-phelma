@@ -68,6 +68,7 @@ struct Interface
     Fl_GIF_Image* Imagebip5;
     Fl_GIF_Image* Imagebip6;
     Fl_GIF_Image* Imagebip7;
+    Fl_GIF_Image* Imagebip[7];
 } ;
 
 // Declaration des objets de l'interface generale - ne pas supprimer
