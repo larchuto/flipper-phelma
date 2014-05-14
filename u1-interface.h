@@ -56,6 +56,18 @@ struct Interface
     Fl_GIF_Image* Imagefond;
     Fl_GIF_Image* Imagedecor;
     Fl_GIF_Image* Imagebille;
+    Fl_GIF_Image* Imagevert;
+    Fl_GIF_Image* Imagerouge;
+    Fl_GIF_Image* Imagebleu;
+    Fl_GIF_Image* Imagetriangleg;
+    Fl_GIF_Image* Imagetriangled;
+    Fl_GIF_Image* Imagebip1;
+    Fl_GIF_Image* Imagebip2;
+    Fl_GIF_Image* Imagebip3;
+    Fl_GIF_Image* Imagebip4;
+    Fl_GIF_Image* Imagebip5;
+    Fl_GIF_Image* Imagebip6;
+    Fl_GIF_Image* Imagebip7;
 } ;
 
 // Declaration des objets de l'interface generale - ne pas supprimer

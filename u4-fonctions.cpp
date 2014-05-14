@@ -22,6 +22,7 @@ using namespace std;
 // Definition des donnees fonctionnelles du projet - structure globale de variables
 struct Donnees gDonnees;
 float gravite= GRAVITE;
+int temp=0 , temp1=0 ,temp2=0, temp3=0, temp4=0;
 
 void InitialiserPieBB(struct Boule* pie, float x, float y, float rayon)
 {
@@ -314,13 +315,18 @@ bille_loc.Y=bille.Y-barre.Y;
 rotation(-barre.angle,&(bille_loc.X),&(bille_loc.Y));
 bille_loc.X=bille_loc.X+barre.X;
 bille_loc.Y=bille_loc.Y+barre.Y;
-bool retour=Touche_aabb(barre,bille_loc,ximp,yimp);
+//bool retour=Touche_aabb(barre,bille_loc,ximp,yimp);
+if (Touche_aabb(barre,bille_loc,ximp,yimp))
+{
 *ximp-=barre.X;
 *yimp-=barre.Y;
 rotation(barre.angle,ximp,yimp);
 *ximp+=barre.X;
 *yimp+=barre.Y;
-return retour;
+return true;
+}
+return false;
+//return retour;
 }
 
 void Rebond(Boule *bille,float ximp,float yimp)
@@ -399,43 +405,104 @@ float ximp;
 float yimp;
 bool rebond=
 //Touche_aabb(gDonnees.Barre,gDonnees.Boule,&ximp,&yimp)
-Touche_obb(gDonnees.PenteG,gDonnees.Boule,&ximp,&yimp)
-|| Touche_obb(gDonnees.PenteD,gDonnees.Boule,&ximp,&yimp)
-|| (Touche_pie_int(gDonnees.Pieh,gDonnees.Boule,&ximp,&yimp)&&gDonnees.Boule.Y<215-RAYON_BOULE)
-|| Touche_obb(gDonnees.Lanceur,gDonnees.Boule,&ximp,&yimp)
-|| Touche_pie(gDonnees.TriGC1,gDonnees.Boule,&ximp,&yimp)
-    || Touche_pie(gDonnees.TriGC2,gDonnees.Boule,&ximp,&yimp)
-|| Touche_pie(gDonnees.TriGC3,gDonnees.Boule,&ximp,&yimp)
-|| Touche_obb(gDonnees.TriGL1,gDonnees.Boule,&ximp,&yimp)
-|| Touche_obb(gDonnees.TriGL2,gDonnees.Boule,&ximp,&yimp)
-|| Touche_obb(gDonnees.TriGL3,gDonnees.Boule,&ximp,&yimp)
-|| Touche_pie(gDonnees.TriDC1,gDonnees.Boule,&ximp,&yimp)
-    || Touche_pie(gDonnees.TriDC2,gDonnees.Boule,&ximp,&yimp)
-|| Touche_pie(gDonnees.TriDC3,gDonnees.Boule,&ximp,&yimp)
-|| Touche_obb(gDonnees.TriDL1,gDonnees.Boule,&ximp,&yimp)
-|| Touche_obb(gDonnees.TriDL2,gDonnees.Boule,&ximp,&yimp)
-|| Touche_obb(gDonnees.TriDL3,gDonnees.Boule,&ximp,&yimp)
-|| Touche_pie(gDonnees.FlipG.C1,gDonnees.Boule,&ximp,&yimp)
-    || Touche_pie(gDonnees.FlipG.C2,gDonnees.Boule,&ximp,&yimp)
-|| Touche_obb(gDonnees.FlipG.L1,gDonnees.Boule,&ximp,&yimp)
-|| Touche_obb(gDonnees.FlipG.L2,gDonnees.Boule,&ximp,&yimp)
-|| Touche_pie(gDonnees.FlipD.C1,gDonnees.Boule,&ximp,&yimp)
-    || Touche_pie(gDonnees.FlipD.C2,gDonnees.Boule,&ximp,&yimp)
-|| Touche_obb(gDonnees.FlipD.L1,gDonnees.Boule,&ximp,&yimp)
-|| Touche_obb(gDonnees.FlipD.L2,gDonnees.Boule,&ximp,&yimp)
-|| Touche_obb(gDonnees.Ressort,gDonnees.Boule,&ximp,&yimp);
+	Touche_obb(gDonnees.PenteG,gDonnees.Boule,&ximp,&yimp)
+	|| Touche_obb(gDonnees.PenteD,gDonnees.Boule,&ximp,&yimp)
+	|| (Touche_pie_int(gDonnees.Pieh,gDonnees.Boule,&ximp,&yimp)&&gDonnees.Boule.Y<215-RAYON_BOULE)
+	|| Touche_obb(gDonnees.Lanceur,gDonnees.Boule,&ximp,&yimp)
+	//|| Touche_pie(gDonnees.TriGC1,gDonnees.Boule,&ximp,&yimp)
+    	//|| Touche_pie(gDonnees.TriGC2,gDonnees.Boule,&ximp,&yimp)
+	//|| Touche_pie(gDonnees.TriGC3,gDonnees.Boule,&ximp,&yimp)
+	//|| Touche_obb(gDonnees.TriGL1,gDonnees.Boule,&ximp,&yimp)
+	//|| Touche_obb(gDonnees.TriGL2,gDonnees.Boule,&ximp,&yimp)
+	//|| Touche_obb(gDonnees.TriGL3,gDonnees.Boule,&ximp,&yimp)
+	//|| Touche_pie(gDonnees.TriDC1,gDonnees.Boule,&ximp,&yimp)
+	//|| Touche_pie(gDonnees.TriDC2,gDonnees.Boule,&ximp,&yimp)
+	//|| Touche_pie(gDonnees.TriDC3,gDonnees.Boule,&ximp,&yimp)
+	//|| Touche_obb(gDonnees.TriDL1,gDonnees.Boule,&ximp,&yimp)
+	//|| Touche_obb(gDonnees.TriDL2,gDonnees.Boule,&ximp,&yimp)
+	//|| Touche_obb(gDonnees.TriDL3,gDonnees.Boule,&ximp,&yimp)
+	|| Touche_pie(gDonnees.FlipG.C1,gDonnees.Boule,&ximp,&yimp)
+   	|| Touche_pie(gDonnees.FlipG.C2,gDonnees.Boule,&ximp,&yimp)
+	|| Touche_obb(gDonnees.FlipG.L1,gDonnees.Boule,&ximp,&yimp)
+	|| Touche_obb(gDonnees.FlipG.L2,gDonnees.Boule,&ximp,&yimp)
+	|| Touche_pie(gDonnees.FlipD.C1,gDonnees.Boule,&ximp,&yimp)
+   	|| Touche_pie(gDonnees.FlipD.C2,gDonnees.Boule,&ximp,&yimp)
+	|| Touche_obb(gDonnees.FlipD.L1,gDonnees.Boule,&ximp,&yimp)
+	|| Touche_obb(gDonnees.FlipD.L2,gDonnees.Boule,&ximp,&yimp)
+	|| Touche_obb(gDonnees.Ressort,gDonnees.Boule,&ximp,&yimp);
 
+//Allumage bumpers
 if(Touche_pie(gDonnees.Bp1,gDonnees.Boule,&ximp,&yimp))
 {
-rebond=true;
+	rebond=true;
+	temp=1;
 }
+
 if(Touche_pie(gDonnees.Bp2,gDonnees.Boule,&ximp,&yimp))
 {
-rebond=true;
+	rebond=true;
+	temp1=1;
 }
 if(Touche_pie(gDonnees.Bp3,gDonnees.Boule,&ximp,&yimp))
 {
-rebond=true;
+	rebond=true;
+	temp2=1;
+}
+if (temp<NB_CYCLE_ALLUMAGE && temp>0)
+{
+    gInterface.Imagevert->draw(116+20, 98+20, 50, 50);
+    temp+=1;
+    temp%=NB_CYCLE_ALLUMAGE;
+}
+if (temp1<NB_CYCLE_ALLUMAGE && temp1>0)
+{
+    gInterface.Imagebleu->draw(265+20, 98+20, 50, 50);
+    temp1+=1;
+    temp1%=NB_CYCLE_ALLUMAGE;
+}
+if (temp2<NB_CYCLE_ALLUMAGE && temp2>0)
+{
+    gInterface.Imagerouge->draw(190+20, 163+20, 50, 50);
+    temp2+=1;
+    temp2%=NB_CYCLE_ALLUMAGE;
+}
+
+
+//Allumage triangles
+if( Touche_pie(gDonnees.TriGC1,gDonnees.Boule,&ximp,&yimp)
+|| Touche_pie(gDonnees.TriGC2,gDonnees.Boule,&ximp,&yimp)
+|| Touche_pie(gDonnees.TriGC3,gDonnees.Boule,&ximp,&yimp)
+|| Touche_obb(gDonnees.TriGL1,gDonnees.Boule,&ximp,&yimp)
+|| Touche_obb(gDonnees.TriGL2,gDonnees.Boule,&ximp,&yimp)
+|| Touche_obb(gDonnees.TriGL3,gDonnees.Boule,&ximp,&yimp))
+{
+	rebond=true;
+	temp3=1;
+}
+
+if (temp3<NB_CYCLE_ALLUMAGE && temp3>0)
+{
+    gInterface.Imagetriangleg->draw(64+20, 394+20, 58, 118);
+    temp3+=1;
+    temp3%=NB_CYCLE_ALLUMAGE;
+}
+
+if(Touche_pie(gDonnees.TriDC1,gDonnees.Boule,&ximp,&yimp)
+|| Touche_pie(gDonnees.TriDC2,gDonnees.Boule,&ximp,&yimp)
+|| Touche_pie(gDonnees.TriDC3,gDonnees.Boule,&ximp,&yimp)
+|| Touche_obb(gDonnees.TriDL1,gDonnees.Boule,&ximp,&yimp)
+|| Touche_obb(gDonnees.TriDL2,gDonnees.Boule,&ximp,&yimp)
+|| Touche_obb(gDonnees.TriDL3,gDonnees.Boule,&ximp,&yimp))
+{
+	rebond=true;
+	temp4=1;
+}
+
+if (temp4<NB_CYCLE_ALLUMAGE && temp4>0)
+{
+    gInterface.Imagetriangled->draw(308+20, 394+20, 58, 118);
+    temp4+=1;
+    temp4%=NB_CYCLE_ALLUMAGE;
 }
 
 if(rebond)

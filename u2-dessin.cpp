@@ -98,45 +98,38 @@ void ZoneDessinDessinerCB( Fl_Widget* widget, void* data )
 
     if(gDonnees.Boule.X >= L_ZONE-RAYON_BOULE-8 && gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE-46-113 && gDonnees.Boule.Y <= H_ZONE-RAYON_BOULE-46-113+20)
             {
-                Fl_GIF_Image Imagebip1("media/bip1.gif") ;
-                Imagebip1.draw(392+20, 457+20, 9, 40);
-                JouerSon("media/Sons/bips/rampe/bip_1.mp3");
+                gInterface.Imagebip1->draw(392+20, 457+20, 9, 40);
+                //JouerSon("media/Sons/bips/rampe/bip_1.mp3");
             }
     if(gDonnees.Boule.X >= L_ZONE-RAYON_BOULE-8 && gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE-46-113-(40*1) && gDonnees.Boule.Y <= H_ZONE-RAYON_BOULE-46-113-20)
             {
-                Fl_GIF_Image Imagebip2("media/bip2.gif") ;
-                Imagebip2.draw(392+20, 457-(40*1)+20, 9, 40);
-                JouerSon("media/Sons/bips/rampe/bip_2.mp3");
+                gInterface.Imagebip2->draw(392+20, 457-(40*1)+20, 9, 40);
+                //JouerSon("media/Sons/bips/rampe/bip_2.mp3");
             }
     if(gDonnees.Boule.X >= L_ZONE-RAYON_BOULE-8 && gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE-46-113-(40*2) && gDonnees.Boule.Y <= H_ZONE-RAYON_BOULE-46-113-20-(40*1))
             {
-                Fl_GIF_Image Imagebip3("media/bip3.gif") ;
-                Imagebip3.draw(392+20, 457-(40*2)+20, 9, 40);
-                JouerSon("media/Sons/bips/rampe/bip_3.mp3");
+                gInterface.Imagebip3->draw(392+20, 457-(40*2)+20, 9, 40);
+                //JouerSon("media/Sons/bips/rampe/bip_3.mp3");
             }
     if(gDonnees.Boule.X >= L_ZONE-RAYON_BOULE-8 && gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE-46-113-(40*3) && gDonnees.Boule.Y <= H_ZONE-RAYON_BOULE-46-113-20-(40*2))
             {
-                Fl_GIF_Image Imagebip4("media/bip4.gif") ;
-                Imagebip4.draw(392+20, 457-(40*3)+20, 9, 40);
-                JouerSon("media/Sons/bips/rampe/bip_4.mp3");
+                gInterface.Imagebip4->draw(392+20, 457-(40*3)+20, 9, 40);
+                //JouerSon("media/Sons/bips/rampe/bip_4.mp3");
             }
     if(gDonnees.Boule.X >= L_ZONE-RAYON_BOULE-8 && gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE-46-113-(40*4) && gDonnees.Boule.Y <= H_ZONE-RAYON_BOULE-46-113-20-(40*3))
             {
-                Fl_GIF_Image Imagebip5("media/bip5.gif") ;
-                Imagebip5.draw(392+20, 457-(40*4)+20, 9, 40);
-                JouerSon("media/Sons/bips/rampe/bip_5.mp3");
+                gInterface.Imagebip5->draw(392+20, 457-(40*4)+20, 9, 40);
+                //JouerSon("media/Sons/bips/rampe/bip_5.mp3");
             }
     if(gDonnees.Boule.X >= L_ZONE-RAYON_BOULE-8 && gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE-46-113-(40*5) && gDonnees.Boule.Y <= H_ZONE-RAYON_BOULE-46-113-20-(40*4))
             {
-                Fl_GIF_Image Imagebip6("media/bip6.gif") ;
-                Imagebip6.draw(392+20, 457-(40*5)+20, 9, 40);
-                JouerSon("media/Sons/bips/rampe/bip_6.mp3");
+                gInterface.Imagebip6->draw(392+20, 457-(40*5)+20, 9, 40);
+                //JouerSon("media/Sons/bips/rampe/bip_6.mp3");
             }
     if(gDonnees.Boule.X >= L_ZONE-RAYON_BOULE-8 && gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE-46-113-(40*6) && gDonnees.Boule.Y <= H_ZONE-RAYON_BOULE-46-113-20-(40*5))
             {
-                Fl_GIF_Image Imagebip7("media/bip7.gif") ;
-                Imagebip7.draw(392+20, 457-(40*6)+20, 9, 40);
-                JouerSon("media/Sons/bips/rampe/bip_7.mp3");
+                gInterface.Imagebip7->draw(392+20, 457-(40*6)+20, 9, 40);
+                //JouerSon("media/Sons/bips/rampe/bip_7.mp3");
             }
 
 

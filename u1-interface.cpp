@@ -40,6 +40,18 @@ void CreerInterface()
     gInterface.Imagefond= new Fl_GIF_Image("media/fond.gif") ;
     gInterface.Imagedecor= new Fl_GIF_Image("media/decor.gif") ;
     gInterface.Imagebille= new Fl_GIF_Image("media/bille.gif") ;
+    gInterface.Imagevert= new Fl_GIF_Image("media/vert.gif") ;
+    gInterface.Imagerouge= new Fl_GIF_Image("media/rouge.gif") ;
+    gInterface.Imagebleu= new Fl_GIF_Image("media/bleu.gif") ;
+    gInterface.Imagebip1= new Fl_GIF_Image("media/bip1.gif") ;
+    gInterface.Imagebip2= new Fl_GIF_Image("media/bip2.gif") ;
+    gInterface.Imagebip3= new Fl_GIF_Image("media/bip3.gif") ;
+    gInterface.Imagebip4= new Fl_GIF_Image("media/bip4.gif") ;
+    gInterface.Imagebip5= new Fl_GIF_Image("media/bip5.gif") ;
+    gInterface.Imagebip6= new Fl_GIF_Image("media/bip6.gif") ;
+    gInterface.Imagebip7= new Fl_GIF_Image("media/bip7.gif") ;
+    gInterface.Imagetriangleg= new Fl_GIF_Image("media/triangle_gauche.gif") ;
+    gInterface.Imagetriangled= new Fl_GIF_Image("media/triangle_droit.gif") ;
     gInterface.ZoneDessin = new DrawingArea(X_ZONE,Y_ZONE,L_ZONE,H_ZONE);
     gInterface.ZoneDessin->draw_callback( ZoneDessinDessinerCB, NULL ) ;
     gInterface.ZoneDessin->mouse_callback( ZoneDessinSourisCB, NULL ) ;
