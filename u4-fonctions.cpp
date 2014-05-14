@@ -305,8 +305,8 @@ void RelachementRessort()
 	if(gDonnees.Boule.X >=L_ZONE-RAYON_BOULE-8 && gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE-46)
     {
 		gDonnees.Boule.VY=1000+75*gDonnees.CompressionRessort ;//-10*gDonnees.CompressionRessort/DUREE_CYCLE; //5000-6000 //1000 //1200
+		gDonnees.Boule.Y=H_ZONE-41-6-RAYON_BOULE;
     }
-	gDonnees.Boule.Y=H_ZONE-41-6-RAYON_BOULE;
 	gDonnees.CompressionRessort=0;
 	InitialiserOBB(&gDonnees.Ressort,L_ZONE-12-6,H_ZONE-20.5-6,24,41,0);
 	//DessineRessort(gDonnees.CompressionRessort);
@@ -348,46 +348,19 @@ void Rebond(Boule *bille,float ximp,float yimp)
 
 void DeplacerBouleAvecRebonds()
 {
-//bool rebond=false;
     if ( gDonnees.Boule.X >= L_ZONE-RAYON_BOULE-5)
     {
         gDonnees.Boule.X = L_ZONE-RAYON_BOULE-5 ;
         gDonnees.Boule.VX = -1*COEFF_PERTES*gDonnees.Boule.VX ;
-        //gDonnees.Boule.VY = 1*COEFF_PERTES*gDonnees.Boule.VY;
-        //gravite =0;
-        //rebond=true;
     }
-/*
-    if ( gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE-46
-&& gDonnees.Boule.X<=L_ZONE-RAYON_BOULE-4
-&& gDonnees.Boule.X>=L_ZONE-RAYON_BOULE-8)
-    {
-        gDonnees.Boule.Y = H_ZONE-RAYON_BOULE-46 ;
-        gDonnees.Boule.VY = -1 *COEFF_PERTES * gDonnees.Boule.VY ;
-        gDonnees.Boule.VX = 1*COEFF_PERTES*gDonnees.Boule.VX;
 
-    }*/
     if ( gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE)
     {
-//perdu !
-/*
-gDonnees.Boule.Y = H_ZONE-RAYON_BOULE ;
-gDonnees.Boule.VY = -1 *COEFF_PERTES* gDonnees.Boule.VY ;
-if (gDonnees.Boule.VY < -1,0 )
-{
-gDonnees.Valeur = gDonnees.Valeur + 1 ;
-gInterface.Score->value(gDonnees.Valeur) ;
-//JouerSon("media/Sons/bips/bip6.mp3");
-}
-//gDonnees.Boule.VY = -1*COEFF_PERTES*gDonnees.Boule.VY ;
-gDonnees.Boule.VX = 1*COEFF_PERTES*gDonnees.Boule.VX;
-//gravite =0;
-//rebond=true;
-*/
-     gDonnees.Boule.X = L_ZONE-RAYON_BOULE-6;
-     gDonnees.Boule.Y = H_ZONE-RAYON_BOULE-50;
-gDonnees.Boule.VX=0;
-gDonnees.Boule.VY=0;
+    	//perdu !
+    	gDonnees.Boule.X = L_ZONE-RAYON_BOULE-6;
+    	gDonnees.Boule.Y = H_ZONE-RAYON_BOULE-50;
+		gDonnees.Boule.VX=0;
+		gDonnees.Boule.VY=0;
         gDonnees.Valeur2 = gDonnees.Valeur2 + 1 ;
         gInterface.Nb_billes->value(gDonnees.Valeur2) ;
     }
@@ -396,9 +369,6 @@ gDonnees.Boule.VY=0;
     {
         gDonnees.Boule.X = RAYON_BOULE+5 ;
         gDonnees.Boule.VX = -1*COEFF_PERTES*gDonnees.Boule.VX ;
-        //gDonnees.Boule.VY = 1*COEFF_PERTES*gDonnees.Boule.VY;
-        //gravite =0;
-        //rebond=true;
     }
 
     if ( gDonnees.Boule.Y <= RAYON_BOULE)
@@ -406,122 +376,119 @@ gDonnees.Boule.VY=0;
         gDonnees.Boule.Y = RAYON_BOULE ;
         gDonnees.Boule.VY = -1*COEFF_PERTES*gDonnees.Boule.VY ;
         gDonnees.Boule.VX = 1*COEFF_PERTES*gDonnees.Boule.VX;
-        //gravite =0;
-        //rebond=true;
     }
-float ximp;
-float yimp;
-bool rebond=
-//Touche_aabb(gDonnees.Barre,gDonnees.Boule,&ximp,&yimp)
-	Touche_obb(gDonnees.PenteG,gDonnees.Boule,&ximp,&yimp)
-	|| Touche_obb(gDonnees.PenteD,gDonnees.Boule,&ximp,&yimp)
-	|| (Touche_pie_int(gDonnees.Pieh,gDonnees.Boule,&ximp,&yimp)&&gDonnees.Boule.Y<215-RAYON_BOULE)
-	|| Touche_obb(gDonnees.Lanceur,gDonnees.Boule,&ximp,&yimp)
-	|| Touche_pie(gDonnees.FlipG.C1,gDonnees.Boule,&ximp,&yimp)
-   	|| Touche_pie(gDonnees.FlipG.C2,gDonnees.Boule,&ximp,&yimp)
-	|| Touche_obb(gDonnees.FlipG.L1,gDonnees.Boule,&ximp,&yimp)
-	|| Touche_obb(gDonnees.FlipG.L2,gDonnees.Boule,&ximp,&yimp)
-	|| Touche_pie(gDonnees.FlipD.C1,gDonnees.Boule,&ximp,&yimp)
-   	|| Touche_pie(gDonnees.FlipD.C2,gDonnees.Boule,&ximp,&yimp)
-	|| Touche_obb(gDonnees.FlipD.L1,gDonnees.Boule,&ximp,&yimp)
-	|| Touche_obb(gDonnees.FlipD.L2,gDonnees.Boule,&ximp,&yimp)
-	|| Touche_obb(gDonnees.Ressort,gDonnees.Boule,&ximp,&yimp);
 
-//Allumage bumpers
-if(Touche_pie(gDonnees.Bp1,gDonnees.Boule,&ximp,&yimp))
-{
-	rebond=true;
-	temp=1;
-}
+	float ximp;
+	float yimp;
+	bool rebond=
+		Touche_obb(gDonnees.PenteG,gDonnees.Boule,&ximp,&yimp)
+		|| Touche_obb(gDonnees.PenteD,gDonnees.Boule,&ximp,&yimp)
+		|| (Touche_pie_int(gDonnees.Pieh,gDonnees.Boule,&ximp,&yimp)&&gDonnees.Boule.Y<215-RAYON_BOULE)
+		|| Touche_obb(gDonnees.Lanceur,gDonnees.Boule,&ximp,&yimp)
+		|| Touche_pie(gDonnees.FlipG.C1,gDonnees.Boule,&ximp,&yimp)
+   		|| Touche_pie(gDonnees.FlipG.C2,gDonnees.Boule,&ximp,&yimp)
+		|| Touche_obb(gDonnees.FlipG.L1,gDonnees.Boule,&ximp,&yimp)
+		|| Touche_obb(gDonnees.FlipG.L2,gDonnees.Boule,&ximp,&yimp)
+		|| Touche_pie(gDonnees.FlipD.C1,gDonnees.Boule,&ximp,&yimp)
+   		|| Touche_pie(gDonnees.FlipD.C2,gDonnees.Boule,&ximp,&yimp)
+		|| Touche_obb(gDonnees.FlipD.L1,gDonnees.Boule,&ximp,&yimp)
+		|| Touche_obb(gDonnees.FlipD.L2,gDonnees.Boule,&ximp,&yimp)
+		|| Touche_obb(gDonnees.Ressort,gDonnees.Boule,&ximp,&yimp);
 
-if(Touche_pie(gDonnees.Bp2,gDonnees.Boule,&ximp,&yimp))
-{
-	rebond=true;
-	temp1=1;
-}
-if(Touche_pie(gDonnees.Bp3,gDonnees.Boule,&ximp,&yimp))
-{
-	rebond=true;
-	temp2=1;
-}
-if (temp<NB_CYCLE_ALLUMAGE && temp>0)
-{
-    gInterface.Imagevert->draw(116+20, 98+20, 50, 50);
-    temp+=1;
-    temp%=NB_CYCLE_ALLUMAGE;
-}
-if (temp1<NB_CYCLE_ALLUMAGE && temp1>0)
-{
-    gInterface.Imagebleu->draw(265+20, 98+20, 50, 50);
-    temp1+=1;
-    temp1%=NB_CYCLE_ALLUMAGE;
-}
-if (temp2<NB_CYCLE_ALLUMAGE && temp2>0)
-{
-    gInterface.Imagerouge->draw(190+20, 163+20, 50, 50);
-    temp2+=1;
-    temp2%=NB_CYCLE_ALLUMAGE;
-}
+	//Allumage bumpers
+	if(Touche_pie(gDonnees.Bp1,gDonnees.Boule,&ximp,&yimp))
+	{
+		rebond=true;
+		temp=1;
+	}
+
+	if(Touche_pie(gDonnees.Bp2,gDonnees.Boule,&ximp,&yimp))
+	{
+		rebond=true;
+		temp1=1;
+	}
+	if(Touche_pie(gDonnees.Bp3,gDonnees.Boule,&ximp,&yimp))
+	{
+		rebond=true;
+		temp2=1;
+	}
+	if (temp<NB_CYCLE_ALLUMAGE && temp>0)
+	{
+	    gInterface.Imagevert->draw(116+20, 98+20, 50, 50);
+	    temp+=1;
+	    temp%=NB_CYCLE_ALLUMAGE;
+	}
+	if (temp1<NB_CYCLE_ALLUMAGE && temp1>0)
+	{
+	    gInterface.Imagebleu->draw(265+20, 98+20, 50, 50);
+	    temp1+=1;
+	    temp1%=NB_CYCLE_ALLUMAGE;
+	}
+	if (temp2<NB_CYCLE_ALLUMAGE && temp2>0)
+	{
+	    gInterface.Imagerouge->draw(190+20, 163+20, 50, 50);
+	    temp2+=1;
+	    temp2%=NB_CYCLE_ALLUMAGE;
+	}
 
 
-//Allumage triangles
-if( Touche_pie(gDonnees.TriGC1,gDonnees.Boule,&ximp,&yimp)
-|| Touche_pie(gDonnees.TriGC2,gDonnees.Boule,&ximp,&yimp)
-|| Touche_pie(gDonnees.TriGC3,gDonnees.Boule,&ximp,&yimp)
-|| Touche_obb(gDonnees.TriGL1,gDonnees.Boule,&ximp,&yimp)
-|| Touche_obb(gDonnees.TriGL2,gDonnees.Boule,&ximp,&yimp)
-|| Touche_obb(gDonnees.TriGL3,gDonnees.Boule,&ximp,&yimp))
-{
-	rebond=true;
-	temp3=1;
-}
+	//Allumage triangles
+	if( Touche_pie(gDonnees.TriGC1,gDonnees.Boule,&ximp,&yimp)
+	|| Touche_pie(gDonnees.TriGC2,gDonnees.Boule,&ximp,&yimp)
+	|| Touche_pie(gDonnees.TriGC3,gDonnees.Boule,&ximp,&yimp)
+	|| Touche_obb(gDonnees.TriGL1,gDonnees.Boule,&ximp,&yimp)
+	|| Touche_obb(gDonnees.TriGL2,gDonnees.Boule,&ximp,&yimp)
+	|| Touche_obb(gDonnees.TriGL3,gDonnees.Boule,&ximp,&yimp))
+	{
+		rebond=true;
+		temp3=1;
+	}
 
-if (temp3<NB_CYCLE_ALLUMAGE && temp3>0)
-{
-    gInterface.Imagetriangleg->draw(64+20, 394+20, 58, 118);
-    temp3+=1;
-    temp3%=NB_CYCLE_ALLUMAGE;
-}
+	if (temp3<NB_CYCLE_ALLUMAGE && temp3>0)
+	{
+	    gInterface.Imagetriangleg->draw(64+20, 394+20, 58, 118);
+	    temp3+=1;
+	    temp3%=NB_CYCLE_ALLUMAGE;
+	}
 
-if(Touche_pie(gDonnees.TriDC1,gDonnees.Boule,&ximp,&yimp)
-	|| Touche_pie(gDonnees.TriDC2,gDonnees.Boule,&ximp,&yimp)
-	|| Touche_pie(gDonnees.TriDC3,gDonnees.Boule,&ximp,&yimp)
-	|| Touche_obb(gDonnees.TriDL1,gDonnees.Boule,&ximp,&yimp)
-	|| Touche_obb(gDonnees.TriDL2,gDonnees.Boule,&ximp,&yimp)
-	|| Touche_obb(gDonnees.TriDL3,gDonnees.Boule,&ximp,&yimp))
-{
-	rebond=true;
-	temp4=1;
-}
+	if(Touche_pie(gDonnees.TriDC1,gDonnees.Boule,&ximp,&yimp)
+		|| Touche_pie(gDonnees.TriDC2,gDonnees.Boule,&ximp,&yimp)
+		|| Touche_pie(gDonnees.TriDC3,gDonnees.Boule,&ximp,&yimp)
+		|| Touche_obb(gDonnees.TriDL1,gDonnees.Boule,&ximp,&yimp)
+		|| Touche_obb(gDonnees.TriDL2,gDonnees.Boule,&ximp,&yimp)
+		|| Touche_obb(gDonnees.TriDL3,gDonnees.Boule,&ximp,&yimp))
+	{
+		rebond=true;
+		temp4=1;
+	}
 
-if (temp4<NB_CYCLE_ALLUMAGE && temp4>0)
-{
-    gInterface.Imagetriangled->draw(308+20, 394+20, 58, 118);
-    temp4+=1;
-    temp4%=NB_CYCLE_ALLUMAGE;
-}
+	if (temp4<NB_CYCLE_ALLUMAGE && temp4>0)
+	{
+	    gInterface.Imagetriangled->draw(308+20, 394+20, 58, 118);
+	    temp4+=1;
+	    temp4%=NB_CYCLE_ALLUMAGE;
+	}
 
-if(rebond)
-{
-Rebond(&(gDonnees.Boule),ximp,yimp);
-//gDonnees.Boule.VX*=0.9;
-//gDonnees.Boule.VY*=0.9;
-        //gravite =0;
-}
-// Nouvelle position de la boule ...
-    //gDonnees.Boule.VX = gDonnees.Boule.VX;
+	if(rebond)
+	{
+	Rebond(&(gDonnees.Boule),ximp,yimp);
+	}
+
+	// Nouvelle position de la boule ...
     gDonnees.Boule.Y += gDonnees.Boule.VY*DUREE_CYCLE + sin(INCLINAISON)*0.5*gravite*DUREE_CYCLE*DUREE_CYCLE;
     gDonnees.Boule.VY = gDonnees.Boule.VY + sin(INCLINAISON)*gravite*DUREE_CYCLE;
-gDonnees.Boule.X += gDonnees.Boule.VX*DUREE_CYCLE;
+	gDonnees.Boule.X += gDonnees.Boule.VX*DUREE_CYCLE;
     //gDonnees.Boule.Y += gDonnees.Boule.Y + gDonnees.Boule.VY*DUREE_CYCLE + sin(INCLINAISON)/2*gravite*DUREE_CYCLE*DUREE_CYCLE;
     gravite=GRAVITE;
+
     if(gDonnees.Boule.VX*DUREE_CYCLE>RAYON_BOULE)
     {
-     gDonnees.Boule.VX=RAYON_BOULE/DUREE_CYCLE;
+    	gDonnees.Boule.VX=RAYON_BOULE/DUREE_CYCLE;
     }
+
     if(gDonnees.Boule.VY*DUREE_CYCLE>RAYON_BOULE)
     {
-     gDonnees.Boule.VY=RAYON_BOULE/DUREE_CYCLE;
+    	gDonnees.Boule.VY=RAYON_BOULE/DUREE_CYCLE;
     }
 }
 

@@ -16,83 +16,37 @@ using namespace std;
 
 bool Flip_left_is_touched =false;
 bool Flip_right_is_touched =false;
-int Flip_left_wait =0;
-int Flip_right_wait =0;
 
 // TraiterCycle
 void TraiterCycleCB()
 {
-    //if(gDonnees.Boule.X!=412){
-    //printf("vitesse x = %f\n",gDonnees.Boule.VX);
-    //printf("vitesse y = %f\n",gDonnees.Boule.VY*DUREE_CYCLE);}
-    //if(gDonnees.Boule.X!=412){
-    //printf("x = %f\n",gDonnees.Boule.X);
-    //printf("y = %f\n",gDonnees.Boule.Y);}
+    //Deplacement des Flip
     if (Flip_left_is_touched && gDonnees.FlipG.angle<1)
     {
-        //MoveFlip(&(gDonnees.FlipD),0.005);
-        MoveFlip(&(gDonnees.FlipG),+0.25);
+        MoveFlip(&(gDonnees.FlipG),+FLIP_ANGLE_PER_STEP);
     }
-    else if (!Flip_left_is_touched && gDonnees.FlipG.angle>0)// && Flip_left_wait>=10)
+    else if (!Flip_left_is_touched && gDonnees.FlipG.angle>0)
     {
-        MoveFlip(&(gDonnees.FlipG),-0.25);
-        //Flip_left_wait =0;
+        MoveFlip(&(gDonnees.FlipG),-FLIP_ANGLE_PER_STEP);
     }
-    /*else
-{
-Flip_left_wait +=1;
-}*/
+
     if (Flip_right_is_touched && gDonnees.FlipD.angle>-1)
     {
-        //MoveFlip(&(gDonnees.FlipD),0.005);
-        MoveFlip(&(gDonnees.FlipD),-0.25);
+        MoveFlip(&(gDonnees.FlipD),-FLIP_ANGLE_PER_STEP);
     }
-    else if (!Flip_right_is_touched && gDonnees.FlipD.angle<0)// && Flip_right_wait>=10)
+    else if (!Flip_right_is_touched && gDonnees.FlipD.angle<0)
     {
-        MoveFlip(&(gDonnees.FlipD),+0.25);
-        //int Flip_right_wait =0;
+        MoveFlip(&(gDonnees.FlipD),+FLIP_ANGLE_PER_STEP);
     }
-    /*else
-{
-Flip_right_wait +=1;
-}*/
-    //Flip_left_is_touched=false;
-    // Trace pour bien montrer que la fonction est appelee cycliquement
-    // printf(""Appel de TraiterCycleCB");
-    /*if(Flip_left_is_touched)
-{
-Flip_wait=0;
-gDonnees.Flip.angle+=50*DUREE_CYCLE;//*(gDonnees.Flip.angle<0.80);
-if (gDonnees.Flip.angle>0.95)
-{
-gDonnees.Flip.angle=0.95;
-//Flip_wait+=1;
-Flip_left_is_touched=false;
-//gDonnees.Flip.angle+=25*DUREE_CYCLE;
-}
-}
-//else// if (gDonnees.Flip.angle>=0.90 && gDonnees.Flip.angle>0)
-//{
-Flip_wait+=1;
-gDonnees.Flip.angle-=25*DUREE_CYCLE*(Flip_wait>4 && gDonnees.Flip.angle>0);
-if (gDonnees.Flip.angle<0)
-{
-gDonnees.Flip.angle=0;
-}*/
 
-    //}
-    /*else
-{
-gDonnees.Flip.angle=0;
-}*/
     // Deplacement de la boule
-    DeplacerBouleAvecRebonds() ;
+    DeplacerBouleAvecRebonds();
 
     // On redessine la zone
-    gInterface.ZoneDessin->redraw() ;
-    gInterface.ZoneScore->redraw() ;
-    gInterface.ValueScore->redraw() ;
-    gInterface.Nb_billes->redraw() ;
+    gInterface.ZoneDessin->redraw();
+    gInterface.ZoneScore->redraw();
+    gInterface.ValueScore->redraw();
+    gInterface.Nb_billes->redraw();
 
 
     // Code a activer en cas de probleme pour saisir les evenements du clavier
