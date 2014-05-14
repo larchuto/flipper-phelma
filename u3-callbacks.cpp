@@ -10,6 +10,7 @@
 #include "u1-interface.h"
 #include "u3-callbacks.h"
 #include "u4-fonctions.h"
+#include "u5-parametres.h"
 
 // Declaration pour utiliser iostream
 using namespace std;
@@ -138,11 +139,6 @@ void BoutonQuitterCB(Fl_Widget* w, void* data)
     // Fin du programme
     exit(0) ;
 }
-
-/*void CaseRebondCB(Fl_Widget* w, void* data)
-{
-gDonnees.Rebond = gInterface.CaseRebond->value() ;
-}*/
 
 void BoutonActionCB(Fl_Widget* w, void* data)
 {

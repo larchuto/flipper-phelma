@@ -22,7 +22,7 @@ using namespace std;
 // Definition des donnees fonctionnelles du projet - structure globale de variables
 struct Donnees gDonnees;
 float gravite= GRAVITE;
-int temp=0 , temp1=0 ,temp2=0, temp3=0, temp4=0;
+int temp=0 , temp1=0 ,temp2=0, temp3=0, temp4=0, temp_portails=0;
 
 void InitialiserPieBB(struct Boule* pie, float x, float y, float rayon)
 {
@@ -100,9 +100,27 @@ void InitialiserDonnees()
     InitialiserOBB(&gDonnees.FlipD.L2,290-3.5/*-4*/,597/*-3*/,65,7,29.0/180*3.14159);
     gDonnees.FlipD.angle=0;
 
+    //Flip
+        //gauche
+    InitialiserPieBB(&gDonnees.FlipG.C1,115,571,12);
+    InitialiserPieBB(&gDonnees.FlipG.C2,175,608,8.5);
+    InitialiserOBB(&gDonnees.FlipG.L1,150-3,585+2,67,12,-35.0/180*3.14159);
+    InitialiserOBB(&gDonnees.FlipG.L2,142+3,596-2,67,12,-29.2/180*3.14159);
+    gDonnees.FlipG.angle=0;
+        //droit
+    InitialiserPieBB(&gDonnees.FlipD.C1,314,571,12);
+    InitialiserPieBB(&gDonnees.FlipD.C2,254,608,8.5);
+    InitialiserOBB(&gDonnees.FlipD.L1,279+3,585.5+2,67,12,35.0/180*3.14159);
+    InitialiserOBB(&gDonnees.FlipD.L2,290-3.5-3,597-2,65,12,29.0/180*3.14159);
+    gDonnees.FlipD.angle=0;
+
     //Ressort
     InitialiserOBB(&gDonnees.Ressort,L_ZONE-12-6,H_ZONE-20.5-6,24,41,0);
     gDonnees.CompressionRessort=0;
+
+    //Teleporteurs
+    InitialiserPieBB(&gDonnees.PortailG,38.5,239,12);
+    InitialiserPieBB(&gDonnees.PortailD,346,271,12);
 
 
         // Exemple son
@@ -385,14 +403,6 @@ void DeplacerBouleAvecRebonds()
 		|| Touche_obb(gDonnees.PenteD,gDonnees.Boule,&ximp,&yimp)
 		|| (Touche_pie_int(gDonnees.Pieh,gDonnees.Boule,&ximp,&yimp)&&gDonnees.Boule.Y<215-RAYON_BOULE)
 		|| Touche_obb(gDonnees.Lanceur,gDonnees.Boule,&ximp,&yimp)
-		|| Touche_pie(gDonnees.FlipG.C1,gDonnees.Boule,&ximp,&yimp)
-   		|| Touche_pie(gDonnees.FlipG.C2,gDonnees.Boule,&ximp,&yimp)
-		|| Touche_obb(gDonnees.FlipG.L1,gDonnees.Boule,&ximp,&yimp)
-		|| Touche_obb(gDonnees.FlipG.L2,gDonnees.Boule,&ximp,&yimp)
-		|| Touche_pie(gDonnees.FlipD.C1,gDonnees.Boule,&ximp,&yimp)
-   		|| Touche_pie(gDonnees.FlipD.C2,gDonnees.Boule,&ximp,&yimp)
-		|| Touche_obb(gDonnees.FlipD.L1,gDonnees.Boule,&ximp,&yimp)
-		|| Touche_obb(gDonnees.FlipD.L2,gDonnees.Boule,&ximp,&yimp)
 		|| Touche_obb(gDonnees.Ressort,gDonnees.Boule,&ximp,&yimp);
 
 	//Allumage bumpers
@@ -429,6 +439,44 @@ void DeplacerBouleAvecRebonds()
 	    gInterface.Imagerouge->draw(190+20, 163+20, 50, 50);
 	    temp2+=1;
 	    temp2%=NB_CYCLE_ALLUMAGE;
+	}
+
+	//flips
+	if(Touche_pie(gDonnees.FlipG.C1,gDonnees.Boule,&ximp,&yimp)
+   		|| Touche_pie(gDonnees.FlipG.C2,gDonnees.Boule,&ximp,&yimp)
+		|| Touche_obb(gDonnees.FlipG.L1,gDonnees.Boule,&ximp,&yimp)
+		|| Touche_obb(gDonnees.FlipG.L2,gDonnees.Boule,&ximp,&yimp))
+	{
+		//TODO
+		rebond=true;
+	}
+	if(Touche_pie(gDonnees.FlipD.C1,gDonnees.Boule,&ximp,&yimp)
+   		|| Touche_pie(gDonnees.FlipD.C2,gDonnees.Boule,&ximp,&yimp)
+		|| Touche_obb(gDonnees.FlipD.L1,gDonnees.Boule,&ximp,&yimp)
+		|| Touche_obb(gDonnees.FlipD.L2,gDonnees.Boule,&ximp,&yimp))
+	{
+		//TODO
+		rebond=true;
+	}
+
+	//Teleporteurs
+	if(Touche_pie(gDonnees.PortailG,gDonnees.Boule,&ximp,&yimp) && temp_portails==0)
+	{
+		gDonnees.Boule.X=gDonnees.PortailD.X;
+		gDonnees.Boule.Y=gDonnees.PortailD.Y;
+		temp_portails=1;
+	}
+	if(Touche_pie(gDonnees.PortailD,gDonnees.Boule,&ximp,&yimp) && temp_portails==0)
+	{
+		gDonnees.Boule.X=gDonnees.PortailG.X;
+		gDonnees.Boule.Y=gDonnees.PortailG.Y;
+		temp_portails=1;
+		
+	}
+	if(temp_portails!=0)
+	{
+		temp_portails+=1;
+		temp_portails%=5;
 	}
 
 

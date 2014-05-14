@@ -18,25 +18,6 @@
 #include <FL/Fl_Value_Input.H>
 #include <FL/Fl_GIF_Image.H>
 
-// Definition des constantes
-#define X_ZONE 20 // X de la zone
-#define Y_ZONE 20 // Y de la zone
-#define L_ZONE 430 // Largeur de la zone
-#define H_ZONE 650 // Hauteur de la zone
-
-#define X_SCORE 470
-#define Y_SCORE 20
-#define L_SCORE 230
-#define H_SCORE 400
-
-#define X_MENU 470
-#define Y_MENU 440
-#define L_MENU 230
-#define H_MENU 230
-
-#define L_ZONE2 700
-
-
 // Declaration des objets de l'interface
 struct Interface
 {
@@ -61,13 +42,6 @@ struct Interface
     Fl_GIF_Image* Imagebleu;
     Fl_GIF_Image* Imagetriangleg;
     Fl_GIF_Image* Imagetriangled;
-    Fl_GIF_Image* Imagebip1;
-    Fl_GIF_Image* Imagebip2;
-    Fl_GIF_Image* Imagebip3;
-    Fl_GIF_Image* Imagebip4;
-    Fl_GIF_Image* Imagebip5;
-    Fl_GIF_Image* Imagebip6;
-    Fl_GIF_Image* Imagebip7;
     Fl_GIF_Image* Imagebip[7];
 } ;
 

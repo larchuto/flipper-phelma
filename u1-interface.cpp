@@ -7,6 +7,7 @@
 #include "u2-dessin.h"
 #include "u3-callbacks.h"
 #include "u4-fonctions.h"
+#include "u5-parametres.h"
 
 // Declaration pour utiliser iostream
 using namespace std;
@@ -60,10 +61,6 @@ void CreerInterface()
     // Creation du bouton Quitter
     gInterface.BoutonQuitter = new Fl_Button(590, 640, 100, 20, "Quitter") ;
     gInterface.BoutonQuitter->callback( BoutonQuitterCB, NULL ) ;
-
-    // Creation de la case a cocher Rebond
-    //gInterface.CaseRebond = new Fl_Check_Button(570, 500, 100, 20, "Rebond") ;
-    //gInterface.CaseRebond->callback( CaseRebondCB, NULL ) ;
 
     // Creation du bouton Action
     gInterface.BoutonAction = new Fl_Button(480, 640, 100, 20, "Action") ;

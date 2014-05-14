@@ -10,6 +10,7 @@
 #include "u1-interface.h"
 #include "u2-dessin.h"
 #include "u4-fonctions.h"
+#include "u5-parametres.h"
 
 
 
@@ -168,4 +169,6 @@ void ZoneDessinDessinerCB( Fl_Widget* widget, void* data )
     Display_OBB(gDonnees.FlipD.L1);
     Display_OBB(gDonnees.FlipD.L2);
 	Display_OBB(gDonnees.Ressort);
+    Display_PieBB(gDonnees.PortailG);
+    Display_PieBB(gDonnees.PortailD);
 }

@@ -10,6 +10,7 @@
 #include "u1-interface.h"
 #include "u3-callbacks.h"
 #include "u4-fonctions.h"
+#include "u5-parametres.h"
 
 // Declaration pour utiliser iostream
 using namespace std;

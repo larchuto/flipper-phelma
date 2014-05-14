@@ -3,11 +3,6 @@
 #ifndef _u4_fonctions_h
 #define _u4_fonctions_h
 
-// Definition des constantes
-#define DUREE_CYCLE 0.015 // 0.500 secondes, depend du materiel utilise
-#define RAYON_BOULE 12
-//#include "aabb.h"
-
 // Declaration des donnees du projet
 
 // Structure de definition de la boule
@@ -76,6 +71,8 @@ struct Donnees
 	struct Flip FlipD;
 
 	struct Obb Ressort;
+	struct Boule PortailG;
+	struct Boule PortailD;
 	unsigned int CompressionRessort;
 };
 
