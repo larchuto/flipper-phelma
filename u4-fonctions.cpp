@@ -291,6 +291,8 @@ void CompressionRessort()
 		gDonnees.Ressort.TY-=10;
 		gDonnees.Ressort.Y+=5;
 		gDonnees.CompressionRessort+=1;
+		//gDonnees.Boule.Y+=9;
+		//gDonnees.Boule.VY*=0.1;
 	}
 	DessineRessort(gDonnees.CompressionRessort);
 }
@@ -298,7 +300,7 @@ void RelachementRessort()
 {
 	if(gDonnees.Boule.X >=L_ZONE-RAYON_BOULE-8 && gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE-46)
         {
-	        gDonnees.Boule.VY=-10*gDonnees.CompressionRessort/DUREE_CYCLE; //5000-6000
+	        gDonnees.Boule.VY=1000+75*gDonnees.CompressionRessort ;//-10*gDonnees.CompressionRessort/DUREE_CYCLE; //5000-6000 //1000 //1200
         }
 	gDonnees.Boule.Y=H_ZONE-41-6-RAYON_BOULE;
 	gDonnees.CompressionRessort=0;
