@@ -22,7 +22,7 @@ using namespace std;
 // Definition des donnees fonctionnelles du projet - structure globale de variables
 struct Donnees gDonnees;
 float gravite= GRAVITE;
-int temp=0 , temp1=0 ,temp2=0, temp3=0, temp4=0, temp_portails=0;
+int temp=0 , temp1=0 ,temp2=0, temp3=0, temp4=0, temp5=0, temp6=0, temp_portails=0;
 
 void InitialiserPieBB(struct Boule* pie, float x, float y, float rayon)
 {
@@ -476,10 +476,13 @@ void DeplacerBouleAvecRebonds()
 		temp_portails=1;
 		
 	}
+
 	if(temp_portails!=0)
 	{
 		temp_portails+=1;
 		temp_portails%=15;
+		gInterface.Imageteleporteur->draw(21+20, 222+20, 35, 35);
+        gInterface.Imageteleporteur->draw(329+20, 254+20, 35, 35);
 	}
 
 
