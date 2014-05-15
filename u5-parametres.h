@@ -2,9 +2,9 @@
 //#define MASSEBILLE 20
 #define GRAVITE 18420*0.2 //9.81*1/0.171979167*30
 #define COEFF_PERTES 0.6
-#define NB_CYCLE_ALLUMAGE 500
+#define NB_CYCLE_ALLUMAGE 5
 #define FLIP_ANGLE_PER_STEP 0.25
-#define DUREE_CYCLE 0.00015 // 0.500 secondes, depend du materiel utilise
+#define DUREE_CYCLE 0.015 // 0.500 secondes, depend du materiel utilise
 #define RAYON_BOULE 12
 
 #define X_ZONE 20 // X de la zone

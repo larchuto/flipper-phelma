@@ -192,14 +192,14 @@ bool Touche_aabb(struct Obb barre,struct Boule bille,float* ximp,float* yimp)
         if(bille.Y<=barre.Y)
         {
             *ximp=bille.X;
-            *yimp=y1-bille.rayon;
+            *yimp=y1;//-bille.rayon;
             return true;
         }
 
         if(bille.Y>=barre.Y)
         {
             *ximp=bille.X;
-            *yimp=y2+bille.rayon;
+            *yimp=y2;//+bille.rayon;
             return true;
         }
     }
@@ -208,14 +208,14 @@ bool Touche_aabb(struct Obb barre,struct Boule bille,float* ximp,float* yimp)
     {
         if(bille.X<=barre.X)
         {
-            *ximp=x1-bille.rayon;
+            *ximp=x1;//-bille.rayon;
             *yimp=bille.Y;
             return true;
         }
 
         if(bille.X>=barre.X)
         {
-            *ximp=x2+bille.rayon;
+            *ximp=x2;//+bille.rayon;
             *yimp=bille.Y;
             return true;
         }
@@ -360,6 +360,9 @@ void Rebond(Boule *bille,float ximp,float yimp)
 	float ux=(bille->X-ximp)/sqrt((bille->X-ximp)*(bille->X-ximp)+(bille->Y-yimp)*(bille->Y-yimp));
 	float uy=(bille->Y-yimp)/sqrt((bille->X-ximp)*(bille->X-ximp)+(bille->Y-yimp)*(bille->Y-yimp));
 	float prod_scal = (bille->VX *ux + bille->VY *uy);
+	//à tester voir comportement avec les ronds
+	bille->X = ximp+bille->rayon*(bille->X-ximp)/sqrt((bille->X-ximp)*(bille->X-ximp)+(bille->Y-yimp)*(bille->Y-yimp));
+	bille->Y = yimp+bille->rayon*(bille->Y-yimp)/sqrt((bille->X-ximp)*(bille->X-ximp)+(bille->Y-yimp)*(bille->Y-yimp));
 	bille->VX = (bille->VX -2*prod_scal*ux);
 	bille->VY = (bille->VY -2*prod_scal*uy);
 }
@@ -424,7 +427,7 @@ void DeplacerBouleAvecRebonds()
 	}
 	if (temp<NB_CYCLE_ALLUMAGE && temp>0)
 	{
-	    gInterface.Imagevert->draw(116+20, 98+20, 50, 50);
+	    gInterface.Imagevert->draw(115+20, 98+20, 50, 50);
 	    temp+=1;
 	    temp%=NB_CYCLE_ALLUMAGE;
 	}
@@ -476,7 +479,7 @@ void DeplacerBouleAvecRebonds()
 	if(temp_portails!=0)
 	{
 		temp_portails+=1;
-		temp_portails%=5;
+		temp_portails%=15;
 	}
 
 
