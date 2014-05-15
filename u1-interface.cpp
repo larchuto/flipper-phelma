@@ -54,6 +54,8 @@ void CreerInterface()
     gInterface.Imagetriangleg= new Fl_GIF_Image("media/triangle_gauche.gif") ;
     gInterface.Imagetriangled= new Fl_GIF_Image("media/triangle_droit.gif") ;
     gInterface.Imageteleporteur= new Fl_GIF_Image("media/teleporteur.gif") ;
+    gInterface.Imageflipg= new Fl_GIF_Image("media/flipperg.gif") ;
+    gInterface.Imageflipd= new Fl_GIF_Image("media/flipperd.gif") ;
     gInterface.ZoneDessin = new DrawingArea(X_ZONE,Y_ZONE,L_ZONE,H_ZONE);
     gInterface.ZoneDessin->draw_callback( ZoneDessinDessinerCB, NULL ) ;
     gInterface.ZoneDessin->mouse_callback( ZoneDessinSourisCB, NULL ) ;

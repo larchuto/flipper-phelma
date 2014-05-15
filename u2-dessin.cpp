@@ -88,6 +88,10 @@ void ZoneDessinDessinerCB( Fl_Widget* widget, void* data )
     //dessin decors
     gInterface.Imagedecor->draw(X_ZONE, Y_ZONE, L_ZONE, H_ZONE);
 
+    //dessin flippers
+    gInterface.Imageflipg->draw(104, 560, 80, 57);
+    gInterface.Imageflipd->draw(246, 560, 80, 57);
+
     //dessin rampe de lancement
     if(gDonnees.Boule.X >= L_ZONE-RAYON_BOULE-8 && gDonnees.Boule.Y <= H_ZONE-RAYON_BOULE-46-113+20 && gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE-46-113-40*6)
     {
