@@ -404,7 +404,7 @@ void DeplacerBouleAvecRebonds()
 	bool rebond=
 		Touche_obb(gDonnees.PenteG,gDonnees.Boule,&ximp,&yimp)
 		|| Touche_obb(gDonnees.PenteD,gDonnees.Boule,&ximp,&yimp)
-		|| (Touche_pie_int(gDonnees.Pieh,gDonnees.Boule,&ximp,&yimp)&&gDonnees.Boule.Y<215-RAYON_BOULE)
+		|| (gDonnees.Boule.Y<215-RAYON_BOULE&&Touche_pie_int(gDonnees.Pieh,gDonnees.Boule,&ximp,&yimp))
 		|| Touche_obb(gDonnees.Lanceur,gDonnees.Boule,&ximp,&yimp)
 		|| Touche_obb(gDonnees.Ressort,gDonnees.Boule,&ximp,&yimp);
 
