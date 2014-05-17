@@ -78,9 +78,11 @@ void ZoneMenuDessinerCB( Fl_Widget* widget, void* data )
 
 void ZoneDessinDessinerCB( Fl_Widget* widget, void* data )
 {
+    gInterface.Imagescore->draw(X_SCORE, Y_SCORE, L_SCORE, H_SCORE);
+    gInterface.Imagemenu->draw(X_MENU, Y_MENU, L_MENU, H_MENU); //pourrais ne pas être affiché en permanence
     // On efface toute la zone ( en dessinant dessus l'image de fond )
     gInterface.Imagefond->draw(X_ZONE, Y_ZONE, L_ZONE, H_ZONE);
-    //Attente(0.00005);
+    Attente(0.03); //wtf ?
 
     // On dessine la bille
     gInterface.Imagebille->draw(X_ZONE + gDonnees.Boule.X - RAYON_BOULE, Y_ZONE + gDonnees.Boule.Y - RAYON_BOULE);

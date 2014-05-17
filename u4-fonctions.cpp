@@ -47,7 +47,7 @@ void InitialiserDonnees()
 
     // On initialise la boule
     gDonnees.Boule.X = L_ZONE-RAYON_BOULE-6;
-    gDonnees.Boule.Y = H_ZONE-RAYON_BOULE-50;
+    gDonnees.Boule.Y = H_ZONE-RAYON_BOULE-47;
     gDonnees.Boule.rayon=RAYON_BOULE;
     gDonnees.Boule.VX = 0 ;
     gDonnees.Boule.VY = 0 ;
@@ -313,20 +313,24 @@ void CompressionRessort()
 		gDonnees.Ressort.Y+=5;
 		gDonnees.CompressionRessort+=1;
 		//gDonnees.Boule.Y+=9;
-		//gDonnees.Boule.VY*=0.1;
+		if(gDonnees.Boule.Y==gDonnees.Ressort.Y-gDonnees.Ressort.TY/2-gDonnees.Boule.rayon && L_ZONE-gDonnees.Boule.rayon-8)
+		{
+			gDonnees.Boule.Y-=10;
+		}
 	}
 	DessineRessort(gDonnees.CompressionRessort);
 }
 
 void RelachementRessort()
 {
-	if(gDonnees.Boule.X >=L_ZONE-RAYON_BOULE-8 && gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE-46)
+	if(gDonnees.Boule.X >=L_ZONE-RAYON_BOULE-8 && gDonnees.Boule.Y >= H_ZONE-2*RAYON_BOULE-46)
     {
-		gDonnees.Boule.VY=1000+75*gDonnees.CompressionRessort ;//-10*gDonnees.CompressionRessort/DUREE_CYCLE; //5000-6000 //1000 //1200
-		gDonnees.Boule.Y=H_ZONE-41-6-RAYON_BOULE;
+		gDonnees.Boule.VY=-1000-75*float(gDonnees.CompressionRessort);//-10*float(gDonnees.CompressionRessort)/DUREE_CYCLE/COEFF_PERTES*PIXEL_TO_M;//-10*float(gDonnees.CompressionRessort)/DUREE_CYCLE; //5000-6000 //1000 //1200
+		gDonnees.Boule.Y=H_ZONE-41-6-RAYON_BOULE-10;
     }
 	gDonnees.CompressionRessort=0;
 	InitialiserOBB(&gDonnees.Ressort,L_ZONE-12-6,H_ZONE-20.5-6,24,41,0);
+	//gDonnees.Boule.Y=100;//H_ZONE-20.5-6-RAYON_BOULE;
 	//DessineRessort(gDonnees.CompressionRessort);
 	//Display_OBB(gDonnees.Ressort);
 }
@@ -398,7 +402,7 @@ void DeplacerBouleAvecRebonds()
         gDonnees.Boule.VY = -1*COEFF_PERTES*gDonnees.Boule.VY ;
         gDonnees.Boule.VX = 1*COEFF_PERTES*gDonnees.Boule.VX;
     }
-
+    float pertes=COEFF_PERTES;
 	float ximp;
 	float yimp;
 	bool rebond=
@@ -407,7 +411,10 @@ void DeplacerBouleAvecRebonds()
 		|| (gDonnees.Boule.Y<215-RAYON_BOULE&&Touche_pie_int(gDonnees.Pieh,gDonnees.Boule,&ximp,&yimp))
 		|| Touche_obb(gDonnees.Lanceur,gDonnees.Boule,&ximp,&yimp)
 		|| Touche_obb(gDonnees.Ressort,gDonnees.Boule,&ximp,&yimp);
-
+		if (gDonnees.Boule.Y<215-RAYON_BOULE&&Touche_pie_int(gDonnees.Pieh,gDonnees.Boule,&ximp,&yimp))
+		{
+			pertes=1;
+		}
 	//Allumage bumpers
 	if(Touche_pie(gDonnees.Bp1,gDonnees.Boule,&ximp,&yimp))
 	{
@@ -525,11 +532,14 @@ void DeplacerBouleAvecRebonds()
 
 	if(rebond)
 	{
-	Rebond(&(gDonnees.Boule),ximp,yimp);
+		Rebond(&(gDonnees.Boule),ximp,yimp);
+			//gestion des pertes
+    	gDonnees.Boule.VY*=pertes;
+   		gDonnees.Boule.VX*=pertes;
 	}
 
 	// Nouvelle position de la boule ...
-    gDonnees.Boule.Y += gDonnees.Boule.VY*DUREE_CYCLE + sin(INCLINAISON)*0.5*gravite*DUREE_CYCLE*DUREE_CYCLE;
+    gDonnees.Boule.Y += gDonnees.Boule.VY*DUREE_CYCLE;// + sin(INCLINAISON)*0.5*gravite*DUREE_CYCLE*DUREE_CYCLE;
     gDonnees.Boule.VY = gDonnees.Boule.VY + sin(INCLINAISON)*gravite*DUREE_CYCLE;
 	gDonnees.Boule.X += gDonnees.Boule.VX*DUREE_CYCLE;
     //gDonnees.Boule.Y += gDonnees.Boule.Y + gDonnees.Boule.VY*DUREE_CYCLE + sin(INCLINAISON)/2*gravite*DUREE_CYCLE*DUREE_CYCLE;

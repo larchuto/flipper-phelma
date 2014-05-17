@@ -25,17 +25,17 @@ void CreerInterface()
 
     // Creation de la zone de score
     gInterface.Imagescore= new Fl_GIF_Image("media/score.gif") ;
-    gInterface.ZoneScore = new DrawingArea(X_SCORE,Y_SCORE,L_SCORE,H_SCORE);
-    gInterface.ZoneScore->draw_callback( ZoneScoreDessinerCB, NULL ) ;
+    //gInterface.ZoneScore = new DrawingArea(X_SCORE,Y_SCORE,L_SCORE,H_SCORE);
+    //gInterface.ZoneScore->draw_callback( ZoneScoreDessinerCB, NULL ) ;
     //gInterface.ZoneScore->mouse_callback( ZoneDessinSourisCB, NULL ) ;
-    gInterface.ZoneScore->keyboard_callback( ZoneDessinClavierCB, NULL) ;
+    //gInterface.ZoneScore->keyboard_callback( ZoneDessinClavierCB, NULL) ;
 
     // Creation de la zone de menu
     gInterface.Imagemenu= new Fl_GIF_Image("media/menu.gif") ;
-    gInterface.ZoneMenu = new DrawingArea(X_MENU,Y_MENU,L_MENU,H_MENU);
-    gInterface.ZoneMenu->draw_callback( ZoneMenuDessinerCB, NULL ) ;
+    //gInterface.ZoneMenu = new DrawingArea(X_MENU,Y_MENU,L_MENU,H_MENU);
+    //gInterface.ZoneMenu->draw_callback( ZoneMenuDessinerCB, NULL ) ;
     //gInterface.ZoneMenu->mouse_callback( ZoneDessinSourisCB, NULL ) ;
-    gInterface.ZoneMenu->keyboard_callback( ZoneDessinClavierCB, NULL ) ;
+    //gInterface.ZoneMenu->keyboard_callback( ZoneDessinClavierCB, NULL ) ;
 
     // Creation de la zone de dessin
     gInterface.Imagefond= new Fl_GIF_Image("media/fond.gif") ;
@@ -56,7 +56,7 @@ void CreerInterface()
     gInterface.Imageteleporteur= new Fl_GIF_Image("media/teleporteur.gif") ;
     gInterface.Imageflipg= new Fl_GIF_Image("media/flipperg.gif") ;
     gInterface.Imageflipd= new Fl_GIF_Image("media/flipperd.gif") ;
-    gInterface.ZoneDessin = new DrawingArea(X_ZONE,Y_ZONE,L_ZONE,H_ZONE);
+    gInterface.ZoneDessin = new DrawingArea(X_ZONE,Y_ZONE,L_ZONE+20+L_MENU,H_ZONE);
     gInterface.ZoneDessin->draw_callback( ZoneDessinDessinerCB, NULL ) ;
     gInterface.ZoneDessin->mouse_callback( ZoneDessinSourisCB, NULL ) ;
     gInterface.ZoneDessin->keyboard_callback( ZoneDessinClavierCB, NULL ) ;
