@@ -7,6 +7,7 @@
 #define FLIP_ANGLE_PER_STEP 0.25
 #define DUREE_CYCLE 0.015 // 0.500 secondes, depend du materiel utilise
 #define RAYON_BOULE 12
+#define MAX_ANGLE_FLIP 1
 
 #define X_ZONE 20 // X de la zone
 #define Y_ZONE 20 // Y de la zone

@@ -31,6 +31,7 @@ int main (int argc, char ** argv)
 
     // Armement de la fonction cyclique
     Fl::add_timeout(DUREE_CYCLE, CycleCB, NULL ) ;
+    //Fl::visual(FL_RGB);
 
     // Lancer la boucle de gestion des evenements
     return Fl::run();
@@ -43,7 +44,7 @@ void CycleCB( void* )
     TraiterCycleCB() ;
 
     // Rearmement de la fonction cyclique
-    Fl::add_timeout(DUREE_CYCLE, CycleCB, NULL ) ;
+    Fl::repeat_timeout(DUREE_CYCLE, CycleCB, NULL ) ;
 }
 
 

@@ -454,16 +454,16 @@ void DeplacerBouleAvecRebonds()
 	//flips
 	if(Touche_pie(gDonnees.FlipG.C1,gDonnees.Boule,&ximp,&yimp)
    		|| Touche_pie(gDonnees.FlipG.C2,gDonnees.Boule,&ximp,&yimp)
-		|| Touche_obb(gDonnees.FlipG.L1,gDonnees.Boule,&ximp,&yimp)
-		|| Touche_obb(gDonnees.FlipG.L2,gDonnees.Boule,&ximp,&yimp))
+		|| Touche_obb(gDonnees.FlipG.L1,gDonnees.Boule,&ximp,&yimp))
+		//|| Touche_obb(gDonnees.FlipG.L2,gDonnees.Boule,&ximp,&yimp))
 	{
 		//TODO
 		rebond=true;
 	}
 	if(Touche_pie(gDonnees.FlipD.C1,gDonnees.Boule,&ximp,&yimp)
    		|| Touche_pie(gDonnees.FlipD.C2,gDonnees.Boule,&ximp,&yimp)
-		|| Touche_obb(gDonnees.FlipD.L1,gDonnees.Boule,&ximp,&yimp)
-		|| Touche_obb(gDonnees.FlipD.L2,gDonnees.Boule,&ximp,&yimp))
+		|| Touche_obb(gDonnees.FlipD.L1,gDonnees.Boule,&ximp,&yimp))
+		//|| Touche_obb(gDonnees.FlipD.L2,gDonnees.Boule,&ximp,&yimp))
 	{
 		//TODO
 		rebond=true;

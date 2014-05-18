@@ -2,6 +2,7 @@
 // Declarations externes - inclusion des fichiers d'entete
 // Librairies standards
 #include <iostream> // cin, cout, ...
+#include <unistd.h>
 // Librairies fltk
 #include <FL/Fl_GIF_Image.H>
 #include <FL/Fl.H>
@@ -28,31 +29,16 @@ void Display_PieBB(struct Boule CBB)
 void Display_OBB(struct Obb OBB)
 {
     fl_color(FL_GREEN);
-    float x1=-OBB.TX/2;
-    float y1=OBB.TY/2;
-    float x2=OBB.TX/2;
-    float y2=OBB.TY/2;
-    float x3=OBB.TX/2;
-    float y3=-OBB.TY/2;
-    float x4=-OBB.TX/2;
-    float y4=-OBB.TY/2;
-    rotation(OBB.angle,&x1,&y1);
-    rotation(OBB.angle,&x2,&y2);
-    rotation(OBB.angle,&x3,&y3);
-    rotation(OBB.angle,&x4,&y4);
-    x1+=OBB.X+20;
-    y1+=OBB.Y+20;
-    x2+=OBB.X+20;
-    y2+=OBB.Y+20;
-    x3+=OBB.X+20;
-    y3+=OBB.Y+20;
-    x4+=OBB.X+20;
-    y4+=OBB.Y+20;
-    //fl_polygon(x1,y1,x2,y2,x3,y3,x4,y4);
-    fl_line(x1,y1,x2,y2);
-    fl_line(x2,y2,x3,y3);
-    fl_line(x3,y3,x4,y4);
-    fl_line(x4,y4,x1,y1);
+    fl_translate(OBB.X+20,OBB.Y+20);
+    fl_rotate(OBB.angle/3.14159*180);
+    fl_begin_loop();
+    fl_vertex(-OBB.TX/2,OBB.TY/2);
+    fl_vertex(OBB.TX/2,OBB.TY/2);
+    fl_vertex(OBB.TX/2,-OBB.TY/2);
+    fl_vertex(-OBB.TX/2,-OBB.TY/2);
+    fl_end_loop();
+    fl_rotate(-OBB.angle/3.14159*180);
+    fl_translate(-OBB.X-20,-OBB.Y-20);
 }
 
 void DessineRessort(unsigned int compression)
@@ -62,6 +48,24 @@ void DessineRessort(unsigned int compression)
     path[13]='0';//+(char)compression;
     Fl_GIF_Image Imageressort(path) ;
     Imageressort.draw(421, 624+10*compression, 24, 41-10*compression);
+}
+
+void DessineFlipG()
+{
+    //fl_begin_polygon();
+    //fl_gap();
+    //fl_vertex(50,70);
+    //fl_arc(100, 100, 20, 0, 360);
+    //fl_vertex(50,30);
+    //fl_vertex(80,30);
+    //fl_arc(80, 50, 20, 270, 90);
+    //fl_vertex(80,70);
+    //fl_end_polygon();
+}
+
+void DessineFlipD()
+{
+    
 }
 
 void ZoneScoreDessinerCB( Fl_Widget* widget, void* data )
@@ -78,11 +82,13 @@ void ZoneMenuDessinerCB( Fl_Widget* widget, void* data )
 
 void ZoneDessinDessinerCB( Fl_Widget* widget, void* data )
 {
+    DessineFlipG();
     gInterface.Imagescore->draw(X_SCORE, Y_SCORE, L_SCORE, H_SCORE);
     gInterface.Imagemenu->draw(X_MENU, Y_MENU, L_MENU, H_MENU); //pourrais ne pas être affiché en permanence
     // On efface toute la zone ( en dessinant dessus l'image de fond )
     gInterface.Imagefond->draw(X_ZONE, Y_ZONE, L_ZONE, H_ZONE);
     Attente(0.03); //wtf ?
+    //sleep(0.03);
 
     // On dessine la bille
     gInterface.Imagebille->draw(X_ZONE + gDonnees.Boule.X - RAYON_BOULE, Y_ZONE + gDonnees.Boule.Y - RAYON_BOULE);
@@ -91,6 +97,7 @@ void ZoneDessinDessinerCB( Fl_Widget* widget, void* data )
     gInterface.Imagedecor->draw(X_ZONE, Y_ZONE, L_ZONE, H_ZONE);
 
     //dessin flippers
+    //fl_rotate(10);
     gInterface.Imageflipg->draw(104, 560, 80, 57);
     gInterface.Imageflipd->draw(246, 560, 80, 57);
 

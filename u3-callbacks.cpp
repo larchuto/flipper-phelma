@@ -22,7 +22,7 @@ bool Flip_right_is_touched =false;
 void TraiterCycleCB()
 {
     //Deplacement des Flip
-    if (Flip_left_is_touched && gDonnees.FlipG.angle<1)
+    if (Flip_left_is_touched && gDonnees.FlipG.angle<MAX_ANGLE_FLIP)
     {
         MoveFlip(&(gDonnees.FlipG),+FLIP_ANGLE_PER_STEP);
     }
@@ -31,7 +31,7 @@ void TraiterCycleCB()
         MoveFlip(&(gDonnees.FlipG),-FLIP_ANGLE_PER_STEP);
     }
 
-    if (Flip_right_is_touched && gDonnees.FlipD.angle>-1)
+    if (Flip_right_is_touched && gDonnees.FlipD.angle>-MAX_ANGLE_FLIP)
     {
         MoveFlip(&(gDonnees.FlipD),-FLIP_ANGLE_PER_STEP);
     }
