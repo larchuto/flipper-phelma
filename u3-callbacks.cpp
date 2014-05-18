@@ -25,6 +25,8 @@ void TraiterCycleCB()
     if (Flip_left_is_touched && gDonnees.FlipG.angle<MAX_ANGLE_FLIP)
     {
         MoveFlip(&(gDonnees.FlipG),+FLIP_ANGLE_PER_STEP);
+        PushBall(&(gDonnees.FlipG), &(gDonnees.Boule));
+
     }
     else if (!Flip_left_is_touched && gDonnees.FlipG.angle>0)
     {
@@ -34,6 +36,8 @@ void TraiterCycleCB()
     if (Flip_right_is_touched && gDonnees.FlipD.angle>-MAX_ANGLE_FLIP)
     {
         MoveFlip(&(gDonnees.FlipD),-FLIP_ANGLE_PER_STEP);
+        PushBall(&(gDonnees.FlipD), &(gDonnees.Boule));
+
     }
     else if (!Flip_right_is_touched && gDonnees.FlipD.angle<0)
     {

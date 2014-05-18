@@ -90,8 +90,9 @@ bool Touche_aabb(struct Obb barre,struct Boule bille,float* ximp,float* yimp);
 bool Touche_obb(struct Obb barre,struct Boule bille,float* ximp,float* yimp);
 void MoveFlip(struct Flip* flip, float angle);
 void Rebond(Boule* bille,float ximp,float yimp);
+void PushBall(struct Flip* Flip, struct Boule* bille);
 //void Rebond(float* VX,float* VY,float ux,float uy);
-void DeplacerBouleAvecRebonds() ;
+void DeplacerBouleAvecRebonds();
 // Utilitaires
 void JouerSon(const char *) ; // Jouer un son
 void Attente(double Seconds); // Procedure d'attente
