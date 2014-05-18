@@ -30,6 +30,7 @@ struct Flip
 	struct Boule C2;
 	struct Obb L1;
 	struct Obb L2;
+	struct Obb L3;
 	float angle;
 };
 

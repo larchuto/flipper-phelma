@@ -85,7 +85,7 @@ void InitialiserDonnees()
     InitialiserOBB(&gDonnees.TriDL1,360,437.5,10,75,0);
     InitialiserOBB(&gDonnees.TriDL2,340,493,10,42,-54.5/180*3.14159);
     InitialiserOBB(&gDonnees.TriDL3,332,451,10,105,-21.25/180*3.14159);
-
+/*
     //Flip
         //gauche
     InitialiserPieBB(&gDonnees.FlipG.C1,115,571,12);
@@ -96,22 +96,26 @@ void InitialiserDonnees()
         //droit
     InitialiserPieBB(&gDonnees.FlipD.C1,314,571,12);
     InitialiserPieBB(&gDonnees.FlipD.C2,254,608,8.5);
-    InitialiserOBB(&gDonnees.FlipD.L1,279/*+4*/,585.5/*+3*/,67,7,35.0/180*3.14159);
-    InitialiserOBB(&gDonnees.FlipD.L2,290-3.5/*-4*/,597/*-3*/,65,7,29.0/180*3.14159);
+    InitialiserOBB(&gDonnees.FlipD.L1,279,585.5,67,7,35.0/180*3.14159);
+    InitialiserOBB(&gDonnees.FlipD.L2,290-3.5,597,65,7,29.0/180*3.14159);
     gDonnees.FlipD.angle=0;
-
+*/
     //Flip
         //gauche
     InitialiserPieBB(&gDonnees.FlipG.C1,115,571,12);
     InitialiserPieBB(&gDonnees.FlipG.C2,175,608,8.5);
     InitialiserOBB(&gDonnees.FlipG.L1,150-3,585+2,67,12,-35.0/180*3.14159);
-    InitialiserOBB(&gDonnees.FlipG.L2,142+3,596-2,67,12,-29.2/180*3.14159);
+    //InitialiserOBB(&gDonnees.FlipG.L2,142+3,596-2,67,12,-29.2/180*3.14159);
+    InitialiserOBB(&gDonnees.FlipG.L2,142,596,67,7,-29.2/180*3.14159);
+    InitialiserOBB(&gDonnees.FlipG.L3,150-3-14,585+2+22,67,12+50,-35.0/180*3.14159);
     gDonnees.FlipG.angle=0;
         //droit
     InitialiserPieBB(&gDonnees.FlipD.C1,314,571,12);
     InitialiserPieBB(&gDonnees.FlipD.C2,254,608,8.5);
     InitialiserOBB(&gDonnees.FlipD.L1,279+3,585.5+2,67,12,35.0/180*3.14159);
-    InitialiserOBB(&gDonnees.FlipD.L2,290-3.5-3,597-2,65,12,29.0/180*3.14159);
+    //InitialiserOBB(&gDonnees.FlipD.L2,290-3.5-3,597-2,65,12,29.0/180*3.14159);
+    InitialiserOBB(&gDonnees.FlipD.L2,290-3.5,597,65,7,29.0/180*3.14159);
+    InitialiserOBB(&gDonnees.FlipD.L3,279+3+14,585.5+2+19,67,12+50,35.0/180*3.14159);
     gDonnees.FlipD.angle=0;
 
     //Ressort
@@ -121,7 +125,6 @@ void InitialiserDonnees()
     //Teleporteurs
     InitialiserPieBB(&gDonnees.PortailG,38.5,239,12);
     InitialiserPieBB(&gDonnees.PortailD,346,271,12);
-
 
         // Exemple son
         //JouerSon("media/r2d2.mp3");
@@ -167,6 +170,7 @@ bool Touche_pie_int(struct Boule pie,struct Boule bille,float* ximp,float* yimp)
     *yimp=bille.Y+(pie.Y-bille.Y)*bille.rayon/dist;
     return true;
 }
+
 bool Touche_aabb(struct Obb barre,struct Boule bille,float* ximp,float* yimp)
 {
     float x1loc=-barre.TX/2;
@@ -288,6 +292,7 @@ void MoveFlip(struct Flip* flip, float angle)
     float y0loc=flip->C1.Y;
     flip->L1.angle+=angle;
     flip->L2.angle+=angle;
+    flip->L3.angle+=angle;
     flip->C2.X-=x0loc;
     flip->C2.Y-=y0loc;
     rotation(angle,&(flip->C2.X),&(flip->C2.Y));
@@ -303,6 +308,27 @@ void MoveFlip(struct Flip* flip, float angle)
     rotation(angle,&(flip->L2.X),&(flip->L2.Y));
     flip->L2.X+=x0loc;
     flip->L2.Y+=y0loc;
+    flip->L3.X-=x0loc;
+    flip->L3.Y-=y0loc;
+    rotation(angle,&(flip->L3.X),&(flip->L3.Y));
+    flip->L3.X+=x0loc;
+    flip->L3.Y+=y0loc;
+}
+
+void ReplaceBille(struct Boule* bille, struct Obb obb)
+{
+	bille->X=bille->X-obb.X;
+	bille->Y=bille->Y-obb.Y;
+	rotation(-obb.angle,&(bille->X),&(bille->Y));
+
+    if(2*bille->X>=-obb.TX && 2*bille->X<=obb.TX && bille->Y<=obb.Y-obb.TY/2)
+    {
+       
+            bille->Y=-obb.TY/2-bille->rayon;
+    }
+   	rotation(obb.angle,&(bille->X),&(bille->Y));
+    bille->X=bille->X+obb.X;
+	bille->Y=bille->Y+obb.Y;
 }
 
 void CompressionRessort()
@@ -383,7 +409,7 @@ void DeplacerBouleAvecRebonds()
     {
     	//perdu !
     	gDonnees.Boule.X = L_ZONE-RAYON_BOULE-6;
-    	gDonnees.Boule.Y = H_ZONE-RAYON_BOULE-50;
+    	gDonnees.Boule.Y = gDonnees.Boule.Y=H_ZONE-47-RAYON_BOULE;
 		gDonnees.Boule.VX=0;
 		gDonnees.Boule.VY=0;
         gDonnees.Valeur2 = gDonnees.Valeur2 + 1 ;
@@ -411,9 +437,11 @@ void DeplacerBouleAvecRebonds()
 		|| (gDonnees.Boule.Y<215-RAYON_BOULE&&Touche_pie_int(gDonnees.Pieh,gDonnees.Boule,&ximp,&yimp))
 		|| Touche_obb(gDonnees.Lanceur,gDonnees.Boule,&ximp,&yimp)
 		|| Touche_obb(gDonnees.Ressort,gDonnees.Boule,&ximp,&yimp);
+		//|| Touche_obb(gDonnees.FlipG.L2,gDonnees.Boule,&ximp,&yimp)
+		//|| Touche_obb(gDonnees.FlipD.L2,gDonnees.Boule,&ximp,&yimp);
 		if (gDonnees.Boule.Y<215-RAYON_BOULE&&Touche_pie_int(gDonnees.Pieh,gDonnees.Boule,&ximp,&yimp))
 		{
-			pertes=1;
+			pertes=0.6;
 		}
 	//Allumage bumpers
 	if(Touche_pie(gDonnees.Bp1,gDonnees.Boule,&ximp,&yimp))
@@ -454,19 +482,36 @@ void DeplacerBouleAvecRebonds()
 	//flips
 	if(Touche_pie(gDonnees.FlipG.C1,gDonnees.Boule,&ximp,&yimp)
    		|| Touche_pie(gDonnees.FlipG.C2,gDonnees.Boule,&ximp,&yimp)
-		|| Touche_obb(gDonnees.FlipG.L1,gDonnees.Boule,&ximp,&yimp))
-		//|| Touche_obb(gDonnees.FlipG.L2,gDonnees.Boule,&ximp,&yimp))
+		|| (Touche_obb(gDonnees.FlipG.L1,gDonnees.Boule,&ximp,&yimp) && Touche_obb(gDonnees.FlipG.L3,gDonnees.Boule,&ximp,&yimp)))
 	{
-		//TODO
-		rebond=true;
+		ReplaceBille(&(gDonnees.Boule),gDonnees.FlipG.L3);
+		Rebond(&(gDonnees.Boule),ximp,yimp);
+		float coeff_gain=((gDonnees.FlipG.C1.X-ximp)*(gDonnees.FlipG.C1.X-ximp)+(gDonnees.FlipG.C1.Y-yimp)*(gDonnees.FlipG.C1.Y-yimp))/((gDonnees.FlipG.C1.X-gDonnees.FlipG.C2.X)*(gDonnees.FlipG.C1.X-gDonnees.FlipG.C2.X)+(gDonnees.FlipG.C1.Y-gDonnees.FlipG.C2.Y)*(gDonnees.FlipG.C1.Y-gDonnees.FlipG.C2.Y)+gDonnees.FlipG.C2.rayon);
+		gDonnees.Boule.VX+=100*cos(gDonnees.FlipG.angle)*coeff_gain;
+		gDonnees.Boule.VY-=100*sin(gDonnees.FlipG.angle)*coeff_gain;
+		//on replace la boule (qui est peyt être rentrée dans le flip)
+		//gDonnees.Boule.X = ximp+gDonnees.Boule.rayon*(gDonnees.Boule.X-ximp)/sqrt((gDonnees.Boule.X-ximp)*(gDonnees.Boule.X-ximp)+(gDonnees.Boule.Y-yimp)*(gDonnees.Boule.Y-yimp));
+		//gDonnees.Boule.Y = yimp+gDonnees.Boule.rayon*(gDonnees.Boule.Y-yimp)/sqrt((gDonnees.Boule.X-ximp)*(gDonnees.Boule.X-ximp)+(gDonnees.Boule.Y-yimp)*(gDonnees.Boule.Y-yimp));
+		rebond=false;
 	}
 	if(Touche_pie(gDonnees.FlipD.C1,gDonnees.Boule,&ximp,&yimp)
    		|| Touche_pie(gDonnees.FlipD.C2,gDonnees.Boule,&ximp,&yimp)
-		|| Touche_obb(gDonnees.FlipD.L1,gDonnees.Boule,&ximp,&yimp))
-		//|| Touche_obb(gDonnees.FlipD.L2,gDonnees.Boule,&ximp,&yimp))
+		|| (Touche_obb(gDonnees.FlipD.L1,gDonnees.Boule,&ximp,&yimp) && Touche_obb(gDonnees.FlipD.L3,gDonnees.Boule,&ximp,&yimp)))
 	{
-		//TODO
-		rebond=true;
+		ReplaceBille(&(gDonnees.Boule),gDonnees.FlipD.L3);
+		Rebond(&(gDonnees.Boule),ximp,yimp);
+		float coeff_gain=
+		 ((gDonnees.FlipD.C1.X-ximp)*(gDonnees.FlipD.C1.X-ximp)
+		 +(gDonnees.FlipD.C1.Y-yimp)*(gDonnees.FlipD.C1.Y-yimp))
+		/((gDonnees.FlipD.C1.X-gDonnees.FlipD.C2.X)*(gDonnees.FlipD.C1.X-gDonnees.FlipD.C2.X)
+		 +(gDonnees.FlipD.C1.Y-gDonnees.FlipD.C2.Y)*(gDonnees.FlipD.C1.Y-gDonnees.FlipD.C2.Y)
+		 +gDonnees.FlipD.C2.rayon);
+		gDonnees.Boule.VX+=100*cos(gDonnees.FlipD.angle)*coeff_gain;
+		gDonnees.Boule.VY-=100*sin(gDonnees.FlipD.angle)*coeff_gain;
+		//on replace la boule (qui est peyt être rentrée dans le flip)
+		//gDonnees.Boule.X = ximp+gDonnees.Boule.rayon*(gDonnees.Boule.X-ximp)/sqrt((gDonnees.Boule.X-ximp)*(gDonnees.Boule.X-ximp)+(gDonnees.Boule.Y-yimp)*(gDonnees.Boule.Y-yimp));
+		//gDonnees.Boule.Y = yimp+gDonnees.Boule.rayon*(gDonnees.Boule.Y-yimp)/sqrt((gDonnees.Boule.X-ximp)*(gDonnees.Boule.X-ximp)+(gDonnees.Boule.Y-yimp)*(gDonnees.Boule.Y-yimp));
+		rebond=false;
 	}
 
 	//Teleporteurs
@@ -530,20 +575,34 @@ void DeplacerBouleAvecRebonds()
 	    temp4%=NB_CYCLE_ALLUMAGE;
 	}
 
-	if(rebond)
-	{
-		Rebond(&(gDonnees.Boule),ximp,yimp);
-			//gestion des pertes
-    	gDonnees.Boule.VY*=pertes;
-   		gDonnees.Boule.VX*=pertes;
-	}
+    float oldvx=gDonnees.Boule.VX;
+    float oldvy=gDonnees.Boule.VY;
 
 	// Nouvelle position de la boule ...
-    gDonnees.Boule.Y += gDonnees.Boule.VY*DUREE_CYCLE;// + sin(INCLINAISON)*0.5*gravite*DUREE_CYCLE*DUREE_CYCLE;
-    gDonnees.Boule.VY = gDonnees.Boule.VY + sin(INCLINAISON)*gravite*DUREE_CYCLE;
-	gDonnees.Boule.X += gDonnees.Boule.VX*DUREE_CYCLE;
-    //gDonnees.Boule.Y += gDonnees.Boule.Y + gDonnees.Boule.VY*DUREE_CYCLE + sin(INCLINAISON)/2*gravite*DUREE_CYCLE*DUREE_CYCLE;
-    gravite=GRAVITE;
+    if(rebond)
+	{
+		Rebond(&(gDonnees.Boule),ximp,yimp);
+		gDonnees.Boule.VY = gDonnees.Boule.VY + sin(INCLINAISON)*gravite*DUREE_CYCLE;
+		gDonnees.Boule.X +=gDonnees.Boule.VX*DUREE_CYCLE;
+    	gDonnees.Boule.Y +=gDonnees.Boule.VY*DUREE_CYCLE + sin(INCLINAISON)/2*gravite*DUREE_CYCLE*DUREE_CYCLE;
+
+	}
+	else
+	{
+    	//gDonnees.Boule.Y += gDonnees.Boule.VY*DUREE_CYCLE + sin(INCLINAISON)*0.5*gravite*DUREE_CYCLE*DUREE_CYCLE;
+    	gDonnees.Boule.VY = gDonnees.Boule.VY + sin(INCLINAISON)*gravite*DUREE_CYCLE;
+		gDonnees.Boule.X += gDonnees.Boule.VX*DUREE_CYCLE;
+    	gDonnees.Boule.Y += gDonnees.Boule.VY*DUREE_CYCLE + sin(INCLINAISON)/2*gravite*DUREE_CYCLE*DUREE_CYCLE;
+    	gravite=GRAVITE;
+	}
+
+    	//gestion des pertes
+    //on teste si la bille n'est simplement pas en train de rouler
+    if (oldvx*oldvy*gDonnees.Boule.VX*gDonnees.Boule.VY<0 && rebond)
+    {
+    	gDonnees.Boule.VX *= pertes;
+    	gDonnees.Boule.VY *= pertes;
+    }
 
     if(gDonnees.Boule.VX*DUREE_CYCLE>RAYON_BOULE)
     {

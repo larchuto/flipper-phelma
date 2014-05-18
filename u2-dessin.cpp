@@ -177,10 +177,12 @@ void ZoneDessinDessinerCB( Fl_Widget* widget, void* data )
     Display_PieBB(gDonnees.FlipG.C2);
     Display_OBB(gDonnees.FlipG.L1);
     Display_OBB(gDonnees.FlipG.L2);
+    Display_OBB(gDonnees.FlipG.L3);
     Display_PieBB(gDonnees.FlipD.C1);
     Display_PieBB(gDonnees.FlipD.C2);
     Display_OBB(gDonnees.FlipD.L1);
     Display_OBB(gDonnees.FlipD.L2);
+    Display_OBB(gDonnees.FlipD.L3);
 	Display_OBB(gDonnees.Ressort);
     Display_PieBB(gDonnees.PortailG);
     Display_PieBB(gDonnees.PortailD);
