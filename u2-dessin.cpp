@@ -43,11 +43,11 @@ void Display_OBB(struct Obb OBB)
 
 void DessineRessort(unsigned int compression)
 {
-    compression=compression % 4;
+    compression=compression % 7;
     char path[] = "media/ressort0.gif";
     path[13]='0';//+(char)compression;
     Fl_GIF_Image Imageressort(path) ;
-    Imageressort.draw(421, 624+10*compression, 24, 41-10*compression);
+    Imageressort.draw(421, 624+5*compression, 24, 41-5*compression);
 }
 
 void DessineFlipG()

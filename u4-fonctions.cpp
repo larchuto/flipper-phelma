@@ -347,13 +347,13 @@ void CompressionRessort()
 {
 	if(gDonnees.Ressort.TY>11)
 	{
-		gDonnees.Ressort.TY-=10;
-		gDonnees.Ressort.Y+=5;
+		gDonnees.Ressort.TY-=5;
+		gDonnees.Ressort.Y+=2.5;
 		gDonnees.CompressionRessort+=1;
 		//gDonnees.Boule.Y+=9;
 		if(gDonnees.Boule.Y==gDonnees.Ressort.Y-gDonnees.Ressort.TY/2-gDonnees.Boule.rayon && L_ZONE-gDonnees.Boule.rayon-8)
 		{
-			gDonnees.Boule.Y-=10;
+			gDonnees.Boule.Y-=5;
 		}
 	}
 	DessineRessort(gDonnees.CompressionRessort);
@@ -363,7 +363,7 @@ void RelachementRessort()
 {
 	if(gDonnees.Boule.X >=L_ZONE-RAYON_BOULE-8 && gDonnees.Boule.Y >= H_ZONE-2*RAYON_BOULE-46)
 	{
-		gDonnees.Boule.VY=-1000-75*float(gDonnees.CompressionRessort);//-10*float(gDonnees.CompressionRessort)/DUREE_CYCLE/COEFF_PERTES*PIXEL_TO_M;//-10*float(gDonnees.CompressionRessort)/DUREE_CYCLE; //5000-6000 //1000 //1200
+		gDonnees.Boule.VY=-RESSORT_MIN_PORPULSION-RESSORT_STEP_PROPULSION*float(gDonnees.CompressionRessort);//-10*float(gDonnees.CompressionRessort)/DUREE_CYCLE/COEFF_PERTES*PIXEL_TO_M;//-10*float(gDonnees.CompressionRessort)/DUREE_CYCLE; //5000-6000 //1000 //1200
 		gDonnees.Boule.Y=H_ZONE-41-6-RAYON_BOULE-10;
 	}
 	gDonnees.CompressionRessort=0;
