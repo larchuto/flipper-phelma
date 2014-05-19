@@ -64,6 +64,23 @@ void TraiterCycleCB()
     // Fin code a activer en cas de probleme
 }
 
+void BoutonNouvellePartieCB(Fl_Widget* w, void* data)
+{
+            // On initialise la boule
+            gDonnees.Boule.X = L_ZONE-RAYON_BOULE-6;
+            gDonnees.Boule.Y = H_ZONE-RAYON_BOULE-47;
+            gDonnees.Boule.rayon=RAYON_BOULE;
+            gDonnees.Boule.VX = 0 ;
+            gDonnees.Boule.VY = 0 ;
+
+            // On initialise le score et le nombre de billes
+            gDonnees.Valeur = 0 ;
+            gDonnees.Valeur2 = 1 ;
+            gInterface.ValueScore->value(gDonnees.Valeur) ;
+            gInterface.Nb_billes->value(gDonnees.Valeur2) ;
+
+     printf("BoutonNouvellePartieCB\n");
+}
 // ZoneDessinSourisCB
 void ZoneDessinSourisCB( Fl_Widget* widget, void* data )
 {

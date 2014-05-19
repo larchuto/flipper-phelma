@@ -15,6 +15,12 @@
 #include "u2-dessin.h"
 #include <math.h>
 
+//to clean
+// Librairies fltk
+#include <FL/Fl.H>
+#include <FL/fl_ask.H> // fl_message, fl_alert, fl_ask
+#include <FL/Fl_File_Chooser.H> // fl_file_chooser
+
 
 // Declaration pour utiliser iostream
 using namespace std;
@@ -448,6 +454,7 @@ void DeplacerBouleAvecRebonds()
 		gDonnees.Boule.VX = -1*COEFF_PERTES*gDonnees.Boule.VX ;
 	}
 
+
 	if ( gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE)
 	{
 		//perdu !
@@ -457,6 +464,26 @@ void DeplacerBouleAvecRebonds()
 		gDonnees.Boule.VY=0;
 		gDonnees.Valeur2 = gDonnees.Valeur2 + 1 ;
 		gInterface.Nb_billes->value(gDonnees.Valeur2) ;
+
+		if (gDonnees.Valeur2==4)
+		{
+            // On initialise la boule
+            gDonnees.Boule.X = L_ZONE-RAYON_BOULE-6;
+            gDonnees.Boule.Y = H_ZONE-RAYON_BOULE-47;
+            gDonnees.Boule.rayon=RAYON_BOULE;
+            gDonnees.Boule.VX = 0 ;
+            gDonnees.Boule.VY = 0 ;
+
+            // On initialise le score et le nombre de billes
+            gDonnees.Valeur = 0 ;
+            gDonnees.Valeur2 = 1 ;
+            gInterface.ValueScore->value(gDonnees.Valeur) ;
+            gInterface.Nb_billes->value(gDonnees.Valeur2) ;
+
+            fl_message("Baaaah! T'as perdu!");
+
+		}
+
 	}
 
 	if ( gDonnees.Boule.X <= RAYON_BOULE+5)

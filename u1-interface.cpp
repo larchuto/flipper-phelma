@@ -70,6 +70,11 @@ void CreerInterface()
     gInterface.BoutonAction = new Fl_Button(480, 640, 100, 20, "Action") ;
     gInterface.BoutonAction->callback( BoutonActionCB, NULL ) ;
 
+
+	// Creation du bouton NouvellePartie
+    gInterface.BoutonNouvellePartie = new Fl_Button(480, 640, 100, 20, "Nouvelle Partie") ;
+    gInterface.BoutonNouvellePartie->callback( BoutonNouvellePartieCB, NULL ) ;
+
     //Score
     gInterface.ValueScore = new Fl_Value_Output(475, 393-20, 220, 42, "") ;
     gInterface.ValueScore->box(FL_THIN_DOWN_FRAME);
