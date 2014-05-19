@@ -1,0 +1,83 @@
+
+
+//Allumage bumpers
+	if(Touche_pie(gDonnees.Bp1,gDonnees.Boule,&ximp,&yimp))
+	{
+		rebond=true;
+		gDonnees.Valeur = gDonnees.Valeur + SCORE_BUMPER ;
+		gInterface.ValueScore->value(gDonnees.Valeur) ;
+		temp=1;
+	}
+
+	if(Touche_pie(gDonnees.Bp2,gDonnees.Boule,&ximp,&yimp))
+	{
+		rebond=true;
+		gDonnees.Valeur = gDonnees.Valeur + SCORE_BUMPER ;
+		gInterface.ValueScore->value(gDonnees.Valeur) ;
+		temp1=1;
+	}
+	if(Touche_pie(gDonnees.Bp3,gDonnees.Boule,&ximp,&yimp))
+	{
+		rebond=true;
+		gDonnees.Valeur = gDonnees.Valeur + SCORE_BUMPER ;
+		gInterface.ValueScore->value(gDonnees.Valeur) ;
+		temp2=1;
+
+
+//Teleporteurs
+	if(Touche_pie(gDonnees.PortailG,gDonnees.Boule,&ximp,&yimp) && temp_portails==0)
+	{
+		gDonnees.Boule.X=gDonnees.PortailD.X;
+		gDonnees.Boule.Y=gDonnees.PortailD.Y;
+		gDonnees.Valeur = gDonnees.Valeur + SCORE_TELEPORTEUR ;
+		gInterface.ValueScore->value(gDonnees.Valeur) ;
+		temp_portails=1;
+	}
+	if(Touche_pie(gDonnees.PortailD,gDonnees.Boule,&ximp,&yimp) && temp_portails==0)
+	{
+		gDonnees.Boule.X=gDonnees.PortailG.X;
+		gDonnees.Boule.Y=gDonnees.PortailG.Y;
+		gDonnees.Valeur = gDonnees.Valeur + SCORE_TELEPORTEUR ;
+		gInterface.ValueScore->value(gDonnees.Valeur) ;
+		temp_portails=1;
+
+	}
+
+
+
+//triangles
+if (temp3<NB_CYCLE_ALLUMAGE && temp3>0)
+	{
+		gInterface.Imagetriangleg->draw(64+20, 394+20, 58, 118);
+		gDonnees.Valeur = gDonnees.Valeur + SCORE_TRIANGLE ;
+		gInterface.ValueScore->value(gDonnees.Valeur) ;
+		temp3+=1;
+		temp3%=NB_CYCLE_ALLUMAGE;
+	}
+
+	if(Touche_pie(gDonnees.TriDC1,gDonnees.Boule,&ximp,&yimp)
+		|| Touche_pie(gDonnees.TriDC2,gDonnees.Boule,&ximp,&yimp)
+		|| Touche_pie(gDonnees.TriDC3,gDonnees.Boule,&ximp,&yimp)
+		|| Touche_obb(gDonnees.TriDL1,gDonnees.Boule,&ximp,&yimp)
+		|| Touche_obb(gDonnees.TriDL2,gDonnees.Boule,&ximp,&yimp)
+		|| Touche_obb(gDonnees.TriDL3,gDonnees.Boule,&ximp,&yimp))
+	{
+		rebond=true;
+		temp4=1;
+	}
+
+	if (temp4<NB_CYCLE_ALLUMAGE && temp4>0)
+	{
+		gInterface.Imagetriangled->draw(308+20, 394+20, 58, 118);
+		gDonnees.Valeur = gDonnees.Valeur + SCORE_TRIANGLE ;
+		gInterface.ValueScore->value(gDonnees.Valeur) ;
+		temp4+=1;
+		temp4%=NB_CYCLE_ALLUMAGE;
+	}
+
+
+paramètres
+
+#define SCORE_BUMPER 100
+#define SCORE_TELEPORTEUR 500
+#define SCORE_TRIANGLE 10
