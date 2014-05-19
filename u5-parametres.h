@@ -9,6 +9,9 @@
 #define RAYON_BOULE 12
 #define MAX_ANGLE_FLIP 0.9
 #define PROPULSIONFLIP 800
+#define SCORE_BUMPER 100
+#define SCORE_TELEPORTEUR 500
+#define SCORE_TRIANGLE 10
 
 #define X_ZONE 20 // X de la zone
 #define Y_ZONE 20 // Y de la zone

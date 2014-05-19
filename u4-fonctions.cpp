@@ -551,7 +551,7 @@ void DeplacerBouleAvecRebonds()
 	}
 
 
-	//Allumage triangles
+	//Gestion triangles
 	if( Touche_pie(gDonnees.TriGC1,gDonnees.Boule,&ximp,&yimp)
 	|| Touche_pie(gDonnees.TriGC2,gDonnees.Boule,&ximp,&yimp)
 	|| Touche_pie(gDonnees.TriGC3,gDonnees.Boule,&ximp,&yimp)
@@ -561,6 +561,8 @@ void DeplacerBouleAvecRebonds()
 	{
 		rebond=true;
 		temp3=1;
+                gDonnees.Valeur = gDonnees.Valeur + SCORE_TRIANGLE ;
+                gInterface.ValueScore->value(gDonnees.Valeur) ;
 	}
 
 	if (temp3<NB_CYCLE_ALLUMAGE && temp3>0)
@@ -579,6 +581,8 @@ void DeplacerBouleAvecRebonds()
 	{
 		rebond=true;
 		temp4=1;
+		gDonnees.Valeur = gDonnees.Valeur + SCORE_TRIANGLE ;
+                gInterface.ValueScore->value(gDonnees.Valeur) ;
 	}
 
 	if (temp4<NB_CYCLE_ALLUMAGE && temp4>0)
