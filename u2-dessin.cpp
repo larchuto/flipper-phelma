@@ -45,7 +45,7 @@ void DessineRessort(unsigned int compression)
 {
     compression=compression % 7;
     char path[] = "media/ressort0.gif";
-    path[13]='0';//+(char)compression;
+    path[13]='0'+(char)compression;
     Fl_GIF_Image Imageressort(path) ;
     Imageressort.draw(421, 624+5*compression, 24, 41-5*compression);
 }
