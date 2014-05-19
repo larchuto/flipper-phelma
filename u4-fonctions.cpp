@@ -63,7 +63,7 @@ void InitialiserDonnees()
 	gDonnees.Valeur = 0 ;
 	gDonnees.Valeur2 = 1 ;
 	gInterface.Nb_billes->value(gDonnees.Valeur2) ;
-	
+
 	//courbe haut du plateau
 	InitialiserPieBB(&gDonnees.Pieh,214,215,211);
 
@@ -335,7 +335,7 @@ void ReplaceBille(struct Boule* bille, struct Obb obb)
 
 	if(2*bille->X>=-obb.TX && 2*bille->X<=obb.TX && bille->Y<=obb.Y-obb.TY/2)
 	{
-	   
+
 			bille->Y=-obb.TY/2-bille->rayon;
 	}
 	rotation(obb.angle,&(bille->X),&(bille->Y));
@@ -463,10 +463,15 @@ void DeplacerBouleAvecRebonds()
 		gDonnees.Boule.VX=0;
 		gDonnees.Boule.VY=0;
 		gDonnees.Valeur2 = gDonnees.Valeur2 + 1 ;
+
+		if (gDonnees.Valeur2<4)
+
 		gInterface.Nb_billes->value(gDonnees.Valeur2) ;
 
 		if (gDonnees.Valeur2==4)
 		{
+            fl_message("Baaaah! T'as perdu!");
+
             // On initialise la boule
             gDonnees.Boule.X = L_ZONE-RAYON_BOULE-6;
             gDonnees.Boule.Y = H_ZONE-RAYON_BOULE-47;
@@ -479,9 +484,6 @@ void DeplacerBouleAvecRebonds()
             gDonnees.Valeur2 = 1 ;
             gInterface.ValueScore->value(gDonnees.Valeur) ;
             gInterface.Nb_billes->value(gDonnees.Valeur2) ;
-
-            fl_message("Baaaah! T'as perdu!");
-
 		}
 
 	}
@@ -524,7 +526,7 @@ void DeplacerBouleAvecRebonds()
 	}
 	if(Touche_obb(gDonnees.FlipD.L3,gDonnees.Boule,&ximp,&yimp))
 	{
-		//ReplaceBille(&(gDonnees.Boule),gDonnees.FlipD.L3);	
+		//ReplaceBille(&(gDonnees.Boule),gDonnees.FlipD.L3);
 	}
 	if((Touche_pie(gDonnees.FlipG.C1,gDonnees.Boule,&ximp,&yimp)
 		|| Touche_pie(gDonnees.FlipG.C2,gDonnees.Boule,&ximp,&yimp)
@@ -607,7 +609,7 @@ void DeplacerBouleAvecRebonds()
                 gDonnees.Valeur += SCORE_TELEPORTEUR ;
                 gInterface.ValueScore->value(gDonnees.Valeur) ;
 		temp_portails=1;
-		
+
 	}
 
 	if(temp_portails!=0)
