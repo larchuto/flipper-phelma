@@ -14,7 +14,6 @@
 #include "u5-parametres.h"
 
 
-
 // Declaration pour utiliser iostream
 using namespace std;
 int last_i_bip;
@@ -24,6 +23,7 @@ void Display_PieBB(struct Boule CBB)
     fl_color(FL_GREEN);
     //fl_arc(CBB.X/*+CBB.rayon*/, CBB.Y/*+CBB.rayon*/, 2*CBB.rayon, 2*CBB.rayon, 0,360);
     fl_circle(CBB.X+20,CBB.Y+20,CBB.rayon);
+	//fl_pie(CBB.X+20-CBB.rayon,CBB.Y+20-CBB.rayon,2*CBB.rayon+1,2*CBB.rayon+1,0,360);
 }
 
 void Display_OBB(struct Obb OBB)
@@ -32,10 +32,10 @@ void Display_OBB(struct Obb OBB)
     fl_translate(OBB.X+20,OBB.Y+20);
     fl_rotate(OBB.angle/3.14159*180);
     fl_begin_loop();
-    fl_vertex(-OBB.TX/2,OBB.TY/2);
-    fl_vertex(OBB.TX/2,OBB.TY/2);
-    fl_vertex(OBB.TX/2,-OBB.TY/2);
-    fl_vertex(-OBB.TX/2,-OBB.TY/2);
+    	fl_vertex(-OBB.TX/2,OBB.TY/2);
+    	fl_vertex(OBB.TX/2,OBB.TY/2);
+    	fl_vertex(OBB.TX/2,-OBB.TY/2);
+    	fl_vertex(-OBB.TX/2,-OBB.TY/2);
     fl_end_loop();
     fl_rotate(-OBB.angle/3.14159*180);
     fl_translate(-OBB.X-20,-OBB.Y-20);
@@ -50,23 +50,38 @@ void DessineRessort(unsigned int compression)
     Imageressort.draw(421, 624+5*compression, 24, 41-5*compression);
 }
 
-void DessineFlipG()
+void DessineFlip(struct Flip flip)
 {
-    //fl_begin_polygon();
-    //fl_gap();
-    //fl_vertex(50,70);
-    //fl_arc(100, 100, 20, 0, 360);
-    //fl_vertex(50,30);
-    //fl_vertex(80,30);
-    //fl_arc(80, 50, 20, 270, 90);
-    //fl_vertex(80,70);
-    //fl_end_polygon();
+	fl_color(246,111,25);
+	float 	x1=-flip.L1.TX/2,
+		y1=-flip.L1.TY/2,
+		x2= flip.L1.TX/2,
+		y2=-flip.L1.TY/2,
+		x3= flip.L2.TX/2,
+		y3= flip.L2.TY/2,
+		x4=-flip.L2.TX/2,
+		y4= flip.L2.TY/2;
+	rotation(flip.L1.angle,&x1,&y1);
+	rotation(flip.L1.angle,&x2,&y2);
+	rotation(flip.L2.angle,&x3,&y3);
+	rotation(flip.L2.angle,&x4,&y4);
+	x1+=flip.L1.X+20;
+	y1+=flip.L1.Y+20;
+	x2+=flip.L1.X+20;
+	y2+=flip.L1.Y+20;
+	x3+=flip.L2.X+20;
+	y3+=flip.L2.Y+20;
+	x4+=flip.L2.X+20;
+	y4+=flip.L2.Y+20;
+	fl_polygon(x1,y1,x2,y2,x3,y3,x4,y4);
+	fl_pie(flip.C1.X+20-flip.C1.rayon,flip.C1.Y+20-flip.C1.rayon+1,2*flip.C1.rayon+1,2*flip.C1.rayon+1,0,360);
+	fl_pie(flip.C2.X+20-flip.C2.rayon,flip.C2.Y+20-flip.C2.rayon+1,2*flip.C2.rayon+1,2*flip.C2.rayon+1,0,360);
 }
 
-void DessineFlipD()
+/*void DessineFlipD()
 {
 
-}
+}*/
 
 void ZoneScoreDessinerCB( Fl_Widget* widget, void* data )
 {
@@ -82,7 +97,7 @@ void ZoneMenuDessinerCB( Fl_Widget* widget, void* data )
 
 void ZoneDessinDessinerCB( Fl_Widget* widget, void* data )
 {
-    DessineFlipG();
+    
     gInterface.Imagescore->draw(X_SCORE, Y_SCORE, L_SCORE, H_SCORE);
     gInterface.Imagemenu->draw(X_MENU, Y_MENU, L_MENU, H_MENU); //pourrais ne pas être affiché en permanence
     // On efface toute la zone ( en dessinant dessus l'image de fond )
@@ -98,11 +113,13 @@ void ZoneDessinDessinerCB( Fl_Widget* widget, void* data )
 
     //dessin decors
     gInterface.Imagedecor->draw(X_ZONE, Y_ZONE, L_ZONE, H_ZONE);
+	DessineFlip(gDonnees.FlipG);
+DessineFlip(gDonnees.FlipD);
 
     //dessin flippers
     //fl_rotate(10);
-    gInterface.Imageflipg->draw(104+20, 560+20, 80, 57);
-    gInterface.Imageflipd->draw(246+20, 560+20, 80, 57);
+    //gInterface.Imageflipg->draw(104+20, 560+20, 80, 57);
+    //gInterface.Imageflipd->draw(246+20, 560+20, 80, 57);
 
     //dessin rampe de lancement
     if(gDonnees.Boule.X >= L_ZONE-RAYON_BOULE-8 && gDonnees.Boule.Y <= H_ZONE-RAYON_BOULE-46-113+20 && gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE-46-113-40*6)
@@ -154,7 +171,7 @@ void ZoneDessinDessinerCB( Fl_Widget* widget, void* data )
 
     //dessin ressort
     DessineRessort(gDonnees.CompressionRessort);
-    fl_color(FL_WHITE);
+    //fl_color(FL_WHITE);
 
     //dessin bounding boxes
     Display_PieBB(gDonnees.TriGC1);

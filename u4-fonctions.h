@@ -32,6 +32,7 @@ struct Flip
 	struct Obb L2;
 	struct Obb L3;
 	float angle;
+	bool isTouched;
 };
 
 // Structure globale pour les variables fonctionnelles

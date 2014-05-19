@@ -63,6 +63,7 @@ void InitialiserDonnees()
 	gDonnees.Valeur = 0 ;
 	gDonnees.Valeur2 = 1 ;
 	gInterface.Nb_billes->value(gDonnees.Valeur2) ;
+	gInterface.ValueScore->value(gDonnees.Valeur) ;
 
 	//courbe haut du plateau
 	InitialiserPieBB(&gDonnees.Pieh,214,215,211);
@@ -77,7 +78,7 @@ void InitialiserDonnees()
 
 	//Pentes
 	InitialiserOBB(&gDonnees.PenteG,58,529,135,20,-35.0/180*3.14159);
-	InitialiserOBB(&gDonnees.PenteD,354,542,94,20,35.0/180*3.14159);
+	InitialiserOBB(&gDonnees.PenteD,354,534,100,10,35.0/180*3.14159);
 
 	//Triangles
 		//gauche
@@ -118,6 +119,7 @@ void InitialiserDonnees()
 	InitialiserOBB(&gDonnees.FlipG.L2,142,596,67,7,-29.2/180*3.14159);
 	InitialiserOBB(&gDonnees.FlipG.L3,150-3-14,585+2+21,67,12+50,-34.5/180*3.14159);
 	gDonnees.FlipG.angle=0;
+	gDonnees.FlipG.isTouched=false;
 		//droit
 	InitialiserPieBB(&gDonnees.FlipD.C1,314,571,12);
 	InitialiserPieBB(&gDonnees.FlipD.C2,254,608,8.5);
@@ -126,6 +128,7 @@ void InitialiserDonnees()
 	InitialiserOBB(&gDonnees.FlipD.L2,290-3.5,597,65,7,29.0/180*3.14159);
 	InitialiserOBB(&gDonnees.FlipD.L3,279+3+14,585.5+2+19,67,12+50,35.0/180*3.14159);
 	gDonnees.FlipD.angle=0;
+	gDonnees.FlipD.isTouched=false;
 
 	//Ressort
 	InitialiserOBB(&gDonnees.Ressort,L_ZONE-12-6,H_ZONE-20.5-6,24,41,0);
@@ -418,6 +421,8 @@ void PushBall(struct Flip* Flip, struct Boule* bille)
 		ReplaceBille(bille,Flip->L3);
 		Rebond(bille,ximp,yimp);
 		float coeff_gain=((Flip->C1.X-ximp)*(Flip->C1.X-ximp)+(Flip->C1.Y-yimp)*(Flip->C1.Y-yimp))/((Flip->C1.X-Flip->C2.X)*(Flip->C1.X-Flip->C2.X)+(Flip->C1.Y-Flip->C2.Y)*(Flip->C1.Y-Flip->C2.Y)+Flip->C2.rayon);
+		bille->VX*=COEFF_PERTES;
+		bille->VY*=COEFF_PERTES;
 		bille->VX+=PROPULSIONFLIP*sin(Flip->L1.angle)*coeff_gain;
 		bille->VY-=PROPULSIONFLIP*cos(Flip->L1.angle)*coeff_gain;
 	}
@@ -429,20 +434,20 @@ void TrouNoir(struct Boule* bille)
 	//gDonnees.AfficherBille=0;
 	ballintrounoir=1;
 	temptrounoir+=1;
-	bille->X=214;
-	bille->Y=104;
-	int sortie=rand()%4;
+	bille->X=215;
+	bille->Y=105;
+	float sortie=rand()/(float)RAND_MAX;
 	float anglesortie=float(rand()%361)/180*3.14159;
+	gDonnees.Valeur += SCORE_TROUNOIR ;
+        gInterface.ValueScore->value(gDonnees.Valeur) ;
 	cout<<sortie<<endl;
-cout<<anglesortie<<endl;
-	if(sortie=1 || temptrounoir>TROUNOIR_NBRCYCLEMAX)
+	cout<<anglesortie<<endl;
+	if(sortie<TROUNOIR_PROBA_SORTIR || temptrounoir>TROUNOIR_NBRCYCLEMAX)
 	{
 		ballintrounoir=0;
 		temptrounoir=0;
-		bille->VX=cos(anglesortie)*TROUNOIRVITESSE;
-		bille->VY=sin(anglesortie)*TROUNOIRVITESSE;
-		gDonnees.Valeur += SCORE_TROUNOIR ;
-                gInterface.ValueScore->value(gDonnees.Valeur) ;
+		bille->VX=cos(anglesortie)*TROUNOIR_VITESSE;
+		bille->VY=sin(anglesortie)*TROUNOIR_VITESSE;
 		//gDonnees.AfficherBille=1;
 	}
 
@@ -474,19 +479,8 @@ void DeplacerBouleAvecRebonds()
 		{
             fl_message("Baaaah! T'as perdu!");
 
-            // On initialise la boule
-            gDonnees.Boule.X = L_ZONE-RAYON_BOULE-6;
-            gDonnees.Boule.Y = H_ZONE-RAYON_BOULE-47;
-            gDonnees.Boule.rayon=RAYON_BOULE;
-            gDonnees.Boule.VX = 0 ;
-            gDonnees.Boule.VY = 0 ;
-
-            // On initialise le score et le nombre de billes
-            gDonnees.Valeur = 0 ;
-            gDonnees.Valeur2 = 1 ;
-            gInterface.ValueScore->value(gDonnees.Valeur) ;
-            gInterface.Nb_billes->value(gDonnees.Valeur2) ;
-		}
+		InitialiserDonnees();
+	}
 
 	}
 
@@ -521,6 +515,14 @@ void DeplacerBouleAvecRebonds()
 		{
 			pertes=0.6;
 		}
+	if (Touche_obb(gDonnees.PenteG,gDonnees.Boule,&ximp,&yimp))
+	{
+		ReplaceBille(&(gDonnees.Boule),gDonnees.PenteG);
+	}
+	if (Touche_obb(gDonnees.PenteD,gDonnees.Boule,&ximp,&yimp))
+	{
+		ReplaceBille(&(gDonnees.Boule),gDonnees.PenteD);
+	}
 	//flips
 	if(Touche_obb(gDonnees.FlipG.L3,gDonnees.Boule,&ximp,&yimp))
 	{

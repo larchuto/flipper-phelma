@@ -15,31 +15,28 @@
 // Declaration pour utiliser iostream
 using namespace std;
 
-bool Flip_left_is_touched =false;
-bool Flip_right_is_touched =false;
-
 // TraiterCycle
 void TraiterCycleCB()
 {
     //Deplacement des Flip
-    if (Flip_left_is_touched && gDonnees.FlipG.angle<MAX_ANGLE_FLIP)
+    if (gDonnees.FlipG.isTouched && gDonnees.FlipG.angle<MAX_ANGLE_FLIP)
     {
         MoveFlip(&(gDonnees.FlipG),+FLIP_ANGLE_PER_STEP);
         PushBall(&(gDonnees.FlipG), &(gDonnees.Boule));
 
     }
-    else if (!Flip_left_is_touched && gDonnees.FlipG.angle>0)
+    else if (!gDonnees.FlipG.isTouched && gDonnees.FlipG.angle>0)
     {
         MoveFlip(&(gDonnees.FlipG),-FLIP_ANGLE_PER_STEP);
     }
 
-    if (Flip_right_is_touched && gDonnees.FlipD.angle>-MAX_ANGLE_FLIP)
+    if (gDonnees.FlipD.isTouched && gDonnees.FlipD.angle>-MAX_ANGLE_FLIP)
     {
         MoveFlip(&(gDonnees.FlipD),-FLIP_ANGLE_PER_STEP);
         PushBall(&(gDonnees.FlipD), &(gDonnees.Boule));
 
     }
-    else if (!Flip_right_is_touched && gDonnees.FlipD.angle<0)
+    else if (!gDonnees.FlipD.isTouched && gDonnees.FlipD.angle<0)
     {
         MoveFlip(&(gDonnees.FlipD),+FLIP_ANGLE_PER_STEP);
     }
@@ -59,7 +56,7 @@ void TraiterCycleCB()
     // Solution : On ramene systematiquement le focus des evenements sur la zone de dessin
     // Attention, cela peut perturber certains elements d'interface comme des champs de saisie texte ou numerique
 
-    // Fl::focus(gInterface.ZoneDessin);
+     Fl::focus(gInterface.ZoneDessin);
 
     // Fin code a activer en cas de probleme
 }
@@ -119,12 +116,12 @@ void ZoneDessinClavierCB( Fl_Widget* widget, void* data, bool key_is_down)
         case FL_Left :
             if(key_is_down) printf("Appui sur la touche Gauche\n");
             else printf("Relachement de la touche Gauche\n");
-            Flip_left_is_touched = key_is_down;
+            gDonnees.FlipG.isTouched = key_is_down;
             break;
         case FL_Right :
             if(key_is_down) printf("Appui sur la touche Droite\n");
             else printf("Relachement de la touche Droite\n");
-            Flip_right_is_touched = key_is_down;
+            gDonnees.FlipD.isTouched = key_is_down;
             break;
         case FL_Up :
             printf("Appui sur la touche Haut\n");
