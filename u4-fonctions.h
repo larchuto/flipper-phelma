@@ -74,7 +74,9 @@ struct Donnees
 	struct Obb Ressort;
 	struct Boule PortailG;
 	struct Boule PortailD;
+	struct Boule TrouNoir;
 	unsigned int CompressionRessort;
+	int AfficherBille;
 };
 
 

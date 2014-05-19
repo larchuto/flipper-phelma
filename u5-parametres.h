@@ -11,7 +11,9 @@
 #define PROPULSIONFLIP 800
 #define SCORE_BUMPER 100
 #define SCORE_TELEPORTEUR 500
-#define SCORE_TRIANGLE 10
+#define SCORE_TRIANGLE 1
+#define TROUNOIR_NBRCYCLEMAX 330
+#define TROUNOIRVITESSE 950
 
 #define X_ZONE 20 // X de la zone
 #define Y_ZONE 20 // Y de la zone

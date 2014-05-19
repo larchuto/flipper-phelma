@@ -23,7 +23,7 @@ using namespace std;
 struct Donnees gDonnees;
 float gravite= GRAVITE;
 int temp=0 , temp1=0 ,temp2=0, temp3=0, temp4=0, temp5=0, temp6=0, temp_portails=0;
-int ballispushed=0;
+int ballispushed=0, ballintrounoir=0, temptrounoir;
 
 void InitialiserPieBB(struct Boule* pie, float x, float y, float rayon)
 {
@@ -44,7 +44,7 @@ void InitialiserOBB(struct Obb* obb, float x, float y, float tailleX, float tail
 void InitialiserDonnees()
 {
 	// On initialise le generateur de nombres aleatoires
-	//srand(time(NULL));
+	srand(time(NULL));
 
 	// On initialise la boule
 	gDonnees.Boule.X = L_ZONE-RAYON_BOULE-6;
@@ -128,6 +128,9 @@ void InitialiserDonnees()
 	//Teleporteurs
 	InitialiserPieBB(&gDonnees.PortailG,38.5,239+30,8);
 	InitialiserPieBB(&gDonnees.PortailD,346,271+30,8);
+
+	//Trou Noir
+	InitialiserPieBB(&gDonnees.TrouNoir,214,104,1);
 
 		// Exemple son
 		//JouerSon("media/r2d2.mp3");
@@ -415,6 +418,28 @@ void PushBall(struct Flip* Flip, struct Boule* bille)
 	ballispushed=1;
 }
 
+void TrouNoir(struct Boule* bille)
+{
+	//gDonnees.AfficherBille=0;
+	ballintrounoir=1;
+	temptrounoir+=1;
+	bille->X=214;
+	bille->Y=104;
+	int sortie=rand()%4;
+	float anglesortie=float(rand()%361)/180*3.14159;
+	cout<<sortie<<endl;
+cout<<anglesortie<<endl;
+	if(sortie=1 || temptrounoir>TROUNOIR_NBRCYCLEMAX)
+	{
+		ballintrounoir=0;
+		temptrounoir=0;
+		bille->VX=cos(anglesortie)*TROUNOIRVITESSE;
+		bille->VY=sin(anglesortie)*TROUNOIRVITESSE;
+		//gDonnees.AfficherBille=1;
+	}
+
+}
+
 void DeplacerBouleAvecRebonds()
 {
 	if ( gDonnees.Boule.X >= L_ZONE-RAYON_BOULE-5)
@@ -465,41 +490,6 @@ void DeplacerBouleAvecRebonds()
 		{
 			pertes=0.6;
 		}
-	//Allumage bumpers
-	if(Touche_pie(gDonnees.Bp1,gDonnees.Boule,&ximp,&yimp))
-	{
-		rebond=true;
-		temp=1;
-	}
-
-	if(Touche_pie(gDonnees.Bp2,gDonnees.Boule,&ximp,&yimp))
-	{
-		rebond=true;
-		temp1=1;
-	}
-	if(Touche_pie(gDonnees.Bp3,gDonnees.Boule,&ximp,&yimp))
-	{
-		rebond=true;
-		temp2=1;
-	}
-	if (temp<NB_CYCLE_ALLUMAGE && temp>0)
-	{
-		gInterface.Imagevert->draw(115+20, 98+20+30, 50, 50);
-		temp+=1;
-		temp%=NB_CYCLE_ALLUMAGE;
-	}
-	if (temp1<NB_CYCLE_ALLUMAGE && temp1>0)
-	{
-		gInterface.Imagebleu->draw(265+20, 98+20+30, 50, 50);
-		temp1+=1;
-		temp1%=NB_CYCLE_ALLUMAGE;
-	}
-	if (temp2<NB_CYCLE_ALLUMAGE && temp2>0)
-	{
-		gInterface.Imagerouge->draw(190+20, 163+20+30, 50, 50);
-		temp2+=1;
-		temp2%=NB_CYCLE_ALLUMAGE;
-	}
 	//flips
 	if(Touche_obb(gDonnees.FlipG.L3,gDonnees.Boule,&ximp,&yimp))
 	{
@@ -527,17 +517,68 @@ void DeplacerBouleAvecRebonds()
 	}
 	ballispushed=0;
 
-	//Teleporteurs
+	//Gestion Trou Noir
+	if (Touche_pie(gDonnees.TrouNoir,gDonnees.Boule,&ximp,&yimp))
+	{
+		TrouNoir(&(gDonnees.Boule));
+	}
+	//Gestion bumpers
+        if(Touche_pie(gDonnees.Bp1,gDonnees.Boule,&ximp,&yimp))
+        {
+                rebond=true;
+                gDonnees.Valeur += SCORE_BUMPER ;
+                gInterface.ValueScore->value(gDonnees.Valeur) ;
+                temp=1;
+        }
+
+        if(Touche_pie(gDonnees.Bp2,gDonnees.Boule,&ximp,&yimp))
+        {
+                rebond=true;
+                gDonnees.Valeur += SCORE_BUMPER ;
+                gInterface.ValueScore->value(gDonnees.Valeur) ;
+                temp1=1;
+        }
+        if(Touche_pie(gDonnees.Bp3,gDonnees.Boule,&ximp,&yimp))
+        {
+                rebond=true;
+                gDonnees.Valeur += SCORE_BUMPER ;
+                gInterface.ValueScore->value(gDonnees.Valeur) ;
+                temp2=1;
+	}
+	if (temp<NB_CYCLE_ALLUMAGE && temp>0)
+	{
+		gInterface.Imagevert->draw(115+20, 98+20+30, 50, 50);
+		temp+=1;
+		temp%=NB_CYCLE_ALLUMAGE;
+	}
+	if (temp1<NB_CYCLE_ALLUMAGE && temp1>0)
+	{
+		gInterface.Imagebleu->draw(265+20, 98+20+30, 50, 50);
+		temp1+=1;
+		temp1%=NB_CYCLE_ALLUMAGE;
+	}
+	if (temp2<NB_CYCLE_ALLUMAGE && temp2>0)
+	{
+		gInterface.Imagerouge->draw(190+20, 163+20+30, 50, 50);
+		temp2+=1;
+		temp2%=NB_CYCLE_ALLUMAGE;
+	}
+
+	//Gestion Teleporteurs
 	if(Touche_pie(gDonnees.PortailG,gDonnees.Boule,&ximp,&yimp) && temp_portails==0)
 	{
 		gDonnees.Boule.X=gDonnees.PortailD.X;
 		gDonnees.Boule.Y=gDonnees.PortailD.Y;
+                gDonnees.Valeur += SCORE_TELEPORTEUR ;
+                gInterface.ValueScore->value(gDonnees.Valeur) ;
 		temp_portails=1;
 	}
 	if(Touche_pie(gDonnees.PortailD,gDonnees.Boule,&ximp,&yimp) && temp_portails==0)
 	{
 		gDonnees.Boule.X=gDonnees.PortailG.X;
 		gDonnees.Boule.Y=gDonnees.PortailG.Y;
+                gDonnees.Valeur += SCORE_TELEPORTEUR ;
+                gInterface.ValueScore->value(gDonnees.Valeur) ;
 		temp_portails=1;
 		
 	}
@@ -596,7 +637,7 @@ void DeplacerBouleAvecRebonds()
 	float oldvy=gDonnees.Boule.VY;
 
 	// Nouvelle position de la boule ...
-	if(rebond)
+	if(rebond && !ballintrounoir)
 	{
 		Rebond(&(gDonnees.Boule),ximp,yimp);
 		gDonnees.Boule.VY = gDonnees.Boule.VY + sin(INCLINAISON)*gravite*DUREE_CYCLE;
@@ -604,7 +645,7 @@ void DeplacerBouleAvecRebonds()
 		gDonnees.Boule.Y +=gDonnees.Boule.VY*DUREE_CYCLE + sin(INCLINAISON)/2*gravite*DUREE_CYCLE*DUREE_CYCLE;
 
 	}
-	else
+	else if (!ballintrounoir)
 	{
 		//gDonnees.Boule.Y += gDonnees.Boule.VY*DUREE_CYCLE + sin(INCLINAISON)*0.5*gravite*DUREE_CYCLE*DUREE_CYCLE;
 		gDonnees.Boule.VY = gDonnees.Boule.VY + sin(INCLINAISON)*gravite*DUREE_CYCLE;
@@ -615,7 +656,7 @@ void DeplacerBouleAvecRebonds()
 
 		//gestion des pertes
 	//on teste si la bille n'est simplement pas en train de rouler
-	if (oldvx*oldvy*gDonnees.Boule.VX*gDonnees.Boule.VY<0 && rebond)
+	if (oldvx*oldvy*gDonnees.Boule.VX*gDonnees.Boule.VY<0 && rebond && !ballintrounoir)
 	{
 		gDonnees.Boule.VX *= pertes;
 		gDonnees.Boule.VY *= pertes;

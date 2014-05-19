@@ -49,7 +49,7 @@ void TraiterCycleCB()
 
     // On redessine la zone
     gInterface.ZoneDessin->redraw();
-    //gInterface.ZoneScore->redraw();
+    gInterface.ZoneScore->redraw();
     gInterface.ValueScore->redraw();
     gInterface.Nb_billes->redraw();
 

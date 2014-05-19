@@ -189,4 +189,5 @@ void ZoneDessinDessinerCB( Fl_Widget* widget, void* data )
 	Display_OBB(gDonnees.Ressort);
     Display_PieBB(gDonnees.PortailG);
     Display_PieBB(gDonnees.PortailD);
+	Display_PieBB(gDonnees.TrouNoir);
 }
