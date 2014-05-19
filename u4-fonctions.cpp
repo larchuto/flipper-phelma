@@ -116,7 +116,7 @@ void InitialiserDonnees()
 	InitialiserOBB(&gDonnees.FlipG.L1,150-3,585+2,67,12,-35.0/180*3.14159);
 	//InitialiserOBB(&gDonnees.FlipG.L2,142+3,596-2,67,12,-29.2/180*3.14159);
 	InitialiserOBB(&gDonnees.FlipG.L2,142,596,67,7,-29.2/180*3.14159);
-	InitialiserOBB(&gDonnees.FlipG.L3,150-3-14,585+2+22,67,12+50,-35.0/180*3.14159);
+	InitialiserOBB(&gDonnees.FlipG.L3,150-3-14,585+2+21,67,12+50,-35.0/180*3.14159);
 	gDonnees.FlipG.angle=0;
 		//droit
 	InitialiserPieBB(&gDonnees.FlipD.C1,314,571,12);
@@ -520,11 +520,11 @@ void DeplacerBouleAvecRebonds()
 	//flips
 	if(Touche_obb(gDonnees.FlipG.L3,gDonnees.Boule,&ximp,&yimp))
 	{
-		ReplaceBille(&(gDonnees.Boule),gDonnees.FlipG.L3);
+		//ReplaceBille(&(gDonnees.Boule),gDonnees.FlipG.L3);
 	}
 	if(Touche_obb(gDonnees.FlipD.L3,gDonnees.Boule,&ximp,&yimp))
 	{
-		ReplaceBille(&(gDonnees.Boule),gDonnees.FlipG.L3);	
+		//ReplaceBille(&(gDonnees.Boule),gDonnees.FlipD.L3);	
 	}
 	if((Touche_pie(gDonnees.FlipG.C1,gDonnees.Boule,&ximp,&yimp)
 		|| Touche_pie(gDonnees.FlipG.C2,gDonnees.Boule,&ximp,&yimp)
