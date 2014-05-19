@@ -14,6 +14,7 @@ void BoutonQuitterCB( Fl_Widget* w, void* data );
 //void CaseRebondCB( Fl_Widget* w, void* data );
 void BoutonActionCB( Fl_Widget* w, void* data );
 void BoutonNouvellePartieCB( Fl_Widget* w, void* data );
+void BoutonMeilleursScoresCB( Fl_Widget* w, void* data );
 
 
 #endif // _u3_callbacks_h

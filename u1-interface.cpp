@@ -63,16 +63,15 @@ void CreerInterface()
     gInterface.ZoneDessin->keyboard_callback( ZoneDessinClavierCB, NULL ) ;
 
     // Creation du bouton Quitter
-    gInterface.BoutonQuitter = new Fl_Button(590, 640, 100, 20, "Quitter") ;
+    gInterface.BoutonQuitter = new Fl_Button(485, 620, 200, 40, "Quitter") ;
     gInterface.BoutonQuitter->callback( BoutonQuitterCB, NULL ) ;
 
-    // Creation du bouton Action
-    gInterface.BoutonAction = new Fl_Button(480, 640, 100, 20, "Action") ;
-    gInterface.BoutonAction->callback( BoutonActionCB, NULL ) ;
-
+    // Creation du bouton MeilleursScores
+    gInterface.BoutonMeilleursScores = new Fl_Button(485, 620-45, 200, 40, "Meilleurs Scores") ;
+    gInterface.BoutonMeilleursScores->callback( BoutonMeilleursScoresCB, NULL ) ;
 
 	// Creation du bouton NouvellePartie
-    gInterface.BoutonNouvellePartie = new Fl_Button(480, 640, 100, 20, "Nouvelle Partie") ;
+    gInterface.BoutonNouvellePartie = new Fl_Button(485, 620-90, 200, 40, "Nouvelle Partie") ;
     gInterface.BoutonNouvellePartie->callback( BoutonNouvellePartieCB, NULL ) ;
 
     //Score

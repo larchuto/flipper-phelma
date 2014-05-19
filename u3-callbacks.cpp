@@ -161,8 +161,10 @@ void BoutonQuitterCB(Fl_Widget* w, void* data)
     exit(0) ;
 }
 
-void BoutonActionCB(Fl_Widget* w, void* data)
+
+
+void BoutonMeilleursScoresCB(Fl_Widget* w, void* data)
 {
-     printf("BoutonActionCB\n");
+     printf("BoutonMeilleursScoresCB\n");
 }
 

@@ -65,7 +65,7 @@ void DessineFlipG()
 
 void DessineFlipD()
 {
-    
+
 }
 
 void ZoneScoreDessinerCB( Fl_Widget* widget, void* data )
@@ -101,8 +101,8 @@ void ZoneDessinDessinerCB( Fl_Widget* widget, void* data )
 
     //dessin flippers
     //fl_rotate(10);
-    gInterface.Imageflipg->draw(104, 560, 80, 57);
-    gInterface.Imageflipd->draw(246, 560, 80, 57);
+    gInterface.Imageflipg->draw(104+20, 560+20, 80, 57);
+    gInterface.Imageflipd->draw(246+20, 560+20, 80, 57);
 
     //dessin rampe de lancement
     if(gDonnees.Boule.X >= L_ZONE-RAYON_BOULE-8 && gDonnees.Boule.Y <= H_ZONE-RAYON_BOULE-46-113+20 && gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE-46-113-40*6)
@@ -155,7 +155,7 @@ void ZoneDessinDessinerCB( Fl_Widget* widget, void* data )
     //dessin ressort
     DessineRessort(gDonnees.CompressionRessort);
     fl_color(FL_WHITE);
-    
+
     //dessin bounding boxes
     Display_PieBB(gDonnees.TriGC1);
     Display_PieBB(gDonnees.TriGC2);

@@ -30,6 +30,7 @@ struct Interface
 
     Fl_Button* BoutonAction ;
     Fl_Button* BoutonNouvellePartie ;
+    Fl_Button* BoutonMeilleursScores ;
     Fl_Value_Output* ValueScore;
     Fl_Value_Output* Nb_billes;
 
@@ -48,7 +49,7 @@ struct Interface
     Fl_GIF_Image* Imageflipg;
     Fl_GIF_Image* Imageflipd;
     Fl_GIF_Image* Imagetrou;
-    
+
 } ;
 
 // Declaration des objets de l'interface generale - ne pas supprimer
