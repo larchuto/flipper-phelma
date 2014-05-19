@@ -113,10 +113,10 @@ void InitialiserDonnees()
 		//gauche
 	InitialiserPieBB(&gDonnees.FlipG.C1,115,571,12);
 	InitialiserPieBB(&gDonnees.FlipG.C2,175,608,8.5);
-	InitialiserOBB(&gDonnees.FlipG.L1,150-3,585+2,67,12,-35.0/180*3.14159);
+	InitialiserOBB(&gDonnees.FlipG.L1,150-3,585+2,67,12,-34.5/180*3.14159);
 	//InitialiserOBB(&gDonnees.FlipG.L2,142+3,596-2,67,12,-29.2/180*3.14159);
 	InitialiserOBB(&gDonnees.FlipG.L2,142,596,67,7,-29.2/180*3.14159);
-	InitialiserOBB(&gDonnees.FlipG.L3,150-3-14,585+2+21,67,12+50,-35.0/180*3.14159);
+	InitialiserOBB(&gDonnees.FlipG.L3,150-3-14,585+2+21,67,12+50,-34.5/180*3.14159);
 	gDonnees.FlipG.angle=0;
 		//droit
 	InitialiserPieBB(&gDonnees.FlipD.C1,314,571,12);
@@ -441,6 +441,8 @@ cout<<anglesortie<<endl;
 		temptrounoir=0;
 		bille->VX=cos(anglesortie)*TROUNOIRVITESSE;
 		bille->VY=sin(anglesortie)*TROUNOIRVITESSE;
+		gDonnees.Valeur += SCORE_TROUNOIR ;
+                gInterface.ValueScore->value(gDonnees.Valeur) ;
 		//gDonnees.AfficherBille=1;
 	}
 
