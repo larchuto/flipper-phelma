@@ -28,7 +28,7 @@ using namespace std;
 // Definition des donnees fonctionnelles du projet - structure globale de variables
 struct Donnees gDonnees;
 float gravite= GRAVITE;
-int temp=0 , temp1=0 ,temp2=0, temp3=0, temp4=0, temp5=0, temp6=0, temp_portails=0;
+int temp=0 , temp1=0 ,temp2=0, temp3=0, temp4=0, temp5=0, temp6=0, temp_portails=0, scorefinal=0;
 int ballispushed=0, ballintrounoir=0, temptrounoir;
 
 void InitialiserPieBB(struct Boule* pie, float x, float y, float rayon)
@@ -46,6 +46,50 @@ void InitialiserOBB(struct Obb* obb, float x, float y, float tailleX, float tail
 	obb->TY=tailleY;
 	obb->angle=angle;
 }
+
+void InitialiserScore()
+{
+  gDonnees.Scoreabattre=0;
+  gDonnees.score1=0;
+  gDonnees.score2=0;
+  gDonnees.score3=0;
+  gDonnees.score4=0;
+  gDonnees.score5=0;
+
+  gDonnees.nom1[0]='\0';
+  gDonnees.nom2[0]='\0';
+  gDonnees.nom3[0]='\0';
+  gDonnees.nom4[0]='\0';
+  gDonnees.nom5[0]='\0';
+}
+
+void Calculscoreabattre()
+{
+    if(gDonnees.score5!=0)
+    {
+      if (gDonnees.Scoreabattre<gDonnees.score1)
+      {
+        gDonnees.Scoreabattre=gDonnees.score1;
+      }
+      if (gDonnees.Scoreabattre<gDonnees.score2)
+      {
+        gDonnees.Scoreabattre=gDonnees.score2;
+      }
+      if (gDonnees.Scoreabattre<gDonnees.score3)
+      {
+        gDonnees.Scoreabattre=gDonnees.score3;
+      }
+       if (gDonnees.Scoreabattre<gDonnees.score4)
+      {
+        gDonnees.Scoreabattre=gDonnees.score4;
+      }
+       if (gDonnees.Scoreabattre<gDonnees.score5)
+      {
+        gDonnees.Scoreabattre=gDonnees.score5;
+      }
+    }
+}
+
 // Initialiser
 void InitialiserDonnees()
 {
@@ -440,8 +484,6 @@ void TrouNoir(struct Boule* bille)
 	float anglesortie=float(rand()%361)/180*3.14159;
 	gDonnees.Valeur += SCORE_TROUNOIR ;
         gInterface.ValueScore->value(gDonnees.Valeur) ;
-	cout<<sortie<<endl;
-	cout<<anglesortie<<endl;
 	if(sortie<TROUNOIR_PROBA_SORTIR || temptrounoir>TROUNOIR_NBRCYCLEMAX)
 	{
 		ballintrounoir=0;
@@ -474,15 +516,107 @@ void DeplacerBouleAvecRebonds()
 		if (gDonnees.Valeur2<4)
 
 		gInterface.Nb_billes->value(gDonnees.Valeur2) ;
+if ((gDonnees.Valeur2==4)&&(gDonnees.Valeur<gDonnees.Scoreabattre))
+{
+fl_message("Baaaah! T'as perdu!");
+InitialiserDonnees();
+}
 
-		if (gDonnees.Valeur2==4)
-		{
-            fl_message("Baaaah! T'as perdu!");
+if ((gDonnees.Valeur2==4)&&(gDonnees.Valeur>=gDonnees.Scoreabattre))
+{
 
-		InitialiserDonnees();
-	}
+                  if (gDonnees.Valeur>=gDonnees.score1)
+                  {
+                     gDonnees.score5=gDonnees.score4;
+                     gDonnees.score4=gDonnees.score3;
+                     gDonnees.score3=gDonnees.score2;
+                     gDonnees.score2=gDonnees.score1;
+ 
+ 
+                 const char* Saisie ; // et pas : char Saisie[80]
+                 // Saisie de la chaine
+                 strcpy(gDonnees.nom1, "" ) ;
+                 do
+                 {
+                     Saisie = fl_input("Meilleur Score! Tapez votre nom :", "" ) ;
+                     if ( Saisie != NULL )
+                     strcpy (gDonnees.nom1, Saisie);
+                 } while ( strcmp( gDonnees.nom1, "" ) == 0 ) ;
+                 gDonnees.score1=gDonnees.Valeur;
+                 InitialiserDonnees();
+                  }
+ 
+                  else if (gDonnees.Valeur>=gDonnees.score2)
+                  {
+                     gDonnees.score5=gDonnees.score4;
+                     gDonnees.score4=gDonnees.score3;
+                     gDonnees.score3=gDonnees.score2;
+ 
+                 const char* Saisie ; // et pas : char Saisie[80]
+                 // Saisie de la chaine
+                 strcpy(gDonnees.nom2, "" ) ;
+                 do
+                 {
+                     Saisie = fl_input("Meilleur Score! Tapez votre nom :", "" ) ;
+                     if ( Saisie != NULL )
+                     strcpy (gDonnees.nom2, Saisie);
+                 } while ( strcmp( gDonnees.nom2, "" ) == 0 ) ;
+                 gDonnees.score2=gDonnees.Valeur;
+                 InitialiserDonnees();
+                  }
+ 
+                  else if (gDonnees.Valeur>=gDonnees.score3)
+                  {
+                     gDonnees.score5=gDonnees.score4;
+                     gDonnees.score4=gDonnees.score3;
+ 
+                 const char* Saisie ; // et pas : char Saisie[80]
+                 // Saisie de la chaine
+                 strcpy(gDonnees.nom3, "" ) ;
+                 do
+                 {
+                     Saisie = fl_input("Meilleur Score! Tapez votre nom :", "" ) ;
+                     if ( Saisie != NULL )
+                     strcpy (gDonnees.nom3, Saisie);
+                 } while ( strcmp( gDonnees.nom3, "" ) == 0 ) ;
+                 gDonnees.score3=gDonnees.Valeur;
+                 InitialiserDonnees();
+                  }
+ 
+                  else if (gDonnees.Valeur>=gDonnees.score4)
+                  {
+                     gDonnees.score5=gDonnees.score4;
+ 
+                 const char* Saisie ; // et pas : char Saisie[80]
+                 // Saisie de la chaine
+                 strcpy(gDonnees.nom4, "" ) ;
+                 do
+                 {
+                     Saisie = fl_input("Meilleur Score! Tapez votre nom :", "" ) ;
+                     if ( Saisie != NULL )
+                     strcpy (gDonnees.nom4, Saisie);
+                 } while ( strcmp( gDonnees.nom4, "" ) == 0 ) ;
+                 gDonnees.score4=gDonnees.Valeur;
+                 InitialiserDonnees();
+                  }
+ 
+                  else if (gDonnees.Valeur>=gDonnees.score5)
+                  {
+ 
+                 const char* Saisie ; // et pas : char Saisie[80]
+                 // Saisie de la chaine
+                 strcpy(gDonnees.nom5, "" ) ;
+                 do
+                 {
+                     Saisie = fl_input("Meilleur Score! Tapez votre nom :", "" ) ;
+                     if ( Saisie != NULL )
+                     strcpy (gDonnees.nom5, Saisie);
+                 } while ( strcmp( gDonnees.nom5, "" ) == 0 ) ;
+                 gDonnees.score5=gDonnees.Valeur;
+                 InitialiserDonnees();
+                  }
 
-	}
+	}}
 
 	if ( gDonnees.Boule.X <= RAYON_BOULE+5)
 	{

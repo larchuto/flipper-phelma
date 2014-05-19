@@ -78,6 +78,9 @@ struct Donnees
 	struct Boule TrouNoir;
 	unsigned int CompressionRessort;
 	int AfficherBille;
+
+	int Tonscore,Scoreabattre,score1,score2,score3,score4,score5;
+ 	char nom1[20],nom2[20],nom3[20],nom4[20],nom5[20];
 };
 
 
@@ -101,5 +104,7 @@ void JouerSon(const char *) ; // Jouer un son
 void Attente(double Seconds); // Procedure d'attente
 void CompressionRessort();
 void RelachementRessort();
+void InitialiserScore();
+void Calculscoreabattre();
 
 #endif // _u4_fonctions_h
