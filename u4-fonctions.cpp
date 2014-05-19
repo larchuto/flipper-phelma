@@ -23,6 +23,7 @@ using namespace std;
 struct Donnees gDonnees;
 float gravite= GRAVITE;
 int temp=0 , temp1=0 ,temp2=0, temp3=0, temp4=0, temp5=0, temp6=0, temp_portails=0;
+int ballispushed=0;
 
 void InitialiserPieBB(struct Boule* pie, float x, float y, float rayon)
 {
@@ -56,12 +57,14 @@ void InitialiserDonnees()
 	gDonnees.Valeur = 0 ;
 	gDonnees.Valeur2 = 1 ;
 	gInterface.Nb_billes->value(gDonnees.Valeur2) ;
+	
+	//courbe haut du plateau
+	InitialiserPieBB(&gDonnees.Pieh,214,215,211);
 
 	//Bumpers
-	InitialiserPieBB(&gDonnees.Pieh,214,215,211);
-	InitialiserPieBB(&gDonnees.Bp1,115+25,98+25,25);
-	InitialiserPieBB(&gDonnees.Bp2,265+25,98+25,25);
-	InitialiserPieBB(&gDonnees.Bp3,189+25,163+25,25);
+	InitialiserPieBB(&gDonnees.Bp1,115+25,98+25+30,25);
+	InitialiserPieBB(&gDonnees.Bp2,265+25,98+25+30,25);
+	InitialiserPieBB(&gDonnees.Bp3,189+25,163+25+30,25);
 
 	//Lanceur
 	InitialiserOBB(&gDonnees.Lanceur,L_ZONE-31-3-1,H_ZONE-433/2,8,433,0);
@@ -123,8 +126,8 @@ void InitialiserDonnees()
 	gDonnees.CompressionRessort=0;
 
 	//Teleporteurs
-	InitialiserPieBB(&gDonnees.PortailG,38.5,239,12);
-	InitialiserPieBB(&gDonnees.PortailD,346,271,12);
+	InitialiserPieBB(&gDonnees.PortailG,38.5,239+30,8);
+	InitialiserPieBB(&gDonnees.PortailD,346,271+30,8);
 
 		// Exemple son
 		//JouerSon("media/r2d2.mp3");
@@ -406,9 +409,10 @@ void PushBall(struct Flip* Flip, struct Boule* bille)
 		ReplaceBille(bille,Flip->L3);
 		Rebond(bille,ximp,yimp);
 		float coeff_gain=((Flip->C1.X-ximp)*(Flip->C1.X-ximp)+(Flip->C1.Y-yimp)*(Flip->C1.Y-yimp))/((Flip->C1.X-Flip->C2.X)*(Flip->C1.X-Flip->C2.X)+(Flip->C1.Y-Flip->C2.Y)*(Flip->C1.Y-Flip->C2.Y)+Flip->C2.rayon);
-		bille->VX-=100*cos(Flip->angle)*coeff_gain;
-		bille->VY-=100*sin(Flip->angle)*coeff_gain;
+		bille->VX+=PROPULSIONFLIP*sin(Flip->L1.angle)*coeff_gain;
+		bille->VY-=PROPULSIONFLIP*cos(Flip->L1.angle)*coeff_gain;
 	}
+	ballispushed=1;
 }
 
 void DeplacerBouleAvecRebonds()
@@ -451,8 +455,8 @@ void DeplacerBouleAvecRebonds()
 		|| (gDonnees.Boule.Y<215-RAYON_BOULE&&Touche_pie_int(gDonnees.Pieh,gDonnees.Boule,&ximp,&yimp))
 		|| Touche_obb(gDonnees.Lanceur,gDonnees.Boule,&ximp,&yimp)
 		|| Touche_obb(gDonnees.Ressort,gDonnees.Boule,&ximp,&yimp)
-		|| Touche_obb(gDonnees.FlipG.L2,gDonnees.Boule,&ximp,&yimp)
-		|| Touche_obb(gDonnees.FlipD.L2,gDonnees.Boule,&ximp,&yimp)
+		//|| Touche_obb(gDonnees.FlipG.L2,gDonnees.Boule,&ximp,&yimp)
+		//|| Touche_obb(gDonnees.FlipD.L2,gDonnees.Boule,&ximp,&yimp)
 		|| Touche_pie(gDonnees.FlipG.C1,gDonnees.Boule,&ximp,&yimp)
 		|| Touche_pie(gDonnees.FlipG.C2,gDonnees.Boule,&ximp,&yimp)
 		|| Touche_pie(gDonnees.FlipD.C1,gDonnees.Boule,&ximp,&yimp)
@@ -480,58 +484,48 @@ void DeplacerBouleAvecRebonds()
 	}
 	if (temp<NB_CYCLE_ALLUMAGE && temp>0)
 	{
-		gInterface.Imagevert->draw(115+20, 98+20, 50, 50);
+		gInterface.Imagevert->draw(115+20, 98+20+30, 50, 50);
 		temp+=1;
 		temp%=NB_CYCLE_ALLUMAGE;
 	}
 	if (temp1<NB_CYCLE_ALLUMAGE && temp1>0)
 	{
-		gInterface.Imagebleu->draw(265+20, 98+20, 50, 50);
+		gInterface.Imagebleu->draw(265+20, 98+20+30, 50, 50);
 		temp1+=1;
 		temp1%=NB_CYCLE_ALLUMAGE;
 	}
 	if (temp2<NB_CYCLE_ALLUMAGE && temp2>0)
 	{
-		gInterface.Imagerouge->draw(190+20, 163+20, 50, 50);
+		gInterface.Imagerouge->draw(190+20, 163+20+30, 50, 50);
 		temp2+=1;
 		temp2%=NB_CYCLE_ALLUMAGE;
 	}
-/*
 	//flips
-	if(//Touche_pie(gDonnees.FlipG.C1,gDonnees.Boule,&ximp,&yimp)
-		//|| Touche_pie(gDonnees.FlipG.C2,gDonnees.Boule,&ximp,&yimp)
-		/*|| (Touche_obb(gDonnees.FlipG.L1,gDonnees.Boule,&ximp,&yimp) && Touche_obb(gDonnees.FlipG.L3,gDonnees.Boule,&ximp,&yimp)))
+	if(Touche_obb(gDonnees.FlipG.L3,gDonnees.Boule,&ximp,&yimp))
 	{
 		ReplaceBille(&(gDonnees.Boule),gDonnees.FlipG.L3);
-		Rebond(&(gDonnees.Boule),ximp,yimp);
-		float coeff_gain=((gDonnees.FlipG.C1.X-ximp)*(gDonnees.FlipG.C1.X-ximp)+(gDonnees.FlipG.C1.Y-yimp)*(gDonnees.FlipG.C1.Y-yimp))/((gDonnees.FlipG.C1.X-gDonnees.FlipG.C2.X)*(gDonnees.FlipG.C1.X-gDonnees.FlipG.C2.X)+(gDonnees.FlipG.C1.Y-gDonnees.FlipG.C2.Y)*(gDonnees.FlipG.C1.Y-gDonnees.FlipG.C2.Y)+gDonnees.FlipG.C2.rayon);
-		gDonnees.Boule.VX-=100*cos(gDonnees.FlipG.angle)*coeff_gain;
-		gDonnees.Boule.VY-=100*sin(gDonnees.FlipG.angle)*coeff_gain;
-		//on replace la boule (qui est peyt être rentrée dans le flip)
-		//gDonnees.Boule.X = ximp+gDonnees.Boule.rayon*(gDonnees.Boule.X-ximp)/sqrt((gDonnees.Boule.X-ximp)*(gDonnees.Boule.X-ximp)+(gDonnees.Boule.Y-yimp)*(gDonnees.Boule.Y-yimp));
-		//gDonnees.Boule.Y = yimp+gDonnees.Boule.rayon*(gDonnees.Boule.Y-yimp)/sqrt((gDonnees.Boule.X-ximp)*(gDonnees.Boule.X-ximp)+(gDonnees.Boule.Y-yimp)*(gDonnees.Boule.Y-yimp));
-		rebond=false;
 	}
-	if(//Touche_pie(gDonnees.FlipD.C1,gDonnees.Boule,&ximp,&yimp)
-		//|| Touche_pie(gDonnees.FlipD.C2,gDonnees.Boule,&ximp,&yimp)
-		/*|| (Touche_obb(gDonnees.FlipD.L1,gDonnees.Boule,&ximp,&yimp) && Touche_obb(gDonnees.FlipD.L3,gDonnees.Boule,&ximp,&yimp)))
+	if(Touche_obb(gDonnees.FlipD.L3,gDonnees.Boule,&ximp,&yimp))
 	{
-		ReplaceBille(&(gDonnees.Boule),gDonnees.FlipD.L3);
-		Rebond(&(gDonnees.Boule),ximp,yimp);
-		float coeff_gain=
-		 ((gDonnees.FlipD.C1.X-ximp)*(gDonnees.FlipD.C1.X-ximp)
-		 +(gDonnees.FlipD.C1.Y-yimp)*(gDonnees.FlipD.C1.Y-yimp))
-		/((gDonnees.FlipD.C1.X-gDonnees.FlipD.C2.X)*(gDonnees.FlipD.C1.X-gDonnees.FlipD.C2.X)
-		 +(gDonnees.FlipD.C1.Y-gDonnees.FlipD.C2.Y)*(gDonnees.FlipD.C1.Y-gDonnees.FlipD.C2.Y)
-		 +gDonnees.FlipD.C2.rayon);
-		gDonnees.Boule.VX-=100*cos(gDonnees.FlipD.angle)*coeff_gain;
-		gDonnees.Boule.VY-=100*sin(gDonnees.FlipD.angle)*coeff_gain;
-		//on replace la boule (qui est peyt être rentrée dans le flip)
-		//gDonnees.Boule.X = ximp+gDonnees.Boule.rayon*(gDonnees.Boule.X-ximp)/sqrt((gDonnees.Boule.X-ximp)*(gDonnees.Boule.X-ximp)+(gDonnees.Boule.Y-yimp)*(gDonnees.Boule.Y-yimp));
-		//gDonnees.Boule.Y = yimp+gDonnees.Boule.rayon*(gDonnees.Boule.Y-yimp)/sqrt((gDonnees.Boule.X-ximp)*(gDonnees.Boule.X-ximp)+(gDonnees.Boule.Y-yimp)*(gDonnees.Boule.Y-yimp));
-		rebond=false;
+		ReplaceBille(&(gDonnees.Boule),gDonnees.FlipG.L3);	
 	}
-*/
+	if((Touche_pie(gDonnees.FlipG.C1,gDonnees.Boule,&ximp,&yimp)
+		|| Touche_pie(gDonnees.FlipG.C2,gDonnees.Boule,&ximp,&yimp)
+		|| (Touche_obb(gDonnees.FlipG.L1,gDonnees.Boule,&ximp,&yimp) && Touche_obb(gDonnees.FlipG.L3,gDonnees.Boule,&ximp,&yimp)))
+		//|| Touche_obb(gDonnees.FlipG.L2,gDonnees.Boule,&ximp,&yimp))
+		&& !ballispushed)
+	{
+		rebond=true;
+	}
+	if((Touche_pie(gDonnees.FlipD.C1,gDonnees.Boule,&ximp,&yimp)
+		|| Touche_pie(gDonnees.FlipD.C2,gDonnees.Boule,&ximp,&yimp)
+		|| (Touche_obb(gDonnees.FlipD.L1,gDonnees.Boule,&ximp,&yimp) && Touche_obb(gDonnees.FlipD.L3,gDonnees.Boule,&ximp,&yimp)))
+		//|| Touche_obb(gDonnees.FlipD.L2,gDonnees.Boule,&ximp,&yimp))
+		&& !ballispushed)
+	{
+		rebond=true;
+	}
+	ballispushed=0;
 
 	//Teleporteurs
 	if(Touche_pie(gDonnees.PortailG,gDonnees.Boule,&ximp,&yimp) && temp_portails==0)
@@ -552,8 +546,8 @@ void DeplacerBouleAvecRebonds()
 	{
 		temp_portails+=1;
 		temp_portails%=15;
-		gInterface.Imageteleporteur->draw(21+20, 222+20, 35, 35);
-		gInterface.Imageteleporteur->draw(329+20, 254+20, 35, 35);
+		gInterface.Imageteleporteur->draw(21+20, 222+20+30, 35, 35);
+		gInterface.Imageteleporteur->draw(329+20, 254+20+30, 35, 35);
 	}
 
 

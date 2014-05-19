@@ -87,8 +87,11 @@ void ZoneDessinDessinerCB( Fl_Widget* widget, void* data )
     gInterface.Imagemenu->draw(X_MENU, Y_MENU, L_MENU, H_MENU); //pourrais ne pas être affiché en permanence
     // On efface toute la zone ( en dessinant dessus l'image de fond )
     gInterface.Imagefond->draw(X_ZONE, Y_ZONE, L_ZONE, H_ZONE);
-    Attente(0.03); //wtf ?
+    //Attente(0.03); //wtf ?
     //sleep(0.03);
+
+    //dessin trou noir
+    gInterface.Imagetrou->draw(115+20, 5+20, 200, 200);
 
     // On dessine la bille
     gInterface.Imagebille->draw(X_ZONE + gDonnees.Boule.X - RAYON_BOULE, Y_ZONE + gDonnees.Boule.Y - RAYON_BOULE);

@@ -46,6 +46,7 @@ struct Interface
     Fl_GIF_Image* Imageteleporteur;
     Fl_GIF_Image* Imageflipg;
     Fl_GIF_Image* Imageflipd;
+    Fl_GIF_Image* Imagetrou;
 } ;
 
 // Declaration des objets de l'interface generale - ne pas supprimer
