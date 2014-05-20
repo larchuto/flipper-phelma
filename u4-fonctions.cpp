@@ -50,7 +50,7 @@ void InitialiserOBB(struct Obb* obb, float x, float y, float tailleX, float tail
 	obb->angle=angle;
 }
 
-void InitialiserScore()
+void InitialiserBestScores()
 {
   gDonnees.score1=0;
   gDonnees.score2=0;
@@ -78,7 +78,7 @@ void InitialiserDonnees()
 	gDonnees.Boule.VX = 0 ;
 	gDonnees.Boule.VY = 0 ;
 
-	// On initialise le score et le nombre de billes
+	// On initialise le score, le nombre de billes et les meilleurs scores
 	gDonnees.Points = 0 ;
 	gDonnees.NumBille = 1 ;
 
@@ -469,20 +469,37 @@ void TrouNoir(struct Boule* bille)
 
 void ChargeBestScores()
 {
-
+	ifstream scores("BestScores.txt");
+	if(scores)
+	{
+    	// a faire proprement avec un for lorsque nom et score seront des tableaux
+        scores >> gDonnees.nom1;
+        scores >> gDonnees.score1;
+        scores >> gDonnees.nom2;
+        scores >> gDonnees.score2;
+        scores >> gDonnees.nom3;
+        scores >> gDonnees.score3;
+        scores >> gDonnees.nom4;
+        scores >> gDonnees.score4;
+        scores >> gDonnees.nom5;
+        scores >> gDonnees.score5;
+	}
+	else //le fichier n'existe pas ? peu importe : on met tout a zero
+	{
+		InitialiserBestScores();
+	}
 }
 void SaveBestScores()
 {
-    string const scorePath("BestScores.txt");
-    ofstream score(scorePath.c_str());
-    if(score)    
+    ofstream scores("BestScores.txt");
+    if(scores)    
     {
     	// a faire proprement avec un for lorsque nom et score seront des tableaux
-        score << gDonnees.nom1 << " " << gDonnees.score1 << endl;
-        score << gDonnees.nom2 << " " << gDonnees.score2 << endl;
-        score << gDonnees.nom3 << " " << gDonnees.score3 << endl;
-        score << gDonnees.nom4 << " " << gDonnees.score4 << endl;
-        score << gDonnees.nom5 << " " << gDonnees.score5 << endl;
+        scores << gDonnees.nom1 << " " << gDonnees.score1 << endl;
+        scores << gDonnees.nom2 << " " << gDonnees.score2 << endl;
+        scores << gDonnees.nom3 << " " << gDonnees.score3 << endl;
+        scores << gDonnees.nom4 << " " << gDonnees.score4 << endl;
+        scores << gDonnees.nom5 << " " << gDonnees.score5 << endl;
 
     }
     else
