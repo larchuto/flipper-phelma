@@ -39,8 +39,8 @@ struct Flip
 struct Donnees
 {
     struct Boule Boule ;
-    unsigned int Valeur ;
-    unsigned int Valeur2 ;
+    unsigned int Points ;
+    unsigned int NumBille ;
 
 	struct Boule Pieh;
 	struct Obb Lanceur;

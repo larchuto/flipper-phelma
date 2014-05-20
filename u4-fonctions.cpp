@@ -76,10 +76,10 @@ void InitialiserDonnees()
 	gDonnees.Boule.VY = 0 ;
 
 	// On initialise le score et le nombre de billes
-	gDonnees.Valeur = 0 ;
-	gDonnees.Valeur2 = 1 ;
-	gInterface.Nb_billes->value(gDonnees.Valeur2) ;
-	gInterface.ValueScore->value(gDonnees.Valeur) ;
+	gDonnees.Points = 0 ;
+	gDonnees.NumBille = 1 ;
+	gInterface.Nb_billes->value(gDonnees.NumBille) ;
+	gInterface.ValueScore->value(gDonnees.Points) ;
 
 	//courbe haut du plateau
 	InitialiserPieBB(&gDonnees.Pieh,214,215,211);
@@ -454,8 +454,8 @@ void TrouNoir(struct Boule* bille)
 	bille->Y=105;
 	float sortie=rand()/(float)RAND_MAX;
 	float anglesortie=float(rand()%361)/180*3.14159;
-	gDonnees.Valeur += SCORE_TROUNOIR ;
-        gInterface.ValueScore->value(gDonnees.Valeur) ;
+	gDonnees.Points += SCORE_TROUNOIR ;
+        gInterface.ValueScore->value(gDonnees.Points) ;
 	if(sortie<TROUNOIR_PROBA_SORTIR || temptrounoir>TROUNOIR_NBRCYCLEMAX)
 	{
 		ballintrounoir=0;
@@ -483,17 +483,17 @@ void DeplacerBouleAvecRebonds()
 		gDonnees.Boule.Y = gDonnees.Boule.Y=H_ZONE-47-RAYON_BOULE;
 		gDonnees.Boule.VX=0;
 		gDonnees.Boule.VY=0;
-		gDonnees.Valeur2 = gDonnees.Valeur2 + 1 ;
+		gDonnees.NumBille = gDonnees.NumBille + 1 ;
 
-		if (gDonnees.Valeur2<4)
+		if (gDonnees.NumBille<4)
         {
-		gInterface.Nb_billes->value(gDonnees.Valeur2) ;
+		gInterface.Nb_billes->value(gDonnees.NumBille) ;
         }
 
-else if ((gDonnees.Valeur2==4)&&(gDonnees.Valeur>gDonnees.score5)&&(gDonnees.Valeur!=0))
+else if ((gDonnees.NumBille==4)&&(gDonnees.Points>gDonnees.score5)&&(gDonnees.Points!=0))
 {
 
-                  if (gDonnees.Valeur>gDonnees.score1)
+                  if (gDonnees.Points>gDonnees.score1)
                   {
                      gDonnees.score5=gDonnees.score4;
                      gDonnees.score4=gDonnees.score3;
@@ -520,11 +520,11 @@ else if ((gDonnees.Valeur2==4)&&(gDonnees.Valeur>gDonnees.score5)&&(gDonnees.Val
                      if ( Saisie != NULL )
                      strcpy (gDonnees.nom1, Saisie);
                  } while ( strcmp( gDonnees.nom1, "" ) == 0 ) ;
-                 gDonnees.score1=gDonnees.Valeur;
+                 gDonnees.score1=gDonnees.Points;
                  InitialiserDonnees();
                   }
 
-                  else if (gDonnees.Valeur>gDonnees.score2)
+                  else if (gDonnees.Points>gDonnees.score2)
                   {
                      gDonnees.score5=gDonnees.score4;
                      gDonnees.score4=gDonnees.score3;
@@ -549,11 +549,11 @@ else if ((gDonnees.Valeur2==4)&&(gDonnees.Valeur>gDonnees.score5)&&(gDonnees.Val
                      if ( Saisie != NULL )
                      strcpy (gDonnees.nom2, Saisie);
                  } while ( strcmp( gDonnees.nom2, "" ) == 0 ) ;
-                 gDonnees.score2=gDonnees.Valeur;
+                 gDonnees.score2=gDonnees.Points;
                  InitialiserDonnees();
                   }
 
-                  else if (gDonnees.Valeur>gDonnees.score3)
+                  else if (gDonnees.Points>gDonnees.score3)
                   {
                      gDonnees.score5=gDonnees.score4;
                      gDonnees.score4=gDonnees.score3;
@@ -576,11 +576,11 @@ else if ((gDonnees.Valeur2==4)&&(gDonnees.Valeur>gDonnees.score5)&&(gDonnees.Val
                      if ( Saisie != NULL )
                      strcpy (gDonnees.nom3, Saisie);
                  } while ( strcmp( gDonnees.nom3, "" ) == 0 ) ;
-                 gDonnees.score3=gDonnees.Valeur;
+                 gDonnees.score3=gDonnees.Points;
                  InitialiserDonnees();
                   }
 
-                  else if (gDonnees.Valeur>gDonnees.score4)
+                  else if (gDonnees.Points>gDonnees.score4)
                   {
                      gDonnees.score5=gDonnees.score4;
 
@@ -601,11 +601,11 @@ else if ((gDonnees.Valeur2==4)&&(gDonnees.Valeur>gDonnees.score5)&&(gDonnees.Val
                      if ( Saisie != NULL )
                      strcpy (gDonnees.nom4, Saisie);
                  } while ( strcmp( gDonnees.nom4, "" ) == 0 ) ;
-                 gDonnees.score4=gDonnees.Valeur;
+                 gDonnees.score4=gDonnees.Points;
                  InitialiserDonnees();
                   }
 
-                  else if (gDonnees.Valeur>gDonnees.score5)
+                  else if (gDonnees.Points>gDonnees.score5)
                   {
 
                  const char* Saisie ; // et pas : char Saisie[80]
@@ -617,7 +617,7 @@ else if ((gDonnees.Valeur2==4)&&(gDonnees.Valeur>gDonnees.score5)&&(gDonnees.Val
                      if ( Saisie != NULL )
                      strcpy (gDonnees.nom5, Saisie);
                  } while ( strcmp( gDonnees.nom5, "" ) == 0 ) ;
-                 gDonnees.score5=gDonnees.Valeur;
+                 gDonnees.score5=gDonnees.Points;
                  InitialiserDonnees();
                   }
 	}
@@ -704,23 +704,23 @@ else if ((gDonnees.Valeur2==4)&&(gDonnees.Valeur>gDonnees.score5)&&(gDonnees.Val
         if(Touche_pie(gDonnees.Bp1,gDonnees.Boule,&ximp,&yimp))
         {
                 rebond=true;
-                gDonnees.Valeur += SCORE_BUMPER ;
-                gInterface.ValueScore->value(gDonnees.Valeur) ;
+                gDonnees.Points += SCORE_BUMPER ;
+                gInterface.ValueScore->value(gDonnees.Points) ;
                 temp=1;
         }
 
         if(Touche_pie(gDonnees.Bp2,gDonnees.Boule,&ximp,&yimp))
         {
                 rebond=true;
-                gDonnees.Valeur += SCORE_BUMPER ;
-                gInterface.ValueScore->value(gDonnees.Valeur) ;
+                gDonnees.Points += SCORE_BUMPER ;
+                gInterface.ValueScore->value(gDonnees.Points) ;
                 temp1=1;
         }
         if(Touche_pie(gDonnees.Bp3,gDonnees.Boule,&ximp,&yimp))
         {
                 rebond=true;
-                gDonnees.Valeur += SCORE_BUMPER ;
-                gInterface.ValueScore->value(gDonnees.Valeur) ;
+                gDonnees.Points += SCORE_BUMPER ;
+                gInterface.ValueScore->value(gDonnees.Points) ;
                 temp2=1;
 	}
 	if (temp<NB_CYCLE_ALLUMAGE && temp>0)
@@ -747,16 +747,16 @@ else if ((gDonnees.Valeur2==4)&&(gDonnees.Valeur>gDonnees.score5)&&(gDonnees.Val
 	{
 		gDonnees.Boule.X=gDonnees.PortailD.X;
 		gDonnees.Boule.Y=gDonnees.PortailD.Y;
-                gDonnees.Valeur += SCORE_TELEPORTEUR ;
-                gInterface.ValueScore->value(gDonnees.Valeur) ;
+                gDonnees.Points += SCORE_TELEPORTEUR ;
+                gInterface.ValueScore->value(gDonnees.Points) ;
 		temp_portails=1;
 	}
 	if(Touche_pie(gDonnees.PortailD,gDonnees.Boule,&ximp,&yimp) && temp_portails==0)
 	{
 		gDonnees.Boule.X=gDonnees.PortailG.X;
 		gDonnees.Boule.Y=gDonnees.PortailG.Y;
-                gDonnees.Valeur += SCORE_TELEPORTEUR ;
-                gInterface.ValueScore->value(gDonnees.Valeur) ;
+                gDonnees.Points += SCORE_TELEPORTEUR ;
+                gInterface.ValueScore->value(gDonnees.Points) ;
 		temp_portails=1;
 
 	}
@@ -780,8 +780,8 @@ else if ((gDonnees.Valeur2==4)&&(gDonnees.Valeur>gDonnees.score5)&&(gDonnees.Val
 	{
 		rebond=true;
 		temp3=1;
-                gDonnees.Valeur = gDonnees.Valeur + SCORE_TRIANGLE ;
-                gInterface.ValueScore->value(gDonnees.Valeur) ;
+                gDonnees.Points = gDonnees.Points + SCORE_TRIANGLE ;
+                gInterface.ValueScore->value(gDonnees.Points) ;
 	}
 
 	if (temp3<NB_CYCLE_ALLUMAGE && temp3>0)
@@ -800,8 +800,8 @@ else if ((gDonnees.Valeur2==4)&&(gDonnees.Valeur>gDonnees.score5)&&(gDonnees.Val
 	{
 		rebond=true;
 		temp4=1;
-		gDonnees.Valeur = gDonnees.Valeur + SCORE_TRIANGLE ;
-                gInterface.ValueScore->value(gDonnees.Valeur) ;
+		gDonnees.Points += SCORE_TRIANGLE ;
+                gInterface.ValueScore->value(gDonnees.Points) ;
 	}
 
 	if (temp4<NB_CYCLE_ALLUMAGE && temp4>0)

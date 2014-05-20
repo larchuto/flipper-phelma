@@ -26,7 +26,6 @@ struct Interface
     DrawingArea* ZoneMenu ;
     DrawingArea* ZoneScore ;
     Fl_Button* BoutonQuitter ;
-    Fl_Check_Button* CaseRebond ;
 
     Fl_Button* BoutonAction ;
     Fl_Button* BoutonNouvellePartie ;

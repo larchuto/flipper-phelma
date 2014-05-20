@@ -3,6 +3,7 @@
 // Librairies standards
 #include <iostream> // cin, cout, ...
 #include <unistd.h>
+#include <stdio.h>
 // Librairies fltk
 #include <FL/Fl_GIF_Image.H>
 #include <FL/Fl.H>
@@ -78,15 +79,24 @@ void DessineFlip(struct Flip flip)
 	fl_pie(flip.C2.X+20-flip.C2.rayon,flip.C2.Y+20-flip.C2.rayon+1,2*flip.C2.rayon+1,2*flip.C2.rayon+1,0,360);
 }
 
-/*void DessineFlipD()
+void DessineEntier(int valeur, int posx, int posy)
 {
-
-}*/
+	char valeurtxt[20];
+	sprintf(valeurtxt, "%d", valeur);
+	//strcpy(valeur,valeurtxt);
+	int longeur, hauteur;
+	fl_measure(valeurtxt,longeur,hauteur);
+	fl_draw(valeurtxt, float(posx-longeur), float(posy)); 
+}
 
 void ZoneScoreDessinerCB( Fl_Widget* widget, void* data )
 {
         //Zone de score
-    gInterface.Imagescore->draw(X_SCORE, Y_SCORE, L_SCORE, H_SCORE);
+   	gInterface.Imagescore->draw(X_SCORE, Y_SCORE, L_SCORE, H_SCORE);
+	//dessin des points et du numéro de bille   
+	fl_color(FL_WHITE);
+	DessineEntier(gDonnees.NumBille,680,349);
+	DessineEntier(gDonnees.Points,690,402);
 }
 
 void ZoneMenuDessinerCB( Fl_Widget* widget, void* data )
@@ -132,46 +142,9 @@ DessineFlip(gDonnees.FlipD);
         //if (last_i_bip!=i_bip) {JouerSon(path);}
         last_i_bip=i_bip;
     }
-/*
-    if(gDonnees.Boule.X >= L_ZONE-RAYON_BOULE-8 && gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE-46-113 && gDonnees.Boule.Y <= H_ZONE-RAYON_BOULE-46-113+20)
-            {
-                gInterface.Imagebip1->draw(392+20, 457+20, 9, 40);
-                JouerSon("media/Sons/bips/rampe/bip_1.mp3");
-            }
-    if(gDonnees.Boule.X >= L_ZONE-RAYON_BOULE-8 && gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE-46-113-(40*1))// && gDonnees.Boule.Y <= H_ZONE-RAYON_BOULE-46-113-20)
-            {
-                gInterface.Imagebip2->draw(392+20, 457-(40*1)+20, 9, 40);
-                JouerSon("media/Sons/bips/rampe/bip_2.mp3");
-            }
-    if(gDonnees.Boule.X >= L_ZONE-RAYON_BOULE-8 && gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE-46-113-(40*2))// && gDonnees.Boule.Y <= H_ZONE-RAYON_BOULE-46-113-20-(40*1))
-            {
-                gInterface.Imagebip3->draw(392+20, 457-(40*2)+20, 9, 40);
-                JouerSon("media/Sons/bips/rampe/bip_3.mp3");
-            }
-    if(gDonnees.Boule.X >= L_ZONE-RAYON_BOULE-8 && gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE-46-113-(40*3))// && gDonnees.Boule.Y <= H_ZONE-RAYON_BOULE-46-113-20-(40*2))
-            {
-                gInterface.Imagebip4->draw(392+20, 457-(40*3)+20, 9, 40);
-                JouerSon("media/Sons/bips/rampe/bip_4.mp3");
-            }
-    if(gDonnees.Boule.X >= L_ZONE-RAYON_BOULE-8 && gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE-46-113-(40*4))// && gDonnees.Boule.Y <= H_ZONE-RAYON_BOULE-46-113-20-(40*3))
-            {
-                gInterface.Imagebip5->draw(392+20, 457-(40*4)+20, 9, 40);
-                JouerSon("media/Sons/bips/rampe/bip_5.mp3");
-            }
-    if(gDonnees.Boule.X >= L_ZONE-RAYON_BOULE-8 && gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE-46-113-(40*5))// && gDonnees.Boule.Y <= H_ZONE-RAYON_BOULE-46-113-20-(40*4))
-            {
-                gInterface.Imagebip6->draw(392+20, 457-(40*5)+20, 9, 40);
-                JouerSon("media/Sons/bips/rampe/bip_6.mp3");
-            }
-    if(gDonnees.Boule.X >= L_ZONE-RAYON_BOULE-8 && gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE-46-113-(40*6))// && gDonnees.Boule.Y <= H_ZONE-RAYON_BOULE-46-113-20-(40*5))
-            {
-                gInterface.Imagebip7->draw(392+20, 457-(40*6)+20, 9, 40);
-                JouerSon("media/Sons/bips/rampe/bip_7.mp3");
-            }*/
 
     //dessin ressort
     DessineRessort(gDonnees.CompressionRessort);
-    //fl_color(FL_WHITE);
 
     //dessin bounding boxes
     Display_PieBB(gDonnees.TriGC1);

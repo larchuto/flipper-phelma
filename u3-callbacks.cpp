@@ -71,10 +71,10 @@ void BoutonNouvellePartieCB(Fl_Widget* w, void* data)
             gDonnees.Boule.VY = 0 ;
 
             // On initialise le score et le nombre de billes
-            gDonnees.Valeur = 0 ;
-            gDonnees.Valeur2 = 1 ;
-            gInterface.ValueScore->value(gDonnees.Valeur) ;
-            gInterface.Nb_billes->value(gDonnees.Valeur2) ;
+            gDonnees.Points = 0 ;
+            gDonnees.NumBille = 1 ;
+            gInterface.ValueScore->value(gDonnees.Points) ;
+            gInterface.Nb_billes->value(gDonnees.NumBille) ;
 
      printf("BoutonNouvellePartieCB\n");
 }
@@ -134,8 +134,8 @@ void ZoneDessinClavierCB( Fl_Widget* widget, void* data, bool key_is_down)
             printf("Appui sur la touche Espace\n");
 		if(key_is_down){CompressionRessort();}
 		else{RelachementRessort();}
-         //gDonnees.Valeur2 = gDonnees.Valeur2 + 1 ;
-         //gInterface.Nb_billes->value(gDonnees.Valeur2) ;
+         //gDonnees.NumBille = gDonnees.NumBille + 1 ;
+         //gInterface.Nb_billes->value(gDonnees.NumBille) ;
             break ;
         case 'a' :
             printf("Appui sur le caractere a\n");
