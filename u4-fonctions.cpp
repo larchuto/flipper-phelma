@@ -5,9 +5,12 @@
 #include <stdlib.h> // exit, rand
 #include <time.h> // time
 #include <string.h> // strcpy
+#include <fstream> //lecture et ecriture fichiers
+
 // Librairie fmod pour le son
 #include <api/inc/fmod.h>
 #include <api/inc/fmod_errors.h>
+
 // Programmes locaux
 #include "u1-interface.h"
 #include "u4-fonctions.h"
@@ -463,6 +466,31 @@ void TrouNoir(struct Boule* bille)
 	}
 
 }
+
+void ChargeBestScores()
+{
+
+}
+void SaveBestScores()
+{
+    string const scorePath("BestScores.txt");
+    ofstream score(scorePath.c_str());
+    if(score)    
+    {
+    	// a faire proprement avec un for lorsque nom et score seront des tableaux
+        score << gDonnees.nom1 << " " << gDonnees.score1 << endl;
+        score << gDonnees.nom2 << " " << gDonnees.score2 << endl;
+        score << gDonnees.nom3 << " " << gDonnees.score3 << endl;
+        score << gDonnees.nom4 << " " << gDonnees.score4 << endl;
+        score << gDonnees.nom5 << " " << gDonnees.score5 << endl;
+
+    }
+    else
+    {
+        fl_message("Impossible d'ouvrir le fichier \"BestScores.txt\"");
+    }
+}
+
 
 void DeplacerBouleAvecRebonds()
 {

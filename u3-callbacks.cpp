@@ -150,8 +150,10 @@ void ZoneDessinClavierCB( Fl_Widget* widget, void* data, bool key_is_down)
 
 void BoutonQuitterCB(Fl_Widget* w, void* data)
 {
+    //On sauvegarde les meilleurs scores
+    SaveBestScores();
     // Fin du programme
-    exit(0) ;
+    exit(0);
 }
 
 

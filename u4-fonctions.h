@@ -106,6 +106,7 @@ void CompressionRessort();
 void RelachementRessort();
 void InitialiserScore();
 void Calculscoreabattre();
+void SaveBestScores();
 
 #endif // _u4_fonctions_h
 
