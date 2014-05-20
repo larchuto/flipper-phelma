@@ -78,8 +78,6 @@ void InitialiserDonnees()
 	// On initialise le score et le nombre de billes
 	gDonnees.Points = 0 ;
 	gDonnees.NumBille = 1 ;
-	gInterface.Nb_billes->value(gDonnees.NumBille) ;
-	gInterface.ValueScore->value(gDonnees.Points) ;
 
 	//courbe haut du plateau
 	InitialiserPieBB(&gDonnees.Pieh,214,215,211);
@@ -455,7 +453,6 @@ void TrouNoir(struct Boule* bille)
 	float sortie=rand()/(float)RAND_MAX;
 	float anglesortie=float(rand()%361)/180*3.14159;
 	gDonnees.Points += SCORE_TROUNOIR ;
-        gInterface.ValueScore->value(gDonnees.Points) ;
 	if(sortie<TROUNOIR_PROBA_SORTIR || temptrounoir>TROUNOIR_NBRCYCLEMAX)
 	{
 		ballintrounoir=0;
@@ -484,150 +481,133 @@ void DeplacerBouleAvecRebonds()
 		gDonnees.Boule.VX=0;
 		gDonnees.Boule.VY=0;
 		gDonnees.NumBille = gDonnees.NumBille + 1 ;
-
-		if (gDonnees.NumBille<4)
-        {
-		gInterface.Nb_billes->value(gDonnees.NumBille) ;
-        }
-
-else if ((gDonnees.NumBille==4)&&(gDonnees.Points>gDonnees.score5)&&(gDonnees.Points!=0))
-{
-
-                  if (gDonnees.Points>gDonnees.score1)
-                  {
-                     gDonnees.score5=gDonnees.score4;
-                     gDonnees.score4=gDonnees.score3;
-                     gDonnees.score3=gDonnees.score2;
-                     gDonnees.score2=gDonnees.score1;
-
-                     int i;
-                     i=0;
-
-                     for (i=0;i<20;i++)
-                     {
-                       gDonnees.nom5[i]=gDonnees.nom4[i];
-                       gDonnees.nom4[i]=gDonnees.nom3[i];
-                       gDonnees.nom3[i]=gDonnees.nom2[i];
-                       gDonnees.nom2[i]=gDonnees.nom1[i];
-                     }
-
-                 const char* Saisie ; // et pas : char Saisie[80]
-                 // Saisie de la chaine
-                 strcpy(gDonnees.nom1, "" ) ;
-                 do
-                 {
-                     Saisie = fl_input("Meilleur Score! Tapez votre nom :", "" ) ;
-                     if ( Saisie != NULL )
-                     strcpy (gDonnees.nom1, Saisie);
-                 } while ( strcmp( gDonnees.nom1, "" ) == 0 ) ;
-                 gDonnees.score1=gDonnees.Points;
-                 InitialiserDonnees();
-                  }
-
-                  else if (gDonnees.Points>gDonnees.score2)
-                  {
-                     gDonnees.score5=gDonnees.score4;
-                     gDonnees.score4=gDonnees.score3;
-                     gDonnees.score3=gDonnees.score2;
-
-                     int i;
-                     i=0;
-
-                     for (i=0;i<20;i++)
-                     {
-                       gDonnees.nom5[i]=gDonnees.nom4[i];
-                       gDonnees.nom4[i]=gDonnees.nom3[i];
-                       gDonnees.nom3[i]=gDonnees.nom2[i];
-                     }
-
-                 const char* Saisie ; // et pas : char Saisie[80]
-                 // Saisie de la chaine
-                 strcpy(gDonnees.nom2, "" ) ;
-                 do
-                 {
-                     Saisie = fl_input("Meilleur Score! Tapez votre nom :", "" ) ;
-                     if ( Saisie != NULL )
-                     strcpy (gDonnees.nom2, Saisie);
-                 } while ( strcmp( gDonnees.nom2, "" ) == 0 ) ;
-                 gDonnees.score2=gDonnees.Points;
-                 InitialiserDonnees();
-                  }
-
-                  else if (gDonnees.Points>gDonnees.score3)
-                  {
-                     gDonnees.score5=gDonnees.score4;
-                     gDonnees.score4=gDonnees.score3;
-
-                     int i;
-                     i=0;
-
-                     for (i=0;i<20;i++)
-                     {
-                       gDonnees.nom5[i]=gDonnees.nom4[i];
-                       gDonnees.nom4[i]=gDonnees.nom3[i];
-                     }
-
-                 const char* Saisie ; // et pas : char Saisie[80]
-                 // Saisie de la chaine
-                 strcpy(gDonnees.nom3, "" ) ;
-                 do
-                 {
-                     Saisie = fl_input("Meilleur Score! Tapez votre nom :", "" ) ;
-                     if ( Saisie != NULL )
-                     strcpy (gDonnees.nom3, Saisie);
-                 } while ( strcmp( gDonnees.nom3, "" ) == 0 ) ;
-                 gDonnees.score3=gDonnees.Points;
-                 InitialiserDonnees();
-                  }
-
-                  else if (gDonnees.Points>gDonnees.score4)
-                  {
-                     gDonnees.score5=gDonnees.score4;
-
-                     int i;
-                     i=0;
-
-                     for (i=0;i<20;i++)
-                     {
-                       gDonnees.nom5[i]=gDonnees.nom4[i];
-                     }
-
-                 const char* Saisie ; // et pas : char Saisie[80]
-                 // Saisie de la chaine
-                 strcpy(gDonnees.nom4, "" ) ;
-                 do
-                 {
-                     Saisie = fl_input("Meilleur Score! Tapez votre nom :", "" ) ;
-                     if ( Saisie != NULL )
-                     strcpy (gDonnees.nom4, Saisie);
-                 } while ( strcmp( gDonnees.nom4, "" ) == 0 ) ;
-                 gDonnees.score4=gDonnees.Points;
-                 InitialiserDonnees();
-                  }
-
-                  else if (gDonnees.Points>gDonnees.score5)
-                  {
-
-                 const char* Saisie ; // et pas : char Saisie[80]
-                 // Saisie de la chaine
-                 strcpy(gDonnees.nom5, "" ) ;
-                 do
-                 {
-                     Saisie = fl_input("Meilleur Score! Tapez votre nom :", "" ) ;
-                     if ( Saisie != NULL )
-                     strcpy (gDonnees.nom5, Saisie);
-                 } while ( strcmp( gDonnees.nom5, "" ) == 0 ) ;
-                 gDonnees.score5=gDonnees.Points;
-                 InitialiserDonnees();
-                  }
 	}
+	else if ((gDonnees.NumBille==4)&&(gDonnees.Points>gDonnees.score5)&&(gDonnees.Points!=0))
+	{
+		if (gDonnees.Points>gDonnees.score1)
+		{
+			gDonnees.score5=gDonnees.score4;
+			gDonnees.score4=gDonnees.score3;
+			gDonnees.score3=gDonnees.score2;
+			gDonnees.score2=gDonnees.score1;
+			int i;
+			i=0;
+			for (i=0;i<20;i++)
+			{
+				gDonnees.nom5[i]=gDonnees.nom4[i];
+				gDonnees.nom4[i]=gDonnees.nom3[i];
+				gDonnees.nom3[i]=gDonnees.nom2[i];
+				gDonnees.nom2[i]=gDonnees.nom1[i];
+			}
 
-	else
-    {
-    fl_message("\n\t\t\t\tPerdu!");
-    InitialiserDonnees();
-    }
-    }
+			const char* Saisie ; // et pas : char Saisie[80]
+			// Saisie de la chaine
+			strcpy(gDonnees.nom1, "" ) ;
+			do
+			{
+				Saisie = fl_input("Meilleur Score! Tapez votre nom :", "" ) ;
+				if ( Saisie != NULL )
+				strcpy (gDonnees.nom1, Saisie);
+			} while ( strcmp( gDonnees.nom1, "" ) == 0 ) ;
+				gDonnees.score1=gDonnees.Points;
+				InitialiserDonnees();
+		}
+
+		else if (gDonnees.Points>gDonnees.score2)
+		{
+			gDonnees.score5=gDonnees.score4;
+			gDonnees.score4=gDonnees.score3;
+			gDonnees.score3=gDonnees.score2;
+			int i;
+			i=0;
+
+			for (i=0;i<20;i++)
+			{
+				gDonnees.nom5[i]=gDonnees.nom4[i];
+				gDonnees.nom4[i]=gDonnees.nom3[i];
+				gDonnees.nom3[i]=gDonnees.nom2[i];
+			}
+
+			const char* Saisie ; // et pas : char Saisie[80]
+			// Saisie de la chaine
+			strcpy(gDonnees.nom2, "" ) ;
+			do
+			{
+				Saisie = fl_input("Meilleur Score! Tapez votre nom :", "" ) ;
+				if ( Saisie != NULL ) strcpy (gDonnees.nom2, Saisie);
+			} while ( strcmp( gDonnees.nom2, "" ) == 0 ) ;
+			gDonnees.score2=gDonnees.Points;
+			InitialiserDonnees();
+		}
+
+		else if (gDonnees.Points>gDonnees.score3)
+		{
+			gDonnees.score5=gDonnees.score4;
+			gDonnees.score4=gDonnees.score3;
+			int i;
+			i=0;
+			for (i=0;i<20;i++)
+			{
+			   gDonnees.nom5[i]=gDonnees.nom4[i];
+			   gDonnees.nom4[i]=gDonnees.nom3[i];
+			}
+
+			const char* Saisie ; // et pas : char Saisie[80]
+			// Saisie de la chaine
+			strcpy(gDonnees.nom3, "" ) ;
+			do
+			{
+				Saisie = fl_input("Meilleur Score! Tapez votre nom :", "" ) ;
+				if ( Saisie != NULL )
+				strcpy (gDonnees.nom3, Saisie);
+			} while ( strcmp( gDonnees.nom3, "" ) == 0 ) ;
+			gDonnees.score3=gDonnees.Points;
+			InitialiserDonnees();
+		}
+
+		else if (gDonnees.Points>gDonnees.score4)
+		{
+			gDonnees.score5=gDonnees.score4;
+
+			int i;
+			i=0;
+			for (i=0;i<20;i++)
+			{
+				gDonnees.nom5[i]=gDonnees.nom4[i];
+			}
+
+			const char* Saisie ; // et pas : char Saisie[80]
+			// Saisie de la chaine
+			strcpy(gDonnees.nom4, "" ) ;
+			do
+			{
+				Saisie = fl_input("Meilleur Score! Tapez votre nom :", "" ) ;
+				if ( Saisie != NULL )
+				strcpy (gDonnees.nom4, Saisie);
+			} while ( strcmp( gDonnees.nom4, "" ) == 0 ) ;
+			gDonnees.score4=gDonnees.Points;
+			InitialiserDonnees();
+		}
+		else if (gDonnees.Points>gDonnees.score5)
+		{
+			const char* Saisie ; // et pas : char Saisie[80]
+			// Saisie de la chaine
+			strcpy(gDonnees.nom5, "" ) ;
+			do
+			{
+				Saisie = fl_input("Meilleur Score! Tapez votre nom :", "" ) ;
+				if ( Saisie != NULL )
+				strcpy (gDonnees.nom5, Saisie);
+			} while ( strcmp( gDonnees.nom5, "" ) == 0 ) ;
+			gDonnees.score5=gDonnees.Points;
+				InitialiserDonnees();
+		}
+	}
+	else if (gDonnees.NumBille==4)
+	{
+		fl_message("\n\t\t\t\tPerdu!");
+		InitialiserDonnees();
+	}
 
 	if ( gDonnees.Boule.X <= RAYON_BOULE+5)
 	{
@@ -701,27 +681,24 @@ else if ((gDonnees.NumBille==4)&&(gDonnees.Points>gDonnees.score5)&&(gDonnees.Po
 		TrouNoir(&(gDonnees.Boule));
 	}
 	//Gestion bumpers
-        if(Touche_pie(gDonnees.Bp1,gDonnees.Boule,&ximp,&yimp))
-        {
-                rebond=true;
-                gDonnees.Points += SCORE_BUMPER ;
-                gInterface.ValueScore->value(gDonnees.Points) ;
-                temp=1;
-        }
+		if(Touche_pie(gDonnees.Bp1,gDonnees.Boule,&ximp,&yimp))
+		{
+				rebond=true;
+				gDonnees.Points += SCORE_BUMPER ;
+				temp=1;
+		}
 
-        if(Touche_pie(gDonnees.Bp2,gDonnees.Boule,&ximp,&yimp))
-        {
-                rebond=true;
-                gDonnees.Points += SCORE_BUMPER ;
-                gInterface.ValueScore->value(gDonnees.Points) ;
-                temp1=1;
-        }
-        if(Touche_pie(gDonnees.Bp3,gDonnees.Boule,&ximp,&yimp))
-        {
-                rebond=true;
-                gDonnees.Points += SCORE_BUMPER ;
-                gInterface.ValueScore->value(gDonnees.Points) ;
-                temp2=1;
+		if(Touche_pie(gDonnees.Bp2,gDonnees.Boule,&ximp,&yimp))
+		{
+				rebond=true;
+				gDonnees.Points += SCORE_BUMPER ;
+				temp1=1;
+		}
+		if(Touche_pie(gDonnees.Bp3,gDonnees.Boule,&ximp,&yimp))
+		{
+				rebond=true;
+				gDonnees.Points += SCORE_BUMPER ;
+				temp2=1;
 	}
 	if (temp<NB_CYCLE_ALLUMAGE && temp>0)
 	{
@@ -747,16 +724,14 @@ else if ((gDonnees.NumBille==4)&&(gDonnees.Points>gDonnees.score5)&&(gDonnees.Po
 	{
 		gDonnees.Boule.X=gDonnees.PortailD.X;
 		gDonnees.Boule.Y=gDonnees.PortailD.Y;
-                gDonnees.Points += SCORE_TELEPORTEUR ;
-                gInterface.ValueScore->value(gDonnees.Points) ;
+		gDonnees.Points += SCORE_TELEPORTEUR ;
 		temp_portails=1;
 	}
 	if(Touche_pie(gDonnees.PortailD,gDonnees.Boule,&ximp,&yimp) && temp_portails==0)
 	{
 		gDonnees.Boule.X=gDonnees.PortailG.X;
 		gDonnees.Boule.Y=gDonnees.PortailG.Y;
-                gDonnees.Points += SCORE_TELEPORTEUR ;
-                gInterface.ValueScore->value(gDonnees.Points) ;
+		gDonnees.Points += SCORE_TELEPORTEUR ;
 		temp_portails=1;
 
 	}
@@ -780,8 +755,7 @@ else if ((gDonnees.NumBille==4)&&(gDonnees.Points>gDonnees.score5)&&(gDonnees.Po
 	{
 		rebond=true;
 		temp3=1;
-                gDonnees.Points = gDonnees.Points + SCORE_TRIANGLE ;
-                gInterface.ValueScore->value(gDonnees.Points) ;
+				gDonnees.Points = gDonnees.Points + SCORE_TRIANGLE ;
 	}
 
 	if (temp3<NB_CYCLE_ALLUMAGE && temp3>0)
@@ -801,7 +775,6 @@ else if ((gDonnees.NumBille==4)&&(gDonnees.Points>gDonnees.score5)&&(gDonnees.Po
 		rebond=true;
 		temp4=1;
 		gDonnees.Points += SCORE_TRIANGLE ;
-                gInterface.ValueScore->value(gDonnees.Points) ;
 	}
 
 	if (temp4<NB_CYCLE_ALLUMAGE && temp4>0)

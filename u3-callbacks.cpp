@@ -47,8 +47,6 @@ void TraiterCycleCB()
     // On redessine la zone
     gInterface.ZoneDessin->redraw();
     gInterface.ZoneScore->redraw();
-    gInterface.ValueScore->redraw();
-    gInterface.Nb_billes->redraw();
 
 
     // Code a activer en cas de probleme pour saisir les evenements du clavier
@@ -73,8 +71,6 @@ void BoutonNouvellePartieCB(Fl_Widget* w, void* data)
             // On initialise le score et le nombre de billes
             gDonnees.Points = 0 ;
             gDonnees.NumBille = 1 ;
-            gInterface.ValueScore->value(gDonnees.Points) ;
-            gInterface.Nb_billes->value(gDonnees.NumBille) ;
 
      printf("BoutonNouvellePartieCB\n");
 }

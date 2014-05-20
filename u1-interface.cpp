@@ -74,20 +74,6 @@ void CreerInterface()
     gInterface.BoutonNouvellePartie = new Fl_Button(485, 620-90, 200, 40, "Nouvelle Partie") ;
     gInterface.BoutonNouvellePartie->callback( BoutonNouvellePartieCB, NULL ) ;
 
-    //Score
-    gInterface.ValueScore = new Fl_Value_Output(475, 393-20, 220, 42, "") ;
-    gInterface.ValueScore->box(FL_THIN_DOWN_FRAME);
-    gInterface.ValueScore->textcolor(FL_WHITE);
-    gInterface.ValueScore->textsize(30);
-    gInterface.ValueScore->textfont(FL_HELVETICA_BOLD);
-
-    //Nombre billes
-    gInterface.Nb_billes = new Fl_Value_Output(653, 340-20, 42, 42, "") ;
-    gInterface.Nb_billes->box(FL_THIN_DOWN_FRAME);
-    gInterface.Nb_billes->textcolor(FL_WHITE);
-    gInterface.Nb_billes->textsize(30);
-    gInterface.Nb_billes->textfont(FL_HELVETICA_BOLD);
-
     // Affichage de la fenetre
     gInterface.Fenetre->end();
     gInterface.Fenetre->show();

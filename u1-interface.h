@@ -7,7 +7,7 @@
 #include "main.h"
 #include <FL/Fl_Double_Window.H>
 #include <FL/Fl_Button.H>
-#include <FL/Fl_Value_Output.H>
+//#include <FL/Fl_Value_Output.H>
 #include <FL/Fl_Output.H>
 #include <FL/Fl_Input.H>
 #include <FL/Fl_Group.H>
@@ -30,8 +30,6 @@ struct Interface
     Fl_Button* BoutonAction ;
     Fl_Button* BoutonNouvellePartie ;
     Fl_Button* BoutonMeilleursScores ;
-    Fl_Value_Output* ValueScore;
-    Fl_Value_Output* Nb_billes;
 
     Fl_GIF_Image* Imagescore;
     Fl_GIF_Image* Imagemenu;

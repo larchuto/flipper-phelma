@@ -85,6 +85,8 @@ void DessineEntier(int valeur, int posx, int posy)
 	sprintf(valeurtxt, "%d", valeur);
 	//strcpy(valeur,valeurtxt);
 	int longeur, hauteur;
+    fl_color(FL_WHITE);
+    fl_font(FL_HELVETICA_BOLD,30);   
 	fl_measure(valeurtxt,longeur,hauteur);
 	fl_draw(valeurtxt, float(posx-longeur), float(posy)); 
 }
@@ -93,10 +95,9 @@ void ZoneScoreDessinerCB( Fl_Widget* widget, void* data )
 {
         //Zone de score
    	gInterface.Imagescore->draw(X_SCORE, Y_SCORE, L_SCORE, H_SCORE);
-	//dessin des points et du numéro de bille   
-	fl_color(FL_WHITE);
-	DessineEntier(gDonnees.NumBille,680,349);
-	DessineEntier(gDonnees.Points,690,402);
+	//dessin des points et du numéro de bille
+	DessineEntier(gDonnees.NumBille,681,350);
+	DessineEntier(gDonnees.Points,690,403);
 }
 
 void ZoneMenuDessinerCB( Fl_Widget* widget, void* data )
