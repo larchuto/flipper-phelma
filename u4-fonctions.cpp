@@ -49,7 +49,6 @@ void InitialiserOBB(struct Obb* obb, float x, float y, float tailleX, float tail
 
 void InitialiserScore()
 {
-  gDonnees.Scoreabattre=0;
   gDonnees.score1=0;
   gDonnees.score2=0;
   gDonnees.score3=0;
@@ -61,33 +60,6 @@ void InitialiserScore()
   gDonnees.nom3[0]='\0';
   gDonnees.nom4[0]='\0';
   gDonnees.nom5[0]='\0';
-}
-
-void Calculscoreabattre()
-{
-    if(gDonnees.score5!=0)
-    {
-      if (gDonnees.Scoreabattre<gDonnees.score1)
-      {
-        gDonnees.Scoreabattre=gDonnees.score1;
-      }
-      if (gDonnees.Scoreabattre<gDonnees.score2)
-      {
-        gDonnees.Scoreabattre=gDonnees.score2;
-      }
-      if (gDonnees.Scoreabattre<gDonnees.score3)
-      {
-        gDonnees.Scoreabattre=gDonnees.score3;
-      }
-       if (gDonnees.Scoreabattre<gDonnees.score4)
-      {
-        gDonnees.Scoreabattre=gDonnees.score4;
-      }
-       if (gDonnees.Scoreabattre<gDonnees.score5)
-      {
-        gDonnees.Scoreabattre=gDonnees.score5;
-      }
-    }
 }
 
 // Initialiser
@@ -514,25 +486,31 @@ void DeplacerBouleAvecRebonds()
 		gDonnees.Valeur2 = gDonnees.Valeur2 + 1 ;
 
 		if (gDonnees.Valeur2<4)
-
+        {
 		gInterface.Nb_billes->value(gDonnees.Valeur2) ;
-if ((gDonnees.Valeur2==4)&&(gDonnees.Valeur<gDonnees.Scoreabattre))
-{
-fl_message("Baaaah! T'as perdu!");
-InitialiserDonnees();
-}
+        }
 
-if ((gDonnees.Valeur2==4)&&(gDonnees.Valeur>=gDonnees.Scoreabattre))
+else if ((gDonnees.Valeur2==4)&&(gDonnees.Valeur>gDonnees.score5)&&(gDonnees.Valeur!=0))
 {
 
-                  if (gDonnees.Valeur>=gDonnees.score1)
+                  if (gDonnees.Valeur>gDonnees.score1)
                   {
                      gDonnees.score5=gDonnees.score4;
                      gDonnees.score4=gDonnees.score3;
                      gDonnees.score3=gDonnees.score2;
                      gDonnees.score2=gDonnees.score1;
- 
- 
+
+                     int i;
+                     i=0;
+
+                     for (i=0;i<20;i++)
+                     {
+                       gDonnees.nom5[i]=gDonnees.nom4[i];
+                       gDonnees.nom4[i]=gDonnees.nom3[i];
+                       gDonnees.nom3[i]=gDonnees.nom2[i];
+                       gDonnees.nom2[i]=gDonnees.nom1[i];
+                     }
+
                  const char* Saisie ; // et pas : char Saisie[80]
                  // Saisie de la chaine
                  strcpy(gDonnees.nom1, "" ) ;
@@ -545,13 +523,23 @@ if ((gDonnees.Valeur2==4)&&(gDonnees.Valeur>=gDonnees.Scoreabattre))
                  gDonnees.score1=gDonnees.Valeur;
                  InitialiserDonnees();
                   }
- 
-                  else if (gDonnees.Valeur>=gDonnees.score2)
+
+                  else if (gDonnees.Valeur>gDonnees.score2)
                   {
                      gDonnees.score5=gDonnees.score4;
                      gDonnees.score4=gDonnees.score3;
                      gDonnees.score3=gDonnees.score2;
- 
+
+                     int i;
+                     i=0;
+
+                     for (i=0;i<20;i++)
+                     {
+                       gDonnees.nom5[i]=gDonnees.nom4[i];
+                       gDonnees.nom4[i]=gDonnees.nom3[i];
+                       gDonnees.nom3[i]=gDonnees.nom2[i];
+                     }
+
                  const char* Saisie ; // et pas : char Saisie[80]
                  // Saisie de la chaine
                  strcpy(gDonnees.nom2, "" ) ;
@@ -564,12 +552,21 @@ if ((gDonnees.Valeur2==4)&&(gDonnees.Valeur>=gDonnees.Scoreabattre))
                  gDonnees.score2=gDonnees.Valeur;
                  InitialiserDonnees();
                   }
- 
-                  else if (gDonnees.Valeur>=gDonnees.score3)
+
+                  else if (gDonnees.Valeur>gDonnees.score3)
                   {
                      gDonnees.score5=gDonnees.score4;
                      gDonnees.score4=gDonnees.score3;
- 
+
+                     int i;
+                     i=0;
+
+                     for (i=0;i<20;i++)
+                     {
+                       gDonnees.nom5[i]=gDonnees.nom4[i];
+                       gDonnees.nom4[i]=gDonnees.nom3[i];
+                     }
+
                  const char* Saisie ; // et pas : char Saisie[80]
                  // Saisie de la chaine
                  strcpy(gDonnees.nom3, "" ) ;
@@ -582,11 +579,19 @@ if ((gDonnees.Valeur2==4)&&(gDonnees.Valeur>=gDonnees.Scoreabattre))
                  gDonnees.score3=gDonnees.Valeur;
                  InitialiserDonnees();
                   }
- 
-                  else if (gDonnees.Valeur>=gDonnees.score4)
+
+                  else if (gDonnees.Valeur>gDonnees.score4)
                   {
                      gDonnees.score5=gDonnees.score4;
- 
+
+                     int i;
+                     i=0;
+
+                     for (i=0;i<20;i++)
+                     {
+                       gDonnees.nom5[i]=gDonnees.nom4[i];
+                     }
+
                  const char* Saisie ; // et pas : char Saisie[80]
                  // Saisie de la chaine
                  strcpy(gDonnees.nom4, "" ) ;
@@ -599,10 +604,10 @@ if ((gDonnees.Valeur2==4)&&(gDonnees.Valeur>=gDonnees.Scoreabattre))
                  gDonnees.score4=gDonnees.Valeur;
                  InitialiserDonnees();
                   }
- 
-                  else if (gDonnees.Valeur>=gDonnees.score5)
+
+                  else if (gDonnees.Valeur>gDonnees.score5)
                   {
- 
+
                  const char* Saisie ; // et pas : char Saisie[80]
                  // Saisie de la chaine
                  strcpy(gDonnees.nom5, "" ) ;
@@ -615,8 +620,14 @@ if ((gDonnees.Valeur2==4)&&(gDonnees.Valeur>=gDonnees.Scoreabattre))
                  gDonnees.score5=gDonnees.Valeur;
                  InitialiserDonnees();
                   }
+	}
 
-	}}
+	else
+    {
+    fl_message("\n\t\t\t\tPerdu!");
+    InitialiserDonnees();
+    }
+    }
 
 	if ( gDonnees.Boule.X <= RAYON_BOULE+5)
 	{
@@ -870,3 +881,4 @@ void Attente ( double Seconds )
 	Endwait = (int) (clock () + Seconds * CLOCKS_PER_SEC);
 	while (clock() < Endwait);
 }
+
