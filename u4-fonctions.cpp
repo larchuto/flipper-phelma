@@ -51,7 +51,7 @@ void InitialiserOBB(struct Obb* obb, float x, float y, float tailleX, float tail
 }
 
 void InitialiserBestScores()
-{
+{/*
   gDonnees.score1=0;
   gDonnees.score2=0;
   gDonnees.score3=0;
@@ -62,7 +62,7 @@ void InitialiserBestScores()
   gDonnees.nom2[0]='\0';
   gDonnees.nom3[0]='\0';
   gDonnees.nom4[0]='\0';
-  gDonnees.nom5[0]='\0';
+  gDonnees.nom5[0]='\0';*/
 }
 
 // Initialiser
@@ -112,21 +112,6 @@ void InitialiserDonnees()
 	InitialiserOBB(&gDonnees.TriDL1,360,437.5,10,75,0);
 	InitialiserOBB(&gDonnees.TriDL2,340,493,10,42,-54.5/180*3.14159);
 	InitialiserOBB(&gDonnees.TriDL3,332,451,10,105,-21.25/180*3.14159);
-/*
-	//Flip
-		//gauche
-	InitialiserPieBB(&gDonnees.FlipG.C1,115,571,12);
-	InitialiserPieBB(&gDonnees.FlipG.C2,175,608,8.5);
-	InitialiserOBB(&gDonnees.FlipG.L1,150,585,67,7,-35.0/180*3.14159);
-	InitialiserOBB(&gDonnees.FlipG.L2,142,596,67,7,-29.2/180*3.14159);
-	gDonnees.FlipG.angle=0;
-		//droit
-	InitialiserPieBB(&gDonnees.FlipD.C1,314,571,12);
-	InitialiserPieBB(&gDonnees.FlipD.C2,254,608,8.5);
-	InitialiserOBB(&gDonnees.FlipD.L1,279,585.5,67,7,35.0/180*3.14159);
-	InitialiserOBB(&gDonnees.FlipD.L2,290-3.5,597,65,7,29.0/180*3.14159);
-	gDonnees.FlipD.angle=0;
-*/
 	//Flip
 		//gauche
 	InitialiserPieBB(&gDonnees.FlipG.C1,115,571,12);
@@ -469,6 +454,7 @@ void TrouNoir(struct Boule* bille)
 
 void ChargeBestScores()
 {
+/*
 	ifstream scores("BestScores.txt");
 	if(scores)
 	{
@@ -488,9 +474,11 @@ void ChargeBestScores()
 	{
 		InitialiserBestScores();
 	}
+*/
 }
 void SaveBestScores()
 {
+/*
     ofstream scores("BestScores.txt");
     if(scores)    
     {
@@ -505,29 +493,52 @@ void SaveBestScores()
     else
     {
         fl_message("Impossible d'ouvrir le fichier \"BestScores.txt\"");
-    }
+    }*/
 }
 
-
-void DeplacerBouleAvecRebonds()
+void TriTab(int* score, char** nom)
 {
-	if ( gDonnees.Boule.X >= L_ZONE-RAYON_BOULE-5)
+	int i,j,intermed;
+	char temp[20];
+	do
 	{
-		gDonnees.Boule.X = L_ZONE-RAYON_BOULE-5 ;
-		gDonnees.Boule.VX = -1*COEFF_PERTES*gDonnees.Boule.VX ;
-	}
+		j=1;
+		for(i=1;i<5;i++)
+		{
+			if(score[i-1]>score[i])
+			{
+				j=0;
+				intermed=score[i];
+				snprintf(temp, 20, "%s", nom[i]);
+				score[i]=score[i-1];
+				snprintf(nom[i], 20, "%s",nom[i-1]);
+				score[i-1]=intermed;
+				snprintf(nom[i-1], 20, "%s",temp);
+			}
+		}
+	}while(j==0);
+}
 
-
-	if ( gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE)
+void GestionFinDePartie()
+{
+	if(gDonnees.Points>gDonnees.score[4]&&gDonnees.Points!=0)
 	{
-		//perdu !
-		gDonnees.Boule.X = L_ZONE-RAYON_BOULE-6;
-		gDonnees.Boule.Y = gDonnees.Boule.Y=H_ZONE-47-RAYON_BOULE;
-		gDonnees.Boule.VX=0;
-		gDonnees.Boule.VY=0;
-		gDonnees.NumBille = gDonnees.NumBille + 1 ;
+		do
+		{
+			const char* Saisie = fl_input("Meilleur Score! Tapez votre nom :", "" );
+			if ( Saisie != NULL ) strcpy (gDonnees.nom[4], Saisie);
+		} while ( strcmp( gDonnees.nom[4], "" ) == 0 ) ;
+		gDonnees.score[4]=gDonnees.Points;
+		//TriTab(gDonnees.score,gDonnees.nom);
 	}
-	else if ((gDonnees.NumBille==4)&&(gDonnees.Points>gDonnees.score5)&&(gDonnees.Points!=0))
+	else
+	{
+		fl_message("\n\t\t\t\tPerdu!");
+	}
+	InitialiserDonnees();
+}
+/*
+if ((gDonnees.NumBille==4)&&(gDonnees.Points>gDonnees.score5)&&(gDonnees.Points!=0))
 	{
 		if (gDonnees.Points>gDonnees.score1)
 		{
@@ -653,6 +664,30 @@ void DeplacerBouleAvecRebonds()
 		fl_message("\n\t\t\t\tPerdu!");
 		InitialiserDonnees();
 	}
+
+}*/
+
+
+void DeplacerBouleAvecRebonds()
+{
+	if ( gDonnees.Boule.X >= L_ZONE-RAYON_BOULE-5)
+	{
+		gDonnees.Boule.X = L_ZONE-RAYON_BOULE-5 ;
+		gDonnees.Boule.VX = -1*COEFF_PERTES*gDonnees.Boule.VX ;
+	}
+
+
+	if ( gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE)
+	{
+		//perdu !
+		gDonnees.Boule.X = L_ZONE-RAYON_BOULE-6;
+		gDonnees.Boule.Y = gDonnees.Boule.Y=H_ZONE-47-RAYON_BOULE;
+		gDonnees.Boule.VX=0;
+		gDonnees.Boule.VY=0;
+		gDonnees.NumBille = gDonnees.NumBille + 1 ;
+		GestionFinDePartie();
+	}
+	
 
 	if ( gDonnees.Boule.X <= RAYON_BOULE+5)
 	{

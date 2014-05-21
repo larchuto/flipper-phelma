@@ -79,8 +79,8 @@ struct Donnees
 	unsigned int CompressionRessort;
 	int AfficherBille;
 
-	int score1,score2,score3,score4,score5;
- 	char nom1[20],nom2[20],nom3[20],nom4[20],nom5[20];
+	int score[5];
+ 	char nom[5][20];
 };
 
 

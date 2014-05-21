@@ -160,6 +160,7 @@ void BoutonQuitterCB(Fl_Widget* w, void* data)
 
 void BoutonMeilleursScoresCB(Fl_Widget* w, void* data)
 {
+/*
      if(gDonnees.score1==0)
      {
       fl_message("\t\t\tMeilleurs Scores\n\n1.  %s\t\n2.  %s\t\n3.  %s\t\n4.  %s\t\n5.  %s\t",gDonnees.nom1,gDonnees.nom2,gDonnees.nom3,gDonnees.nom4,gDonnees.nom5);
@@ -184,6 +185,6 @@ void BoutonMeilleursScoresCB(Fl_Widget* w, void* data)
      {
      fl_message("\t\t\tMeilleurs Scores\n\n1.  %s\t%d\n2.  %s\t%d\n3.  %s\t%d\n4.  %s\t%d\n5.  %s\t%d",gDonnees.nom1,gDonnees.score1,gDonnees.nom2,gDonnees.score2,gDonnees.nom3,gDonnees.score3,gDonnees.nom4,gDonnees.score4,gDonnees.nom5,gDonnees.score5);
     }
-     printf("BoutonMeilleursScoresCB\n");
+     printf("BoutonMeilleursScoresCB\n");*/
 }
 
