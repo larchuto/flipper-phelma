@@ -42,6 +42,43 @@ void Display_OBB(struct Obb OBB)
     fl_translate(-OBB.X-20,-OBB.Y-20);
 }
 
+void DisplayCollisionBoxes()
+{
+    Display_PieBB(gDonnees.TriG.C1);
+    Display_PieBB(gDonnees.TriG.C2);
+    Display_PieBB(gDonnees.TriG.C3);
+    Display_PieBB(gDonnees.Pieh);
+    Display_PieBB(gDonnees.Bp1);
+    Display_PieBB(gDonnees.Bp2);
+    Display_PieBB(gDonnees.Bp3);
+    Display_OBB(gDonnees.Lanceur);
+    Display_OBB(gDonnees.TriG.L1);
+    Display_OBB(gDonnees.TriG.L2);
+    Display_OBB(gDonnees.TriG.L3);
+    Display_OBB(gDonnees.PenteG);
+    Display_OBB(gDonnees.PenteD);
+    Display_PieBB(gDonnees.TriD.C1);
+    Display_PieBB(gDonnees.TriD.C2);
+    Display_PieBB(gDonnees.TriD.C3);
+    Display_OBB(gDonnees.TriD.L1);
+    Display_OBB(gDonnees.TriD.L2);
+    Display_OBB(gDonnees.TriD.L3);
+    Display_PieBB(gDonnees.FlipG.C1);
+    Display_PieBB(gDonnees.FlipG.C2);
+    Display_OBB(gDonnees.FlipG.L1);
+    Display_OBB(gDonnees.FlipG.L2);
+    Display_OBB(gDonnees.FlipG.L3);
+    Display_PieBB(gDonnees.FlipD.C1);
+    Display_PieBB(gDonnees.FlipD.C2);
+    Display_OBB(gDonnees.FlipD.L1);
+    Display_OBB(gDonnees.FlipD.L2);
+    Display_OBB(gDonnees.FlipD.L3);
+    Display_OBB(gDonnees.Ressort);
+    Display_PieBB(gDonnees.PortailG);
+    Display_PieBB(gDonnees.PortailD);
+    Display_PieBB(gDonnees.TrouNoir);
+}
+
 void DessineRessort(unsigned int compression)
 {
     compression=compression % 7;
@@ -148,37 +185,5 @@ DessineFlip(gDonnees.FlipD);
     DessineRessort(gDonnees.CompressionRessort);
 
     //dessin bounding boxes
-    Display_PieBB(gDonnees.TriGC1);
-    Display_PieBB(gDonnees.TriGC2);
-    Display_PieBB(gDonnees.TriGC3);
-    Display_PieBB(gDonnees.Pieh);
-    Display_PieBB(gDonnees.Bp1);
-    Display_PieBB(gDonnees.Bp2);
-    Display_PieBB(gDonnees.Bp3);
-    Display_OBB(gDonnees.Lanceur);
-    Display_OBB(gDonnees.TriGL1);
-    Display_OBB(gDonnees.TriGL2);
-    Display_OBB(gDonnees.TriGL3);
-    Display_OBB(gDonnees.PenteG);
-    Display_OBB(gDonnees.PenteD);
-    Display_PieBB(gDonnees.TriDC1);
-    Display_PieBB(gDonnees.TriDC2);
-    Display_PieBB(gDonnees.TriDC3);
-    Display_OBB(gDonnees.TriDL1);
-    Display_OBB(gDonnees.TriDL2);
-    Display_OBB(gDonnees.TriDL3);
-    Display_PieBB(gDonnees.FlipG.C1);
-    Display_PieBB(gDonnees.FlipG.C2);
-    Display_OBB(gDonnees.FlipG.L1);
-    Display_OBB(gDonnees.FlipG.L2);
-    Display_OBB(gDonnees.FlipG.L3);
-    Display_PieBB(gDonnees.FlipD.C1);
-    Display_PieBB(gDonnees.FlipD.C2);
-    Display_OBB(gDonnees.FlipD.L1);
-    Display_OBB(gDonnees.FlipD.L2);
-    Display_OBB(gDonnees.FlipD.L3);
-	Display_OBB(gDonnees.Ressort);
-    Display_PieBB(gDonnees.PortailG);
-    Display_PieBB(gDonnees.PortailD);
-	Display_PieBB(gDonnees.TrouNoir);
+    //DisplayCollisionBoxes();
 }

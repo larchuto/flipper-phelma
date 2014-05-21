@@ -83,8 +83,7 @@ void ZoneDessinSourisCB( Fl_Widget* widget, void* data )
 
 	if ( Fl::event() == FL_PUSH )
 	{
-		printf("Mouse push = %i x = %i y = %i\n", Fl::event_button(), Fl::event_x(), Fl::event_y());
-
+		//printf("Mouse push = %i x = %i y = %i\n", Fl::event_button(), Fl::event_x(), Fl::event_y());
 		// On repositionne la boule a l'endroit du clic avec une vitesse nulle
 		gDonnees.Boule.X = Fl::event_x() - X_ZONE ;
 		gDonnees.Boule.Y = Fl::event_y() - Y_ZONE ;
@@ -107,38 +106,17 @@ void ZoneDessinClavierCB( Fl_Widget* widget, void* data, bool key_is_down)
 	{
 		// Touches speciales
 		case FL_Left :
-			if(key_is_down) printf("Appui sur la touche Gauche\n");
-			else printf("Relachement de la touche Gauche\n");
+			//on indique si la touche est appuyée ou relachée
 			gDonnees.FlipG.isTouched = key_is_down;
 			break;
 		case FL_Right :
-			if(key_is_down) printf("Appui sur la touche Droite\n");
-			else printf("Relachement de la touche Droite\n");
+			//on indique si la touche est appuyée ou relachée
 			gDonnees.FlipD.isTouched = key_is_down;
 			break;
-		case FL_Up :
-			printf("Appui sur la touche Haut\n");
-			break ;
-		case FL_Down :
-			printf("Appui sur la touche Bas\n");
-			break ;
 		// Caracteres
 		case ' ' :
-			printf("Appui sur la touche Espace\n");
 		if(key_is_down){CompressionRessort();}
 		else{RelachementRessort();}
-			break ;
-		case 'a' :
-			printf("Appui sur le caractere a\n");
-			break ;
-		case 'b' :
-			printf("Appui sur le caractere b\n");
-			break ;
-		case '1' :
-			printf("Appui sur le caractere 1\n");
-			break ;
-		case '2' :
-			printf("Appui sur le chiffre 2\n");
 			break ;
 	}
 }

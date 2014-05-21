@@ -15,6 +15,7 @@ struct Boule
 	float rayon;
 };
 
+// Structure de definition d'obstacles rectangulaires
 struct Obb
 {
 	float X;
@@ -24,6 +25,7 @@ struct Obb
 	float angle;
 };
 
+// Structure de definition des leviers
 struct Flip
 {
 	struct Boule C1;
@@ -35,51 +37,50 @@ struct Flip
 	bool isTouched;
 };
 
+// Structure de definition des triangles rebondissants
+struct Triangle
+{
+	struct Boule C1;
+	struct Boule C2;
+	struct Boule C3;
+	struct Obb L1;
+	struct Obb L2;
+	struct Obb L3;
+};
+
 // Structure globale pour les variables fonctionnelles
 struct Donnees
 {
     struct Boule Boule ;
     unsigned int Points ;
     unsigned int NumBille ;
+    unsigned int CompressionRessort;
+    int score[5];
+ 	char nom[5][20];
 
 	struct Boule Pieh;
-	struct Obb Lanceur;
 	struct Boule Bp1;
 	struct Boule Bp2;
 	struct Boule Bp3;
+	struct Boule PortailG;
+	struct Boule PortailD;
+	struct Boule TrouNoir;
 	struct Obb PenteG;
 	struct Obb PenteD;
+	struct Obb Ressort;
+	struct Obb Lanceur;
 
 	//Triangle
 		//Gauche
-	struct Boule TriGC1;
-	struct Boule TriGC2;
-	struct Boule TriGC3;
-	struct Obb TriGL1;
-	struct Obb TriGL2;
-	struct Obb TriGL3;
+	struct Triangle TriG;
 		//Droit
-	struct Boule TriDC1;
-	struct Boule TriDC2;
-	struct Boule TriDC3;
-	struct Obb TriDL1;
-	struct Obb TriDL2;
-	struct Obb TriDL3;
+	struct Triangle TriD;
 
 	//Flip
 		//Gauche
 	struct Flip FlipG;
 		//Droit
 	struct Flip FlipD;
-
-	struct Obb Ressort;
-	struct Boule PortailG;
-	struct Boule PortailD;
-	struct Boule TrouNoir;
-	unsigned int CompressionRessort;
-
-	int score[5];
- 	char nom[5][20];
 };
 
 
@@ -96,15 +97,14 @@ bool Touche_obb(struct Obb barre,struct Boule bille,float* ximp,float* yimp);
 void MoveFlip(struct Flip* flip, float angle);
 void Rebond(Boule* bille,float ximp,float yimp);
 void PushBall(struct Flip* Flip, struct Boule* bille);
-//void Rebond(float* VX,float* VY,float ux,float uy);
 void DeplacerBouleAvecRebonds();
+
 // Utilitaires
 void JouerSon(const char *) ; // Jouer un son
 void Attente(double Seconds); // Procedure d'attente
 void CompressionRessort();
 void RelachementRessort();
 void InitialiserScore();
-void Calculscoreabattre();
 void SaveBestScores();
 void ChargeBestScores();
 

@@ -27,14 +27,12 @@ void CreerInterface()
     gInterface.Imagescore= new Fl_GIF_Image("media/score.gif") ;
     gInterface.ZoneScore = new DrawingArea(X_SCORE,Y_SCORE,L_SCORE,H_SCORE);
     gInterface.ZoneScore->draw_callback( ZoneScoreDessinerCB, NULL ) ;
-    gInterface.ZoneScore->mouse_callback( ZoneDessinSourisCB, NULL ) ;
     gInterface.ZoneScore->keyboard_callback( ZoneDessinClavierCB, NULL) ;
 
     // Creation de la zone de menu
     gInterface.Imagemenu= new Fl_GIF_Image("media/menu.gif") ;
     gInterface.ZoneMenu = new DrawingArea(X_MENU,Y_MENU,L_MENU,H_MENU);
     gInterface.ZoneMenu->draw_callback( ZoneMenuDessinerCB, NULL ) ;
-    gInterface.ZoneMenu->mouse_callback( ZoneDessinSourisCB, NULL ) ;
     gInterface.ZoneMenu->keyboard_callback( ZoneDessinClavierCB, NULL ) ;
 
     // Creation de la zone de dessin
@@ -59,7 +57,7 @@ void CreerInterface()
     gInterface.ZoneDessin = new DrawingArea(X_ZONE,Y_ZONE,L_ZONE,H_ZONE);
     gInterface.Imagetrou= new Fl_GIF_Image("media/trounoir.gif");
     gInterface.ZoneDessin->draw_callback( ZoneDessinDessinerCB, NULL ) ;
-    gInterface.ZoneDessin->mouse_callback( ZoneDessinSourisCB, NULL ) ;
+    //gInterface.ZoneDessin->mouse_callback( ZoneDessinSourisCB, NULL ) ;
     gInterface.ZoneDessin->keyboard_callback( ZoneDessinClavierCB, NULL ) ;
 
     // Creation du bouton Quitter
