@@ -65,7 +65,7 @@ void InitialiserDonnees()
 	// On initialise le generateur de nombres aleatoires
 	srand(time(NULL));
 
-	// On initialise la boule
+	// On initialise la bille
 	gDonnees.Boule.X = L_ZONE-RAYON_BOULE-6;
 	gDonnees.Boule.Y = H_ZONE-RAYON_BOULE-47;
 	gDonnees.Boule.rayon=RAYON_BOULE;
@@ -111,7 +111,6 @@ void InitialiserDonnees()
 	InitialiserPieBB(&gDonnees.FlipG.C1,115,571,12);
 	InitialiserPieBB(&gDonnees.FlipG.C2,175,608,8.5);
 	InitialiserOBB(&gDonnees.FlipG.L1,150-3,585+2,67,12,-34.5/180*3.14159);
-	//InitialiserOBB(&gDonnees.FlipG.L2,142+3,596-2,67,12,-29.2/180*3.14159);
 	InitialiserOBB(&gDonnees.FlipG.L2,142,596,67,7,-29.2/180*3.14159);
 	InitialiserOBB(&gDonnees.FlipG.L3,150-3-14,585+2+21,67,12+50,-34.5/180*3.14159);
 	gDonnees.FlipG.angle=0;
@@ -120,7 +119,6 @@ void InitialiserDonnees()
 	InitialiserPieBB(&gDonnees.FlipD.C1,314,571,12);
 	InitialiserPieBB(&gDonnees.FlipD.C2,254,608,8.5);
 	InitialiserOBB(&gDonnees.FlipD.L1,279+3,585.5+2,67,12,35.0/180*3.14159);
-	//InitialiserOBB(&gDonnees.FlipD.L2,290-3.5-3,597-2,65,12,29.0/180*3.14159);
 	InitialiserOBB(&gDonnees.FlipD.L2,290-3.5,597,65,7,29.0/180*3.14159);
 	InitialiserOBB(&gDonnees.FlipD.L3,279+3+14,585.5+2+19,67,12+50,35.0/180*3.14159);
 	gDonnees.FlipD.angle=0;
@@ -207,14 +205,14 @@ bool Touche_aabb(struct Obb barre,struct Boule bille,float* ximp,float* yimp)
 		if(bille.Y<=barre.Y)
 		{
 			*ximp=bille.X;
-			*yimp=y1;//-bille.rayon;
+			*yimp=y1;
 			return true;
 		}
 
 		if(bille.Y>=barre.Y)
 		{
 			*ximp=bille.X;
-			*yimp=y2;//+bille.rayon;
+			*yimp=y2;
 			return true;
 		}
 	}
@@ -223,14 +221,14 @@ bool Touche_aabb(struct Obb barre,struct Boule bille,float* ximp,float* yimp)
 	{
 		if(bille.X<=barre.X)
 		{
-			*ximp=x1;//-bille.rayon;
+			*ximp=x1;
 			*yimp=bille.Y;
 			return true;
 		}
 
 		if(bille.X>=barre.X)
 		{
-			*ximp=x2;//+bille.rayon;
+			*ximp=x2;
 			*yimp=bille.Y;
 			return true;
 		}
@@ -263,36 +261,6 @@ bool Touche_aabb(struct Obb barre,struct Boule bille,float* ximp,float* yimp)
 		*yimp=y1;
 		return true;
 	}
-	/*
-	// /!\ experimental
-	if(abs(bille.VX*DUREE_CYCLE)>barre.TX)
-	{
-	if(bille.X<=x1)
-	{
-	*ximp=x1;
-	*yimp=bille.Y;
-	}
-	else
-	{
-	*ximp=x2;
-	*yimp=bille.Y;
-	}
-	return true;
-	}
-	if(abs(bille.VY*DUREE_CYCLE)>barre.TY)
-	{
-	if(bille.Y<=y1)
-	{
-	*ximp=bille.X;
-	*yimp=y1;
-	}
-	else
-	{
-	*ximp=bille.X;
-	*yimp=y2;
-	}
-	return true;
-	}*/
 	return false;
 }
 
@@ -349,7 +317,6 @@ void CompressionRessort()
 		gDonnees.Ressort.TY-=5;
 		gDonnees.Ressort.Y+=2.5;
 		gDonnees.CompressionRessort+=1;
-		//gDonnees.Boule.Y+=9;
 		if(gDonnees.Boule.Y==gDonnees.Ressort.Y-gDonnees.Ressort.TY/2-gDonnees.Boule.rayon && L_ZONE-gDonnees.Boule.rayon-8)
 		{
 			gDonnees.Boule.Y-=5;
@@ -367,9 +334,6 @@ void RelachementRessort()
 	}
 	gDonnees.CompressionRessort=0;
 	InitialiserOBB(&gDonnees.Ressort,L_ZONE-12-6,H_ZONE-20.5-6,24,41,0);
-	//gDonnees.Boule.Y=100;//H_ZONE-20.5-6-RAYON_BOULE;
-	//DessineRessort(gDonnees.CompressionRessort);
-	//Display_OBB(gDonnees.Ressort);
 }
 
 bool Touche_obb(struct Obb barre,struct Boule bille, float* ximp,float* yimp)
@@ -380,7 +344,6 @@ bool Touche_obb(struct Obb barre,struct Boule bille, float* ximp,float* yimp)
 	rotation(-barre.angle,&(bille_loc.X),&(bille_loc.Y));
 	bille_loc.X=bille_loc.X+barre.X;
 	bille_loc.Y=bille_loc.Y+barre.Y;
-	//bool retour=Touche_aabb(barre,bille_loc,ximp,yimp);
 
 	if (Touche_aabb(barre,bille_loc,ximp,yimp))
 	{
@@ -393,7 +356,6 @@ bool Touche_obb(struct Obb barre,struct Boule bille, float* ximp,float* yimp)
 	}
 
 	return false;
-	//return retour;
 }
 
 void Rebond(Boule *bille,float ximp,float yimp)
@@ -427,7 +389,6 @@ void PushBall(struct Flip* Flip, struct Boule* bille)
 
 void TrouNoir(struct Boule* bille)
 {
-	//gDonnees.AfficherBille=0;
 	ballintrounoir=1;
 	temptrounoir+=1;
 	bille->X=215;
@@ -441,9 +402,7 @@ void TrouNoir(struct Boule* bille)
 		temptrounoir=0;
 		bille->VX=cos(anglesortie)*TROUNOIR_VITESSE;
 		bille->VY=sin(anglesortie)*TROUNOIR_VITESSE;
-		//gDonnees.AfficherBille=1;
 	}
-
 }
 
 void ChargeBestScores()
@@ -724,21 +683,15 @@ void DeplacerBouleAvecRebonds()
 	float oldvy=gDonnees.Boule.VY;
 
 	// Nouvelle position de la boule ...
-	if(rebond && !ballintrounoir)
+	if(rebond)
 	{
 		Rebond(&(gDonnees.Boule),ximp,yimp);
-		gDonnees.Boule.VY = gDonnees.Boule.VY + sin(INCLINAISON)*gravite*DUREE_CYCLE;
-		gDonnees.Boule.X +=gDonnees.Boule.VX*DUREE_CYCLE;
-		gDonnees.Boule.Y +=gDonnees.Boule.VY*DUREE_CYCLE + sin(INCLINAISON)/2*gravite*DUREE_CYCLE*DUREE_CYCLE;
-
 	}
-	else if (!ballintrounoir)
+	if (!ballintrounoir)
 	{
-		//gDonnees.Boule.Y += gDonnees.Boule.VY*DUREE_CYCLE + sin(INCLINAISON)*0.5*gravite*DUREE_CYCLE*DUREE_CYCLE;
 		gDonnees.Boule.VY = gDonnees.Boule.VY + sin(INCLINAISON)*gravite*DUREE_CYCLE;
 		gDonnees.Boule.X += gDonnees.Boule.VX*DUREE_CYCLE;
 		gDonnees.Boule.Y += gDonnees.Boule.VY*DUREE_CYCLE + sin(INCLINAISON)/2*gravite*DUREE_CYCLE*DUREE_CYCLE;
-		gravite=GRAVITE;
 	}
 
 		//gestion des pertes

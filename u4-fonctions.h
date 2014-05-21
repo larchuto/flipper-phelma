@@ -77,7 +77,6 @@ struct Donnees
 	struct Boule PortailD;
 	struct Boule TrouNoir;
 	unsigned int CompressionRessort;
-	int AfficherBille;
 
 	int score[5];
  	char nom[5][20];
