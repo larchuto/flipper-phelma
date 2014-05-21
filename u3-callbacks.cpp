@@ -91,11 +91,6 @@ void ZoneDessinSourisCB( Fl_Widget* widget, void* data )
         gDonnees.Boule.VX=0;
         gDonnees.Boule.VY=0;
     }
-
-    //if ( Fl::event() == FL_MOVE )
-    //{
-    // printf("Mouse move : x = %i y = %i\n", Fl::event_x(), Fl::event_y());
-    //}
 }
 
 // ZoneDessinClavierCB
@@ -132,8 +127,6 @@ void ZoneDessinClavierCB( Fl_Widget* widget, void* data, bool key_is_down)
             printf("Appui sur la touche Espace\n");
 		if(key_is_down){CompressionRessort();}
 		else{RelachementRessort();}
-         //gDonnees.NumBille = gDonnees.NumBille + 1 ;
-         //gInterface.Nb_billes->value(gDonnees.NumBille) ;
             break ;
         case 'a' :
             printf("Appui sur le caractere a\n");
@@ -170,40 +163,10 @@ void BoutonMeilleursScoresCB(Fl_Widget* w, void* data)
 	for(int i=0;i<5;i++)
 	{
 		if (gDonnees.score[i]==0) break;
-		/*strncat(buffer,gDonnees.nom[i],150);
-		strncat(buffer,"	",150);
-		snprintf(ent,10,"%d",gDonnees.score[i]);
-		strncat(buffer,ent,150);
-		strncat(buffer,"\n",150);*/
         snprintf(buffer,150,"%s n%d. %s %d\n",message,i+1,gDonnees.nom[i],gDonnees.score[i]);
         strcpy(message,buffer);
 	}
     if (gDonnees.score[0]==0) snprintf(message,150,"aucun meilleur score");
 	fl_message("%s",message);
-/*
-     if(gDonnees.score[0]==0)
-     {
-      fl_message("\t\t\tMeilleurs Scores\n\n1.  %s\t\n2.  %s\t\n3.  %s\t\n4.  %s\t\n5.  %s\t",gDonnees.nom[0],gDonnees.nom[1],gDonnees.nom[2],gDonnees.nom[3],gDonnees.nom[4]);
-     }
-     else if(gDonnees.score[1]==0)
-     {
-      fl_message("\t\t\tMeilleurs Scores\n\n1.  %s\t%d\n2.  %s\t\n3.  %s\t\n4.  %s\t\n5.  %s\t",gDonnees.nom[0],gDonnees.score[0],gDonnees.nom[1],gDonnees.nom[2],gDonnees.nom[3],gDonnees.nom[4]);
-     }
-     else if (gDonnees.score[2]==0)
-     {
-      fl_message("\t\t\tMeilleurs Scores\n\n1.  %s\t%d\n2.  %s\t%d\n3.  %s\t\n4.  %s\t\n5.  %s\t",gDonnees.nom[0],gDonnees.score[0],gDonnees.nom[1],gDonnees.score[1],gDonnees.nom[2],gDonnees.nom[3],gDonnees.nom[4]);
-     }
-     else if(gDonnees.score[3]==0)
-     {
-      fl_message("\t\t\tMeilleurs Scores\n\n1.  %s\t%d\n2.  %s\t%d\n3.  %s\t%d\n4.  %s\t\n5.  %s\t",gDonnees.nom[0],gDonnees.score[0],gDonnees.nom[1],gDonnees.score[1],gDonnees.nom[2],gDonnees.score[2],gDonnees.nom[3],gDonnees.nom[4]);
-     }
-     else if(gDonnees.score[4]==0)
-     {
-      fl_message("\t\t\tMeilleurs Scores\n\n1.  %s\t%d\n2.  %s\t%d\n3.  %s\t%d\n4.  %s\t%d\n5.  %s\t",gDonnees.nom[0],gDonnees.score[0],gDonnees.nom[1],gDonnees.score[1],gDonnees.nom[2],gDonnees.score[2],gDonnees.nom[3],gDonnees.score[3],gDonnees.nom[4]);
-     }
-     else
-     {
-     fl_message("\t\t\tMeilleurs Scores\n\n1.  %s\t%d\n2.  %s\t%d\n3.  %s\t%d\n4.  %s\t%d\n5.  %s\t%d",gDonnees.nom[0],gDonnees.score[0],gDonnees.nom[1],gDonnees.score[1],gDonnees.nom[2],gDonnees.score[2],gDonnees.nom[3],gDonnees.score[3],gDonnees.nom[4],gDonnees.score[4]);
-    }*/
 }
 
