@@ -2,6 +2,8 @@
 // Declarations externes - inclusion des fichiers d'entete
 // Librairies standards
 #include <iostream> // cout, cin, ...
+//#include <stdio.h>
+//#include <stdlib.h>
 // Librairies fltk
 #include <FL/Fl.H>
 #include <FL/fl_ask.H> // fl_message, fl_alert, fl_ask
@@ -160,31 +162,42 @@ void BoutonQuitterCB(Fl_Widget* w, void* data)
 
 void BoutonMeilleursScoresCB(Fl_Widget* w, void* data)
 {
+	char buffer[150],ent[10];
+	for(int i=0;i<5;i++)
+	{
+		if (gDonnees.score[i]==0) break;
+		strncat(buffer,gDonnees.nom[i],150);
+		strncat(buffer,"	",150);
+		snprintf(ent,10,"%d",gDonnees.score[i]);
+		strncat(buffer,ent,150);
+		strncat(buffer,"\n",150);
+	}
+	fl_message(buffer);
+
 /*
-     if(gDonnees.score1==0)
+     if(gDonnees.score[1]==0)
      {
       fl_message("\t\t\tMeilleurs Scores\n\n1.  %s\t\n2.  %s\t\n3.  %s\t\n4.  %s\t\n5.  %s\t",gDonnees.nom1,gDonnees.nom2,gDonnees.nom3,gDonnees.nom4,gDonnees.nom5);
      }
-     if((gDonnees.score1!=0)&&(gDonnees.score2==0))
+     else if(gDonnees.score2==0)
      {
       fl_message("\t\t\tMeilleurs Scores\n\n1.  %s\t%d\n2.  %s\t\n3.  %s\t\n4.  %s\t\n5.  %s\t",gDonnees.nom1,gDonnees.score1,gDonnees.nom2,gDonnees.nom3,gDonnees.nom4,gDonnees.nom5);
      }
-     if((gDonnees.score1!=0)&&(gDonnees.score2!=0)&&(gDonnees.score3==0))
+     else if (gDonnees.score3==0)
      {
       fl_message("\t\t\tMeilleurs Scores\n\n1.  %s\t%d\n2.  %s\t%d\n3.  %s\t\n4.  %s\t\n5.  %s\t",gDonnees.nom1,gDonnees.score1,gDonnees.nom2,gDonnees.score2,gDonnees.nom3,gDonnees.nom4,gDonnees.nom5);
      }
-     if((gDonnees.score1!=0)&&(gDonnees.score2!=0)&&(gDonnees.score3!=0)&&(gDonnees.score4==0))
+     else if(gDonnees.score4==0)
      {
       fl_message("\t\t\tMeilleurs Scores\n\n1.  %s\t%d\n2.  %s\t%d\n3.  %s\t%d\n4.  %s\t\n5.  %s\t",gDonnees.nom1,gDonnees.score1,gDonnees.nom2,gDonnees.score2,gDonnees.nom3,gDonnees.score3,gDonnees.nom4,gDonnees.nom5);
      }
-     if((gDonnees.score1!=0)&&(gDonnees.score2!=0)&&(gDonnees.score3!=0)&&(gDonnees.score4!=0)&&(gDonnees.score5==0))
+     else if(gDonnees.score5==0)
      {
       fl_message("\t\t\tMeilleurs Scores\n\n1.  %s\t%d\n2.  %s\t%d\n3.  %s\t%d\n4.  %s\t%d\n5.  %s\t",gDonnees.nom1,gDonnees.score1,gDonnees.nom2,gDonnees.score2,gDonnees.nom3,gDonnees.score3,gDonnees.nom4,gDonnees.score4,gDonnees.nom5);
      }
-     if((gDonnees.score1!=0)&&(gDonnees.score2!=0)&&(gDonnees.score3!=0)&&(gDonnees.score4!=0)&&(gDonnees.score5!=0))
+     else
      {
      fl_message("\t\t\tMeilleurs Scores\n\n1.  %s\t%d\n2.  %s\t%d\n3.  %s\t%d\n4.  %s\t%d\n5.  %s\t%d",gDonnees.nom1,gDonnees.score1,gDonnees.nom2,gDonnees.score2,gDonnees.nom3,gDonnees.score3,gDonnees.nom4,gDonnees.score4,gDonnees.nom5,gDonnees.score5);
-    }
-     printf("BoutonMeilleursScoresCB\n");*/
+    }*/
 }
 

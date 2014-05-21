@@ -51,18 +51,12 @@ void InitialiserOBB(struct Obb* obb, float x, float y, float tailleX, float tail
 }
 
 void InitialiserBestScores()
-{/*
-  gDonnees.score1=0;
-  gDonnees.score2=0;
-  gDonnees.score3=0;
-  gDonnees.score4=0;
-  gDonnees.score5=0;
-
-  gDonnees.nom1[0]='\0';
-  gDonnees.nom2[0]='\0';
-  gDonnees.nom3[0]='\0';
-  gDonnees.nom4[0]='\0';
-  gDonnees.nom5[0]='\0';*/
+{
+	for(int i=0;i<5;i++)
+	{
+  		gDonnees.score[i]=0;
+  		gDonnees.nom[i][0]='\0';
+	}
 }
 
 // Initialiser
@@ -454,46 +448,35 @@ void TrouNoir(struct Boule* bille)
 
 void ChargeBestScores()
 {
-/*
 	ifstream scores("BestScores.txt");
 	if(scores)
 	{
-    	// a faire proprement avec un for lorsque nom et score seront des tableaux
-        scores >> gDonnees.nom1;
-        scores >> gDonnees.score1;
-        scores >> gDonnees.nom2;
-        scores >> gDonnees.score2;
-        scores >> gDonnees.nom3;
-        scores >> gDonnees.score3;
-        scores >> gDonnees.nom4;
-        scores >> gDonnees.score4;
-        scores >> gDonnees.nom5;
-        scores >> gDonnees.score5;
+		for(int i=0;i<5;i++)
+		{
+			scores >> gDonnees.nom[i];
+			scores >> gDonnees.score[i];
+		}
 	}
 	else //le fichier n'existe pas ? peu importe : on met tout a zero
 	{
 		InitialiserBestScores();
 	}
-*/
 }
 void SaveBestScores()
 {
-/*
     ofstream scores("BestScores.txt");
     if(scores)    
     {
-    	// a faire proprement avec un for lorsque nom et score seront des tableaux
-        scores << gDonnees.nom1 << " " << gDonnees.score1 << endl;
-        scores << gDonnees.nom2 << " " << gDonnees.score2 << endl;
-        scores << gDonnees.nom3 << " " << gDonnees.score3 << endl;
-        scores << gDonnees.nom4 << " " << gDonnees.score4 << endl;
-        scores << gDonnees.nom5 << " " << gDonnees.score5 << endl;
+	for(int i=0;i<5;i++)
+	{
+		scores << gDonnees.nom[i] << " " << gDonnees.score[i] << endl;
+	}
 
     }
     else
     {
         fl_message("Impossible d'ouvrir le fichier \"BestScores.txt\"");
-    }*/
+    }
 }
 
 void TriTab(int* score, char** nom)
@@ -537,136 +520,6 @@ void GestionFinDePartie()
 	}
 	InitialiserDonnees();
 }
-/*
-if ((gDonnees.NumBille==4)&&(gDonnees.Points>gDonnees.score5)&&(gDonnees.Points!=0))
-	{
-		if (gDonnees.Points>gDonnees.score1)
-		{
-			gDonnees.score5=gDonnees.score4;
-			gDonnees.score4=gDonnees.score3;
-			gDonnees.score3=gDonnees.score2;
-			gDonnees.score2=gDonnees.score1;
-			int i;
-			i=0;
-			for (i=0;i<20;i++)
-			{
-				gDonnees.nom5[i]=gDonnees.nom4[i];
-				gDonnees.nom4[i]=gDonnees.nom3[i];
-				gDonnees.nom3[i]=gDonnees.nom2[i];
-				gDonnees.nom2[i]=gDonnees.nom1[i];
-			}
-
-			const char* Saisie ; // et pas : char Saisie[80]
-			// Saisie de la chaine
-			strcpy(gDonnees.nom1, "" ) ;
-			do
-			{
-				Saisie = fl_input("Meilleur Score! Tapez votre nom :", "" ) ;
-				if ( Saisie != NULL )
-				strcpy (gDonnees.nom1, Saisie);
-			} while ( strcmp( gDonnees.nom1, "" ) == 0 ) ;
-				gDonnees.score1=gDonnees.Points;
-				InitialiserDonnees();
-		}
-
-		else if (gDonnees.Points>gDonnees.score2)
-		{
-			gDonnees.score5=gDonnees.score4;
-			gDonnees.score4=gDonnees.score3;
-			gDonnees.score3=gDonnees.score2;
-			int i;
-			i=0;
-
-			for (i=0;i<20;i++)
-			{
-				gDonnees.nom5[i]=gDonnees.nom4[i];
-				gDonnees.nom4[i]=gDonnees.nom3[i];
-				gDonnees.nom3[i]=gDonnees.nom2[i];
-			}
-
-			const char* Saisie ; // et pas : char Saisie[80]
-			// Saisie de la chaine
-			strcpy(gDonnees.nom2, "" ) ;
-			do
-			{
-				Saisie = fl_input("Meilleur Score! Tapez votre nom :", "" ) ;
-				if ( Saisie != NULL ) strcpy (gDonnees.nom2, Saisie);
-			} while ( strcmp( gDonnees.nom2, "" ) == 0 ) ;
-			gDonnees.score2=gDonnees.Points;
-			InitialiserDonnees();
-		}
-
-		else if (gDonnees.Points>gDonnees.score3)
-		{
-			gDonnees.score5=gDonnees.score4;
-			gDonnees.score4=gDonnees.score3;
-			int i;
-			i=0;
-			for (i=0;i<20;i++)
-			{
-			   gDonnees.nom5[i]=gDonnees.nom4[i];
-			   gDonnees.nom4[i]=gDonnees.nom3[i];
-			}
-
-			const char* Saisie ; // et pas : char Saisie[80]
-			// Saisie de la chaine
-			strcpy(gDonnees.nom3, "" ) ;
-			do
-			{
-				Saisie = fl_input("Meilleur Score! Tapez votre nom :", "" ) ;
-				if ( Saisie != NULL )
-				strcpy (gDonnees.nom3, Saisie);
-			} while ( strcmp( gDonnees.nom3, "" ) == 0 ) ;
-			gDonnees.score3=gDonnees.Points;
-			InitialiserDonnees();
-		}
-
-		else if (gDonnees.Points>gDonnees.score4)
-		{
-			gDonnees.score5=gDonnees.score4;
-
-			int i;
-			i=0;
-			for (i=0;i<20;i++)
-			{
-				gDonnees.nom5[i]=gDonnees.nom4[i];
-			}
-
-			const char* Saisie ; // et pas : char Saisie[80]
-			// Saisie de la chaine
-			strcpy(gDonnees.nom4, "" ) ;
-			do
-			{
-				Saisie = fl_input("Meilleur Score! Tapez votre nom :", "" ) ;
-				if ( Saisie != NULL )
-				strcpy (gDonnees.nom4, Saisie);
-			} while ( strcmp( gDonnees.nom4, "" ) == 0 ) ;
-			gDonnees.score4=gDonnees.Points;
-			InitialiserDonnees();
-		}
-		else if (gDonnees.Points>gDonnees.score5)
-		{
-			const char* Saisie ; // et pas : char Saisie[80]
-			// Saisie de la chaine
-			strcpy(gDonnees.nom5, "" ) ;
-			do
-			{
-				Saisie = fl_input("Meilleur Score! Tapez votre nom :", "" ) ;
-				if ( Saisie != NULL )
-				strcpy (gDonnees.nom5, Saisie);
-			} while ( strcmp( gDonnees.nom5, "" ) == 0 ) ;
-			gDonnees.score5=gDonnees.Points;
-				InitialiserDonnees();
-		}
-	}
-	else if (gDonnees.NumBille==4)
-	{
-		fl_message("\n\t\t\t\tPerdu!");
-		InitialiserDonnees();
-	}
-
-}*/
-
 
 void DeplacerBouleAvecRebonds()
 {
