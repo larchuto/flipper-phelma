@@ -479,16 +479,16 @@ void SaveBestScores()
     }
 }
 
-void TriTab(int* score, char** nom)
+void TriTab(int* score, char nom[][20])
 {
 	int i,j,intermed;
 	char temp[20];
 	do
 	{
 		j=1;
-		for(i=1;i<5;i++)
+		for(i=4;i>0;i--)
 		{
-			if(score[i-1]>score[i])
+			if(score[i-1]<score[i])
 			{
 				j=0;
 				intermed=score[i];
@@ -504,7 +504,7 @@ void TriTab(int* score, char** nom)
 
 void GestionFinDePartie()
 {
-	if(gDonnees.Points>gDonnees.score[4]&&gDonnees.Points!=0)
+	if(gDonnees.Points>gDonnees.score[4])
 	{
 		do
 		{
@@ -512,7 +512,7 @@ void GestionFinDePartie()
 			if ( Saisie != NULL ) strcpy (gDonnees.nom[4], Saisie);
 		} while ( strcmp( gDonnees.nom[4], "" ) == 0 ) ;
 		gDonnees.score[4]=gDonnees.Points;
-		//TriTab(gDonnees.score,gDonnees.nom);
+		TriTab(gDonnees.score,gDonnees.nom);
 	}
 	else
 	{
@@ -538,7 +538,10 @@ void DeplacerBouleAvecRebonds()
 		gDonnees.Boule.VX=0;
 		gDonnees.Boule.VY=0;
 		gDonnees.NumBille = gDonnees.NumBille + 1 ;
-		GestionFinDePartie();
+		if (gDonnees.NumBille>3)
+		{
+			GestionFinDePartie();
+		}
 	}
 	
 

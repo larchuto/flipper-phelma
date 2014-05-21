@@ -162,42 +162,48 @@ void BoutonQuitterCB(Fl_Widget* w, void* data)
 
 void BoutonMeilleursScoresCB(Fl_Widget* w, void* data)
 {
-	char buffer[150],ent[10];
+    
+	char message[150];
+    char buffer[150];
+    char ent[10];
+    message[0]='\0';
 	for(int i=0;i<5;i++)
 	{
 		if (gDonnees.score[i]==0) break;
-		strncat(buffer,gDonnees.nom[i],150);
+		/*strncat(buffer,gDonnees.nom[i],150);
 		strncat(buffer,"	",150);
 		snprintf(ent,10,"%d",gDonnees.score[i]);
 		strncat(buffer,ent,150);
-		strncat(buffer,"\n",150);
+		strncat(buffer,"\n",150);*/
+        snprintf(buffer,150,"%s n%d. %s %d\n",message,i+1,gDonnees.nom[i],gDonnees.score[i]);
+        strcpy(message,buffer);
 	}
-	fl_message(buffer);
-
+    if (gDonnees.score[0]==0) snprintf(message,150,"aucun meilleur score");
+	fl_message("%s",message);
 /*
-     if(gDonnees.score[1]==0)
+     if(gDonnees.score[0]==0)
      {
-      fl_message("\t\t\tMeilleurs Scores\n\n1.  %s\t\n2.  %s\t\n3.  %s\t\n4.  %s\t\n5.  %s\t",gDonnees.nom1,gDonnees.nom2,gDonnees.nom3,gDonnees.nom4,gDonnees.nom5);
+      fl_message("\t\t\tMeilleurs Scores\n\n1.  %s\t\n2.  %s\t\n3.  %s\t\n4.  %s\t\n5.  %s\t",gDonnees.nom[0],gDonnees.nom[1],gDonnees.nom[2],gDonnees.nom[3],gDonnees.nom[4]);
      }
-     else if(gDonnees.score2==0)
+     else if(gDonnees.score[1]==0)
      {
-      fl_message("\t\t\tMeilleurs Scores\n\n1.  %s\t%d\n2.  %s\t\n3.  %s\t\n4.  %s\t\n5.  %s\t",gDonnees.nom1,gDonnees.score1,gDonnees.nom2,gDonnees.nom3,gDonnees.nom4,gDonnees.nom5);
+      fl_message("\t\t\tMeilleurs Scores\n\n1.  %s\t%d\n2.  %s\t\n3.  %s\t\n4.  %s\t\n5.  %s\t",gDonnees.nom[0],gDonnees.score[0],gDonnees.nom[1],gDonnees.nom[2],gDonnees.nom[3],gDonnees.nom[4]);
      }
-     else if (gDonnees.score3==0)
+     else if (gDonnees.score[2]==0)
      {
-      fl_message("\t\t\tMeilleurs Scores\n\n1.  %s\t%d\n2.  %s\t%d\n3.  %s\t\n4.  %s\t\n5.  %s\t",gDonnees.nom1,gDonnees.score1,gDonnees.nom2,gDonnees.score2,gDonnees.nom3,gDonnees.nom4,gDonnees.nom5);
+      fl_message("\t\t\tMeilleurs Scores\n\n1.  %s\t%d\n2.  %s\t%d\n3.  %s\t\n4.  %s\t\n5.  %s\t",gDonnees.nom[0],gDonnees.score[0],gDonnees.nom[1],gDonnees.score[1],gDonnees.nom[2],gDonnees.nom[3],gDonnees.nom[4]);
      }
-     else if(gDonnees.score4==0)
+     else if(gDonnees.score[3]==0)
      {
-      fl_message("\t\t\tMeilleurs Scores\n\n1.  %s\t%d\n2.  %s\t%d\n3.  %s\t%d\n4.  %s\t\n5.  %s\t",gDonnees.nom1,gDonnees.score1,gDonnees.nom2,gDonnees.score2,gDonnees.nom3,gDonnees.score3,gDonnees.nom4,gDonnees.nom5);
+      fl_message("\t\t\tMeilleurs Scores\n\n1.  %s\t%d\n2.  %s\t%d\n3.  %s\t%d\n4.  %s\t\n5.  %s\t",gDonnees.nom[0],gDonnees.score[0],gDonnees.nom[1],gDonnees.score[1],gDonnees.nom[2],gDonnees.score[2],gDonnees.nom[3],gDonnees.nom[4]);
      }
-     else if(gDonnees.score5==0)
+     else if(gDonnees.score[4]==0)
      {
-      fl_message("\t\t\tMeilleurs Scores\n\n1.  %s\t%d\n2.  %s\t%d\n3.  %s\t%d\n4.  %s\t%d\n5.  %s\t",gDonnees.nom1,gDonnees.score1,gDonnees.nom2,gDonnees.score2,gDonnees.nom3,gDonnees.score3,gDonnees.nom4,gDonnees.score4,gDonnees.nom5);
+      fl_message("\t\t\tMeilleurs Scores\n\n1.  %s\t%d\n2.  %s\t%d\n3.  %s\t%d\n4.  %s\t%d\n5.  %s\t",gDonnees.nom[0],gDonnees.score[0],gDonnees.nom[1],gDonnees.score[1],gDonnees.nom[2],gDonnees.score[2],gDonnees.nom[3],gDonnees.score[3],gDonnees.nom[4]);
      }
      else
      {
-     fl_message("\t\t\tMeilleurs Scores\n\n1.  %s\t%d\n2.  %s\t%d\n3.  %s\t%d\n4.  %s\t%d\n5.  %s\t%d",gDonnees.nom1,gDonnees.score1,gDonnees.nom2,gDonnees.score2,gDonnees.nom3,gDonnees.score3,gDonnees.nom4,gDonnees.score4,gDonnees.nom5,gDonnees.score5);
+     fl_message("\t\t\tMeilleurs Scores\n\n1.  %s\t%d\n2.  %s\t%d\n3.  %s\t%d\n4.  %s\t%d\n5.  %s\t%d",gDonnees.nom[0],gDonnees.score[0],gDonnees.nom[1],gDonnees.score[1],gDonnees.nom[2],gDonnees.score[2],gDonnees.nom[3],gDonnees.score[3],gDonnees.nom[4],gDonnees.score[4]);
     }*/
 }
 
