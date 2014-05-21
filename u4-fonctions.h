@@ -8,10 +8,10 @@
 // Structure de definition de la boule
 struct Boule
 {
-    float X;
-    float Y;
-    float VX;
-    float VY;
+	float X;
+	float Y;
+	float VX;
+	float VY;
 	float rayon;
 };
 
@@ -51,14 +51,14 @@ struct Triangle
 // Structure globale pour les variables fonctionnelles
 struct Donnees
 {
-    struct Boule Boule ;
-    unsigned int Points ;
-    unsigned int NumBille ;
-    unsigned int CompressionRessort;
-    int score[5];
- 	char nom[5][20];
- 	int tempBump1, tempBump2, tempBump3, tempTriG, tempTriD, tempPortails, tempTrouNoir;
- 	bool ballispushed, ballintrounoir;
+	struct Boule Boule ;
+	unsigned int Points ;
+	unsigned int NumBille ;
+	unsigned int CompressionRessort;
+	int score[5];
+	char nom[5][20];
+	int tempBump1, tempBump2, tempBump3, tempTriG, tempTriD, tempPortails, tempTrouNoir;
+	bool ballispushed, ballintrounoir;
 
 	struct Boule Pieh;
 	struct Boule Bp1;

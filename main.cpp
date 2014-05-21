@@ -21,31 +21,31 @@ void CycleCB( void* ) ;
 // Programme Principal
 int main (int argc, char ** argv)
 {
-    // Creation de l'interface
-    CreerInterface() ;
+	// Creation de l'interface
+	CreerInterface();
 
-    // Initialisation du logiciel
-    InitialiserDonnees() ; // On initialise les donnees
-    ChargeBestScores(); //On va chercher les meilleurs scores
-    //ActualiserInterface(); // On affiche les donnees sur l'interface
-    gInterface.ZoneDessin->redraw() ; // On redessine la zone de dessin
+	// Initialisation du logiciel
+	InitialiserDonnees(); // On initialise les donnees
+	ChargeBestScores(); //On va chercher les meilleurs scores
+	//ActualiserInterface(); // On affiche les donnees sur l'interface
+	gInterface.ZoneDessin->redraw(); // On redessine la zone de dessin
 
-    // Armement de la fonction cyclique
-    Fl::add_timeout(DUREE_CYCLE, CycleCB, NULL ) ;
-    //Fl::visual(FL_RGB);
+	// Armement de la fonction cyclique
+	Fl::add_timeout(DUREE_CYCLE, CycleCB, NULL );
+	//Fl::visual(FL_RGB);
 
-    // Lancer la boucle de gestion des evenements
-    return Fl::run();
+	// Lancer la boucle de gestion des evenements
+	return Fl::run();
 }
 
 // Fonction cyclique
 void CycleCB( void* )
 {
-    // Appel de la fonction TraiterCycleCB ( u3-callbacks )
-    TraiterCycleCB() ;
+	// Appel de la fonction TraiterCycleCB ( u3-callbacks )
+	TraiterCycleCB();
 
-    // Rearmement de la fonction cyclique
-    Fl::repeat_timeout(DUREE_CYCLE, CycleCB, NULL ) ;
+	// Rearmement de la fonction cyclique
+	Fl::repeat_timeout(DUREE_CYCLE, CycleCB, NULL );
 }
 
 
@@ -67,86 +67,86 @@ void CycleCB( void* )
 DrawingArea::DrawingArea(int X,int Y,int W,int H)
 : Fl_Widget(X,Y,W,H)
 {
-    _draw_callback_function = NULL ;
-    _draw_callback_data = NULL ;
+	_draw_callback_function = NULL ;
+	_draw_callback_data = NULL ;
 
-    _mouse_callback_function = NULL ;
-    _mouse_callback_data = NULL ;
+	_mouse_callback_function = NULL ;
+	_mouse_callback_data = NULL ;
 
-    _keyboard_callback_function = NULL ;
-    _keyboard_callback_data = NULL ;
+	_keyboard_callback_function = NULL ;
+	_keyboard_callback_data = NULL ;
 }
 
 // Methode draw_callback
 void DrawingArea::draw_callback( void (*Function) ( Fl_Widget* w, void* data), void* Data )
 {
-    _draw_callback_function = Function ;
-    _draw_callback_data = Data ;
+	_draw_callback_function = Function ;
+	_draw_callback_data = Data ;
 }
 
 // Methode mouse_callback
 void DrawingArea::mouse_callback( void (*Function) ( Fl_Widget* w, void* data), void* Data )
 {
-    _mouse_callback_function = Function ;
-    _mouse_callback_data = Data ;
+	_mouse_callback_function = Function ;
+	_mouse_callback_data = Data ;
 }
 
 // Methode keyboard_callback
 void DrawingArea::keyboard_callback( void (*Function) ( Fl_Widget* w, void* data, bool key_is_down), void* Data )
 {
-    _keyboard_callback_function = Function ;
-    _keyboard_callback_data = Data ;
+	_keyboard_callback_function = Function ;
+	_keyboard_callback_data = Data ;
 }
 
 // Methode de dessin de la zone de dessin
 void DrawingArea::draw()
 {
-    fl_push_clip(this->x(), this->y(), this->w(), this->h()) ;
-    if ( _draw_callback_function != NULL )
-        (* _draw_callback_function ) ( this, _draw_callback_data ) ;
-    fl_pop_clip() ;
+	fl_push_clip(this->x(), this->y(), this->w(), this->h()) ;
+	if ( _draw_callback_function != NULL )
+		(* _draw_callback_function ) ( this, _draw_callback_data ) ;
+	fl_pop_clip() ;
 }
 
 // Methode de gestion des evenements dans la zone de dessin
 int DrawingArea::handle(int event)
 {
-    switch(event)
-    {
-        case FL_PUSH :
-        case FL_RELEASE :
-        case FL_DRAG :
-             if ( _mouse_callback_function != NULL )
-                (* _mouse_callback_function ) ( this, _mouse_callback_data) ;
-            return 1 ;
-            break ;
-        case FL_ENTER : // Necessaire pour la prise en compte de FL_MOVE
-            return 1 ;
-            break ;
-        case FL_MOVE :
-             if ( _mouse_callback_function != NULL )
-                (* _mouse_callback_function ) ( this, _mouse_callback_data ) ;
-            return 1 ;
-            break ;
+	switch(event)
+	{
+		case FL_PUSH :
+		case FL_RELEASE :
+		case FL_DRAG :
+			 if ( _mouse_callback_function != NULL )
+				(* _mouse_callback_function ) ( this, _mouse_callback_data) ;
+			return 1 ;
+			break ;
+		case FL_ENTER : // Necessaire pour la prise en compte de FL_MOVE
+			return 1 ;
+			break ;
+		case FL_MOVE :
+			 if ( _mouse_callback_function != NULL )
+				(* _mouse_callback_function ) ( this, _mouse_callback_data ) ;
+			return 1 ;
+			break ;
 
-        case FL_KEYBOARD:
-             if ( _keyboard_callback_function != NULL )
-                (* _keyboard_callback_function ) ( this, _keyboard_callback_data, true ) ;
-            return 1 ;
-            break ;
+		case FL_KEYBOARD:
+			 if ( _keyboard_callback_function != NULL )
+				(* _keyboard_callback_function ) ( this, _keyboard_callback_data, true ) ;
+			return 1 ;
+			break ;
 
-        case FL_KEYUP:
-             if ( _keyboard_callback_function != NULL )
-                (* _keyboard_callback_function ) ( this, _keyboard_callback_data, false ) ;
-            return 1 ;
-            break ;
+		case FL_KEYUP:
+			 if ( _keyboard_callback_function != NULL )
+				(* _keyboard_callback_function ) ( this, _keyboard_callback_data, false ) ;
+			return 1 ;
+			break ;
 
-        case FL_FOCUS:
-            return 1 ;
-            break ;
+		case FL_FOCUS:
+			return 1 ;
+			break ;
 
-        default:
-            return Fl_Widget::handle(event);
-    }
+		default:
+			return Fl_Widget::handle(event);
+	}
 }
 
 ////////////////////////////////////////

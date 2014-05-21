@@ -21,31 +21,31 @@
 // Declaration des objets de l'interface
 struct Interface
 {
-    Fl_Double_Window* Fenetre ;
-    DrawingArea* ZoneDessin ;
-    DrawingArea* ZoneMenu ;
-    DrawingArea* ZoneScore ;
-    Fl_Button* BoutonQuitter ;
+	Fl_Double_Window* Fenetre ;
+	DrawingArea* ZoneDessin ;
+	DrawingArea* ZoneMenu ;
+	DrawingArea* ZoneScore ;
+	Fl_Button* BoutonQuitter ;
 
-    Fl_Button* BoutonAction ;
-    Fl_Button* BoutonNouvellePartie ;
-    Fl_Button* BoutonMeilleursScores ;
+	Fl_Button* BoutonAction ;
+	Fl_Button* BoutonNouvellePartie ;
+	Fl_Button* BoutonMeilleursScores ;
 
-    Fl_GIF_Image* Imagescore;
-    Fl_GIF_Image* Imagemenu;
-    Fl_GIF_Image* Imagefond;
-    Fl_GIF_Image* Imagedecor;
-    Fl_GIF_Image* Imagebille;
-    Fl_GIF_Image* Imagevert;
-    Fl_GIF_Image* Imagerouge;
-    Fl_GIF_Image* Imagebleu;
-    Fl_GIF_Image* Imagetriangleg;
-    Fl_GIF_Image* Imagetriangled;
-    Fl_GIF_Image* Imagebip[7];
-    Fl_GIF_Image* Imageteleporteur;
-    Fl_GIF_Image* Imageflipg;
-    Fl_GIF_Image* Imageflipd;
-    Fl_GIF_Image* Imagetrou;
+	Fl_GIF_Image* Imagescore;
+	Fl_GIF_Image* Imagemenu;
+	Fl_GIF_Image* Imagefond;
+	Fl_GIF_Image* Imagedecor;
+	Fl_GIF_Image* Imagebille;
+	Fl_GIF_Image* Imagevert;
+	Fl_GIF_Image* Imagerouge;
+	Fl_GIF_Image* Imagebleu;
+	Fl_GIF_Image* Imagetriangleg;
+	Fl_GIF_Image* Imagetriangled;
+	Fl_GIF_Image* Imagebip[7];
+	Fl_GIF_Image* Imageteleporteur;
+	Fl_GIF_Image* Imageflipg;
+	Fl_GIF_Image* Imageflipd;
+	Fl_GIF_Image* Imagetrou;
 
 } ;
 
@@ -55,6 +55,6 @@ extern struct Interface gInterface ;
 
 // Declaration des sous-programmes
 void CreerInterface();
-void ActualiserInterface();
+//void ActualiserInterface();
 
 #endif // _u1_interface_h

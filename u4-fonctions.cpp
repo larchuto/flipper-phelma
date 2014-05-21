@@ -51,8 +51,8 @@ void InitialiserBestScores()
 {
 	for(int i=0;i<5;i++)
 	{
-  		gDonnees.score[i]=0;
-  		gDonnees.nom[i][0]='\0';
+		gDonnees.score[i]=0;
+		gDonnees.nom[i][0]='\0';
 	}
 }
 
@@ -138,9 +138,6 @@ void InitialiserDonnees()
 
 	//Trou Noir
 	InitialiserPieBB(&gDonnees.TrouNoir,214,104,1);
-
-		// Exemple son
-		//JouerSon("media/r2d2.mp3");
 }
 
 void rotation(float angle, float* x, float* y)
@@ -268,6 +265,47 @@ bool Touche_aabb(struct Obb barre,struct Boule bille,float* ximp,float* yimp)
 	return false;
 }
 
+bool Touche_obb(struct Obb barre,struct Boule bille, float* ximp,float* yimp)
+{
+	struct Boule bille_loc=bille;
+	bille_loc.X=bille.X-barre.X;
+	bille_loc.Y=bille.Y-barre.Y;
+	rotation(-barre.angle,&(bille_loc.X),&(bille_loc.Y));
+	bille_loc.X=bille_loc.X+barre.X;
+	bille_loc.Y=bille_loc.Y+barre.Y;
+
+	if (Touche_aabb(barre,bille_loc,ximp,yimp))
+	{
+		*ximp-=barre.X;
+		*yimp-=barre.Y;
+		rotation(barre.angle,ximp,yimp);
+		*ximp+=barre.X;
+		*yimp+=barre.Y;
+		return true;
+	}
+
+	return false;
+}
+
+bool ToucheTriangle(struct Triangle triangle, float* ximp, float* yimp)
+{
+	return (Touche_pie(triangle.C1,gDonnees.Boule,ximp,yimp)
+	|| Touche_pie(triangle.C2,gDonnees.Boule,ximp,yimp)
+	|| Touche_pie(triangle.C3,gDonnees.Boule,ximp,yimp)
+	|| Touche_obb(triangle.L1,gDonnees.Boule,ximp,yimp)
+	|| Touche_obb(triangle.L2,gDonnees.Boule,ximp,yimp)
+	|| Touche_obb(triangle.L3,gDonnees.Boule,ximp,yimp));
+}
+
+bool ToucheFlip(struct Flip flip, float* ximp, float* yimp)
+{
+	return ((Touche_pie(flip.C1,gDonnees.Boule,ximp,yimp)
+		|| Touche_pie(flip.C2,gDonnees.Boule,ximp,yimp)
+		|| (Touche_obb(flip.L1,gDonnees.Boule,ximp,yimp)
+			&& Touche_obb(flip.L3,gDonnees.Boule,ximp,yimp)))
+	&& !gDonnees.ballispushed);
+}
+
 void MoveFlip(struct Flip* flip, float angle)
 {
 	flip->angle+=angle;
@@ -340,28 +378,6 @@ void RelachementRessort()
 	InitialiserOBB(&gDonnees.Ressort,L_ZONE-12-6,H_ZONE-20.5-6,24,41,0);
 }
 
-bool Touche_obb(struct Obb barre,struct Boule bille, float* ximp,float* yimp)
-{
-	struct Boule bille_loc=bille;
-	bille_loc.X=bille.X-barre.X;
-	bille_loc.Y=bille.Y-barre.Y;
-	rotation(-barre.angle,&(bille_loc.X),&(bille_loc.Y));
-	bille_loc.X=bille_loc.X+barre.X;
-	bille_loc.Y=bille_loc.Y+barre.Y;
-
-	if (Touche_aabb(barre,bille_loc,ximp,yimp))
-	{
-		*ximp-=barre.X;
-		*yimp-=barre.Y;
-		rotation(barre.angle,ximp,yimp);
-		*ximp+=barre.X;
-		*yimp+=barre.Y;
-		return true;
-	}
-
-	return false;
-}
-
 void Rebond(Boule *bille,float ximp,float yimp)
 {
 	float ux=(bille->X-ximp)/sqrt((bille->X-ximp)*(bille->X-ximp)+(bille->Y-yimp)*(bille->Y-yimp));
@@ -427,19 +443,19 @@ void ChargeBestScores()
 }
 void SaveBestScores()
 {
-    ofstream scores("BestScores.txt");
-    if(scores)    
-    {
+	ofstream scores("BestScores.txt");
+	if(scores)    
+	{
 	for(int i=0;i<5;i++)
 	{
 		scores << gDonnees.nom[i] << " " << gDonnees.score[i] << endl;
 	}
 
-    }
-    else
-    {
-        fl_message("Impossible d'ouvrir le fichier \"BestScores.txt\"");
-    }
+	}
+	else
+	{
+		fl_message("Impossible d'ouvrir le fichier \"BestScores.txt\"");
+	}
 }
 
 void TriTab(int* score, char nom[][20])
@@ -484,135 +500,26 @@ void GestionFinDePartie()
 	InitialiserDonnees();
 }
 
-bool ToucheTriangle(struct Triangle triangle, float* ximp, float* yimp)
+void CollisionBumpers(bool* rebond, float* ximp, float* yimp)
 {
-	return (Touche_pie(triangle.C1,gDonnees.Boule,ximp,yimp)
-	|| Touche_pie(triangle.C2,gDonnees.Boule,ximp,yimp)
-	|| Touche_pie(triangle.C3,gDonnees.Boule,ximp,yimp)
-	|| Touche_obb(triangle.L1,gDonnees.Boule,ximp,yimp)
-	|| Touche_obb(triangle.L2,gDonnees.Boule,ximp,yimp)
-	|| Touche_obb(triangle.L3,gDonnees.Boule,ximp,yimp));
-}
-
-void DeplacerBouleAvecRebonds()
-{
-
-	if ( gDonnees.Boule.X >= L_ZONE-RAYON_BOULE-5)
+	if(Touche_pie(gDonnees.Bp1,gDonnees.Boule,ximp,yimp))
 	{
-		gDonnees.Boule.X = L_ZONE-RAYON_BOULE-5 ;
-		gDonnees.Boule.VX = -1*COEFF_PERTES*gDonnees.Boule.VX ;
+			*rebond=true;
+			gDonnees.Points += SCORE_BUMPER ;
+			gDonnees.tempBump1=1;
 	}
 
-	if ( gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE)
+	if(Touche_pie(gDonnees.Bp2,gDonnees.Boule,ximp,yimp))
 	{
-		//perdu !
-		gDonnees.Boule.X = L_ZONE-RAYON_BOULE-6;
-		gDonnees.Boule.Y = gDonnees.Boule.Y=H_ZONE-47-RAYON_BOULE;
-		gDonnees.Boule.VX=0;
-		gDonnees.Boule.VY=0;
-		if (gDonnees.NumBille==3)
-		{
-			GestionFinDePartie();
-		}
-		else
-		{
-			gDonnees.NumBille = gDonnees.NumBille + 1;
-		}
+			*rebond=true;
+			gDonnees.Points += SCORE_BUMPER ;
+			gDonnees.tempBump2=1;
 	}
-	
-
-	if ( gDonnees.Boule.X <= RAYON_BOULE+5)
+	if(Touche_pie(gDonnees.Bp3,gDonnees.Boule,ximp,yimp))
 	{
-		gDonnees.Boule.X = RAYON_BOULE+5 ;
-		gDonnees.Boule.VX = -1*COEFF_PERTES*gDonnees.Boule.VX ;
-	}
-
-	if ( gDonnees.Boule.Y <= RAYON_BOULE)
-	{
-		gDonnees.Boule.Y = RAYON_BOULE ;
-		gDonnees.Boule.VY = -1*COEFF_PERTES*gDonnees.Boule.VY ;
-		gDonnees.Boule.VX = 1*COEFF_PERTES*gDonnees.Boule.VX;
-	}
-	float pertes=COEFF_PERTES;
-	float ximp;
-	float yimp;
-	bool rebond=
-		Touche_obb(gDonnees.PenteG,gDonnees.Boule,&ximp,&yimp)
-		|| Touche_obb(gDonnees.PenteD,gDonnees.Boule,&ximp,&yimp)
-		|| (gDonnees.Boule.Y<215-RAYON_BOULE&&Touche_pie_int(gDonnees.Pieh,gDonnees.Boule,&ximp,&yimp))
-		|| Touche_obb(gDonnees.Lanceur,gDonnees.Boule,&ximp,&yimp)
-		|| Touche_obb(gDonnees.Ressort,gDonnees.Boule,&ximp,&yimp)
-		//|| Touche_obb(gDonnees.FlipG.L2,gDonnees.Boule,&ximp,&yimp)
-		//|| Touche_obb(gDonnees.FlipD.L2,gDonnees.Boule,&ximp,&yimp)
-		|| Touche_pie(gDonnees.FlipG.C1,gDonnees.Boule,&ximp,&yimp)
-		|| Touche_pie(gDonnees.FlipG.C2,gDonnees.Boule,&ximp,&yimp)
-		|| Touche_pie(gDonnees.FlipD.C1,gDonnees.Boule,&ximp,&yimp)
-		|| Touche_pie(gDonnees.FlipD.C2,gDonnees.Boule,&ximp,&yimp);
-		if (gDonnees.Boule.Y<215-RAYON_BOULE&&Touche_pie_int(gDonnees.Pieh,gDonnees.Boule,&ximp,&yimp))
-		{
-			//pertes=0.6;
-		}
-	if (Touche_obb(gDonnees.PenteG,gDonnees.Boule,&ximp,&yimp))
-	{
-		ReplaceBille(&(gDonnees.Boule),gDonnees.PenteG);
-		pertes=0.4;
-	}
-	if (Touche_obb(gDonnees.PenteD,gDonnees.Boule,&ximp,&yimp))
-	{
-		ReplaceBille(&(gDonnees.Boule),gDonnees.PenteD);
-		pertes=0.4;
-	}
-	//flips
-	if(Touche_obb(gDonnees.FlipG.L3,gDonnees.Boule,&ximp,&yimp))
-	{
-		//ReplaceBille(&(gDonnees.Boule),gDonnees.FlipG.L3);
-	}
-	if(Touche_obb(gDonnees.FlipD.L3,gDonnees.Boule,&ximp,&yimp))
-	{
-		//ReplaceBille(&(gDonnees.Boule),gDonnees.FlipD.L3);
-	}
-	if((Touche_pie(gDonnees.FlipG.C1,gDonnees.Boule,&ximp,&yimp)
-		|| Touche_pie(gDonnees.FlipG.C2,gDonnees.Boule,&ximp,&yimp)
-		|| (Touche_obb(gDonnees.FlipG.L1,gDonnees.Boule,&ximp,&yimp) && Touche_obb(gDonnees.FlipG.L3,gDonnees.Boule,&ximp,&yimp)))
-		//|| Touche_obb(gDonnees.FlipG.L2,gDonnees.Boule,&ximp,&yimp))
-		&& !gDonnees.ballispushed)
-	{
-		rebond=true;
-	}
-	if((Touche_pie(gDonnees.FlipD.C1,gDonnees.Boule,&ximp,&yimp)
-		|| Touche_pie(gDonnees.FlipD.C2,gDonnees.Boule,&ximp,&yimp)
-		|| (Touche_obb(gDonnees.FlipD.L1,gDonnees.Boule,&ximp,&yimp) && Touche_obb(gDonnees.FlipD.L3,gDonnees.Boule,&ximp,&yimp)))
-		//|| Touche_obb(gDonnees.FlipD.L2,gDonnees.Boule,&ximp,&yimp))
-		&& !gDonnees.ballispushed)
-	{
-		rebond=true;
-	}
-	gDonnees.ballispushed=false;
-
-	//Gestion Trou Noir
-	if (Touche_pie(gDonnees.TrouNoir,gDonnees.Boule,&ximp,&yimp))
-	{
-		TrouNoir(&(gDonnees.Boule));
-	}
-	//Gestion bumpers
-		if(Touche_pie(gDonnees.Bp1,gDonnees.Boule,&ximp,&yimp))
-		{
-				rebond=true;
-				gDonnees.Points += SCORE_BUMPER ;
-				gDonnees.tempBump1=1;
-		}
-
-		if(Touche_pie(gDonnees.Bp2,gDonnees.Boule,&ximp,&yimp))
-		{
-				rebond=true;
-				gDonnees.Points += SCORE_BUMPER ;
-				gDonnees.tempBump2=1;
-		}
-		if(Touche_pie(gDonnees.Bp3,gDonnees.Boule,&ximp,&yimp))
-		{
-				rebond=true;
-				gDonnees.Points += SCORE_BUMPER ;
-				gDonnees.tempBump3=1;
+			*rebond=true;
+			gDonnees.Points += SCORE_BUMPER ;
+			gDonnees.tempBump3=1;
 	}
 	if (gDonnees.tempBump1<NB_CYCLE_ALLUMAGE && gDonnees.tempBump1>0)
 	{
@@ -632,8 +539,11 @@ void DeplacerBouleAvecRebonds()
 		gDonnees.tempBump3+=1;
 		gDonnees.tempBump3%=NB_CYCLE_ALLUMAGE;
 	}
+}
 
-	//Gestion Teleporteurs
+void CollisionPortails()
+{
+	float ximp,yimp;
 	if(Touche_pie(gDonnees.PortailG,gDonnees.Boule,&ximp,&yimp) && gDonnees.tempPortails==0)
 	{
 		gDonnees.Boule.X=gDonnees.PortailD.X;
@@ -647,7 +557,6 @@ void DeplacerBouleAvecRebonds()
 		gDonnees.Boule.Y=gDonnees.PortailG.Y;
 		gDonnees.Points += SCORE_TELEPORTEUR ;
 		gDonnees.tempPortails=1;
-
 	}
 
 	if(gDonnees.tempPortails!=0)
@@ -657,12 +566,13 @@ void DeplacerBouleAvecRebonds()
 		gInterface.Imageteleporteur->draw(21+20, 222+20+30, 35, 35);
 		gInterface.Imageteleporteur->draw(329+20, 254+20+30, 35, 35);
 	}
+}
 
-
-	//Gestion triangles
-	if(ToucheTriangle(gDonnees.TriG, &ximp, &yimp))
+void CollisionTriangles(bool* rebond, float* ximp, float* yimp)
+{
+	if(ToucheTriangle(gDonnees.TriG, ximp, yimp))
 	{
-		rebond=true;
+		*rebond=true;
 		gDonnees.tempTriG=1;
 		gDonnees.Points += SCORE_TRIANGLE ;
 	}
@@ -674,9 +584,9 @@ void DeplacerBouleAvecRebonds()
 		gDonnees.tempTriG%=NB_CYCLE_ALLUMAGE;
 	}
 
-	if(ToucheTriangle(gDonnees.TriD, &ximp, &yimp))
+	if(ToucheTriangle(gDonnees.TriD, ximp, yimp))
 	{
-		rebond=true;
+		*rebond=true;
 		gDonnees.tempTriD=1;
 		gDonnees.Points += SCORE_TRIANGLE ;
 	}
@@ -687,11 +597,12 @@ void DeplacerBouleAvecRebonds()
 		gDonnees.tempTriD+=1;
 		gDonnees.tempTriD%=NB_CYCLE_ALLUMAGE;
 	}
+}
 
+void ActualiseBille(bool rebond, float pertes, float ximp, float yimp)
+{
 	float oldvx=gDonnees.Boule.VX;
 	float oldvy=gDonnees.Boule.VY;
-
-	// Nouvelle position de la boule ...
 	if(rebond)
 	{
 		Rebond(&(gDonnees.Boule),ximp,yimp);
@@ -721,6 +632,79 @@ void DeplacerBouleAvecRebonds()
 	{
 		gDonnees.Boule.VY=RAYON_BOULE/DUREE_CYCLE;
 	}
+}
+void DeplacerBouleAvecRebonds()
+{
+	float pertes=COEFF_PERTES;
+	float ximp;
+	float yimp;
+	bool rebond=false;
+
+	if ( gDonnees.Boule.X >= L_ZONE-RAYON_BOULE-5)
+	{
+		gDonnees.Boule.X = L_ZONE-RAYON_BOULE-5 ;
+		gDonnees.Boule.VX = -1*COEFF_PERTES*gDonnees.Boule.VX ;
+	}
+	if ( gDonnees.Boule.Y >= H_ZONE-RAYON_BOULE)
+	{
+		//perdu !
+		gDonnees.Boule.X = L_ZONE-RAYON_BOULE-6;
+		gDonnees.Boule.Y = gDonnees.Boule.Y=H_ZONE-47-RAYON_BOULE;
+		gDonnees.Boule.VX=0;
+		gDonnees.Boule.VY=0;
+		if (gDonnees.NumBille==3)
+		{
+			GestionFinDePartie();
+		}
+		else
+		{
+			gDonnees.NumBille = gDonnees.NumBille + 1;
+		}
+	}
+	if ( gDonnees.Boule.X <= RAYON_BOULE+5)
+	{
+		gDonnees.Boule.X = RAYON_BOULE+5 ;
+		gDonnees.Boule.VX = -1*COEFF_PERTES*gDonnees.Boule.VX ;
+	}
+
+	rebond=Touche_obb(gDonnees.PenteG,gDonnees.Boule,&ximp,&yimp)
+		|| Touche_obb(gDonnees.PenteD,gDonnees.Boule,&ximp,&yimp)
+		|| (gDonnees.Boule.Y<215-RAYON_BOULE&&Touche_pie_int(gDonnees.Pieh,gDonnees.Boule,&ximp,&yimp))
+		|| Touche_obb(gDonnees.Lanceur,gDonnees.Boule,&ximp,&yimp)
+		|| Touche_obb(gDonnees.Ressort,gDonnees.Boule,&ximp,&yimp)
+		|| ToucheFlip(gDonnees.FlipG,&ximp,&yimp)
+		|| ToucheFlip(gDonnees.FlipD,&ximp,&yimp);
+
+	if (Touche_obb(gDonnees.PenteG,gDonnees.Boule,&ximp,&yimp))
+	{
+		ReplaceBille(&(gDonnees.Boule),gDonnees.PenteG);
+		pertes=COEFF_PERTES*2/3;
+	}
+	if (Touche_obb(gDonnees.PenteD,gDonnees.Boule,&ximp,&yimp))
+	{
+		ReplaceBille(&(gDonnees.Boule),gDonnees.PenteD);
+		pertes=COEFF_PERTES*2/3;
+	}
+
+	gDonnees.ballispushed=false;
+
+	//Gestion Trou Noir
+	if (Touche_pie(gDonnees.TrouNoir,gDonnees.Boule,&ximp,&yimp))
+	{
+		TrouNoir(&(gDonnees.Boule));
+	}
+
+	//Gestion bumpers
+	CollisionBumpers(&rebond,&ximp,&yimp);
+
+	//Gestion Teleporteurs
+	CollisionPortails();
+
+	//Gestion triangles
+	CollisionTriangles(&rebond,&ximp,&yimp);
+
+	// On actualise le postition et la vitesse de la bille ...
+	ActualiseBille(rebond, pertes, ximp, yimp);
 }
 
 // Utilitaires
