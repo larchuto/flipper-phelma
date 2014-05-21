@@ -30,9 +30,6 @@ using namespace std;
 
 // Definition des donnees fonctionnelles du projet - structure globale de variables
 struct Donnees gDonnees;
-float gravite= GRAVITE;
-int temp=0 , temp1=0 ,temp2=0, temp3=0, temp4=0, temp5=0, temp6=0, temp_portails=0, scorefinal=0;
-int ballispushed=0, ballintrounoir=0, temptrounoir;
 
 void InitialiserPieBB(struct Boule* pie, float x, float y, float rayon)
 {
@@ -71,10 +68,17 @@ void InitialiserDonnees()
 	gDonnees.Boule.rayon=RAYON_BOULE;
 	gDonnees.Boule.VX = 0 ;
 	gDonnees.Boule.VY = 0 ;
+	gDonnees.ballispushed=false;
+	gDonnees.ballintrounoir=false;
 
 	// On initialise le score, le nombre de billes et les meilleurs scores
 	gDonnees.Points = 0 ;
 	gDonnees.NumBille = 1 ;
+
+	//variable d'incrémentation pour allumage des éléments
+	gDonnees.tempBump1=0; gDonnees.tempBump2=0; gDonnees.tempBump3=0;
+	gDonnees.tempTriG=0; gDonnees.tempTriD=0;
+	gDonnees.tempPortails=0; gDonnees.tempTrouNoir=0;
 
 	//courbe haut du plateau
 	InitialiserPieBB(&gDonnees.Pieh,214,215,211);
@@ -384,22 +388,22 @@ void PushBall(struct Flip* Flip, struct Boule* bille)
 		bille->VX+=PROPULSIONFLIP*sin(Flip->L1.angle)*coeff_gain;
 		bille->VY-=PROPULSIONFLIP*cos(Flip->L1.angle)*coeff_gain;
 	}
-	ballispushed=1;
+	gDonnees.ballispushed=true;
 }
 
 void TrouNoir(struct Boule* bille)
 {
-	ballintrounoir=1;
-	temptrounoir+=1;
+	gDonnees.ballintrounoir=true;
+	gDonnees.tempTrouNoir+=1;
 	bille->X=215;
 	bille->Y=105;
 	float sortie=rand()/(float)RAND_MAX;
 	float anglesortie=float(rand()%361)/180*3.14159;
 	gDonnees.Points += SCORE_TROUNOIR ;
-	if(sortie<TROUNOIR_PROBA_SORTIR || temptrounoir>TROUNOIR_NBRCYCLEMAX)
+	if(sortie<TROUNOIR_PROBA_SORTIR || gDonnees.tempTrouNoir>TROUNOIR_NBRCYCLEMAX)
 	{
-		ballintrounoir=0;
-		temptrounoir=0;
+		gDonnees.ballintrounoir=false;
+		gDonnees.tempTrouNoir=0;
 		bille->VX=cos(anglesortie)*TROUNOIR_VITESSE;
 		bille->VY=sin(anglesortie)*TROUNOIR_VITESSE;
 	}
@@ -490,12 +494,6 @@ bool ToucheTriangle(struct Triangle triangle, float* ximp, float* yimp)
 	|| Touche_obb(triangle.L3,gDonnees.Boule,ximp,yimp));
 }
 
-bool Collisions(float* ximp, float* yimp, float* pertes)
-{
-
-}
-
-
 void DeplacerBouleAvecRebonds()
 {
 
@@ -577,7 +575,7 @@ void DeplacerBouleAvecRebonds()
 		|| Touche_pie(gDonnees.FlipG.C2,gDonnees.Boule,&ximp,&yimp)
 		|| (Touche_obb(gDonnees.FlipG.L1,gDonnees.Boule,&ximp,&yimp) && Touche_obb(gDonnees.FlipG.L3,gDonnees.Boule,&ximp,&yimp)))
 		//|| Touche_obb(gDonnees.FlipG.L2,gDonnees.Boule,&ximp,&yimp))
-		&& !ballispushed)
+		&& !gDonnees.ballispushed)
 	{
 		rebond=true;
 	}
@@ -585,11 +583,11 @@ void DeplacerBouleAvecRebonds()
 		|| Touche_pie(gDonnees.FlipD.C2,gDonnees.Boule,&ximp,&yimp)
 		|| (Touche_obb(gDonnees.FlipD.L1,gDonnees.Boule,&ximp,&yimp) && Touche_obb(gDonnees.FlipD.L3,gDonnees.Boule,&ximp,&yimp)))
 		//|| Touche_obb(gDonnees.FlipD.L2,gDonnees.Boule,&ximp,&yimp))
-		&& !ballispushed)
+		&& !gDonnees.ballispushed)
 	{
 		rebond=true;
 	}
-	ballispushed=0;
+	gDonnees.ballispushed=false;
 
 	//Gestion Trou Noir
 	if (Touche_pie(gDonnees.TrouNoir,gDonnees.Boule,&ximp,&yimp))
@@ -601,61 +599,61 @@ void DeplacerBouleAvecRebonds()
 		{
 				rebond=true;
 				gDonnees.Points += SCORE_BUMPER ;
-				temp=1;
+				gDonnees.tempBump1=1;
 		}
 
 		if(Touche_pie(gDonnees.Bp2,gDonnees.Boule,&ximp,&yimp))
 		{
 				rebond=true;
 				gDonnees.Points += SCORE_BUMPER ;
-				temp1=1;
+				gDonnees.tempBump2=1;
 		}
 		if(Touche_pie(gDonnees.Bp3,gDonnees.Boule,&ximp,&yimp))
 		{
 				rebond=true;
 				gDonnees.Points += SCORE_BUMPER ;
-				temp2=1;
+				gDonnees.tempBump3=1;
 	}
-	if (temp<NB_CYCLE_ALLUMAGE && temp>0)
+	if (gDonnees.tempBump1<NB_CYCLE_ALLUMAGE && gDonnees.tempBump1>0)
 	{
 		gInterface.Imagevert->draw(115+20, 98+20+30, 50, 50);
-		temp+=1;
-		temp%=NB_CYCLE_ALLUMAGE;
+		gDonnees.tempBump1+=1;
+		gDonnees.tempBump1%=NB_CYCLE_ALLUMAGE;
 	}
-	if (temp1<NB_CYCLE_ALLUMAGE && temp1>0)
+	if (gDonnees.tempBump2<NB_CYCLE_ALLUMAGE && gDonnees.tempBump2>0)
 	{
 		gInterface.Imagebleu->draw(265+20, 98+20+30, 50, 50);
-		temp1+=1;
-		temp1%=NB_CYCLE_ALLUMAGE;
+		gDonnees.tempBump2+=1;
+		gDonnees.tempBump2%=NB_CYCLE_ALLUMAGE;
 	}
-	if (temp2<NB_CYCLE_ALLUMAGE && temp2>0)
+	if (gDonnees.tempBump3<NB_CYCLE_ALLUMAGE && gDonnees.tempBump3>0)
 	{
 		gInterface.Imagerouge->draw(190+20, 163+20+30, 50, 50);
-		temp2+=1;
-		temp2%=NB_CYCLE_ALLUMAGE;
+		gDonnees.tempBump3+=1;
+		gDonnees.tempBump3%=NB_CYCLE_ALLUMAGE;
 	}
 
 	//Gestion Teleporteurs
-	if(Touche_pie(gDonnees.PortailG,gDonnees.Boule,&ximp,&yimp) && temp_portails==0)
+	if(Touche_pie(gDonnees.PortailG,gDonnees.Boule,&ximp,&yimp) && gDonnees.tempPortails==0)
 	{
 		gDonnees.Boule.X=gDonnees.PortailD.X;
 		gDonnees.Boule.Y=gDonnees.PortailD.Y;
 		gDonnees.Points += SCORE_TELEPORTEUR ;
-		temp_portails=1;
+		gDonnees.tempPortails=1;
 	}
-	if(Touche_pie(gDonnees.PortailD,gDonnees.Boule,&ximp,&yimp) && temp_portails==0)
+	if(Touche_pie(gDonnees.PortailD,gDonnees.Boule,&ximp,&yimp) && gDonnees.tempPortails==0)
 	{
 		gDonnees.Boule.X=gDonnees.PortailG.X;
 		gDonnees.Boule.Y=gDonnees.PortailG.Y;
 		gDonnees.Points += SCORE_TELEPORTEUR ;
-		temp_portails=1;
+		gDonnees.tempPortails=1;
 
 	}
 
-	if(temp_portails!=0)
+	if(gDonnees.tempPortails!=0)
 	{
-		temp_portails+=1;
-		temp_portails%=15;
+		gDonnees.tempPortails+=1;
+		gDonnees.tempPortails%=15;
 		gInterface.Imageteleporteur->draw(21+20, 222+20+30, 35, 35);
 		gInterface.Imageteleporteur->draw(329+20, 254+20+30, 35, 35);
 	}
@@ -665,29 +663,29 @@ void DeplacerBouleAvecRebonds()
 	if(ToucheTriangle(gDonnees.TriG, &ximp, &yimp))
 	{
 		rebond=true;
-		temp3=1;
+		gDonnees.tempTriG=1;
 		gDonnees.Points += SCORE_TRIANGLE ;
 	}
 
-	if (temp3<NB_CYCLE_ALLUMAGE && temp3>0)
+	if (gDonnees.tempTriG<NB_CYCLE_ALLUMAGE && gDonnees.tempTriG>0)
 	{
 		gInterface.Imagetriangleg->draw(64+20, 394+20, 58, 118);
-		temp3+=1;
-		temp3%=NB_CYCLE_ALLUMAGE;
+		gDonnees.tempTriG+=1;
+		gDonnees.tempTriG%=NB_CYCLE_ALLUMAGE;
 	}
 
 	if(ToucheTriangle(gDonnees.TriD, &ximp, &yimp))
 	{
 		rebond=true;
-		temp4=1;
+		gDonnees.tempTriD=1;
 		gDonnees.Points += SCORE_TRIANGLE ;
 	}
 
-	if (temp4<NB_CYCLE_ALLUMAGE && temp4>0)
+	if (gDonnees.tempTriD<NB_CYCLE_ALLUMAGE && gDonnees.tempTriD>0)
 	{
 		gInterface.Imagetriangled->draw(308+20, 394+20, 58, 118);
-		temp4+=1;
-		temp4%=NB_CYCLE_ALLUMAGE;
+		gDonnees.tempTriD+=1;
+		gDonnees.tempTriD%=NB_CYCLE_ALLUMAGE;
 	}
 
 	float oldvx=gDonnees.Boule.VX;
@@ -698,22 +696,23 @@ void DeplacerBouleAvecRebonds()
 	{
 		Rebond(&(gDonnees.Boule),ximp,yimp);
 	}
-	if (!ballintrounoir)
+	if (!gDonnees.ballintrounoir)
 	{
-		gDonnees.Boule.VY = gDonnees.Boule.VY + sin(INCLINAISON)*gravite*DUREE_CYCLE;
+		gDonnees.Boule.VY = gDonnees.Boule.VY + sin(INCLINAISON)*GRAVITE*DUREE_CYCLE;
 		gDonnees.Boule.X += gDonnees.Boule.VX*DUREE_CYCLE;
-		gDonnees.Boule.Y += gDonnees.Boule.VY*DUREE_CYCLE + sin(INCLINAISON)/2*gravite*DUREE_CYCLE*DUREE_CYCLE;
+		gDonnees.Boule.Y += gDonnees.Boule.VY*DUREE_CYCLE + sin(INCLINAISON)/2*GRAVITE*DUREE_CYCLE*DUREE_CYCLE;
 	}
 
 		//gestion des pertes
 	//on teste si la bille n'est simplement pas en train de rouler
-	if (oldvx*oldvy*gDonnees.Boule.VX*gDonnees.Boule.VY<0 && rebond && !ballintrounoir)
+	if (oldvx*oldvy*gDonnees.Boule.VX*gDonnees.Boule.VY<0 && rebond && !gDonnees.ballintrounoir)
 	{
 		gDonnees.Boule.VX *= pertes;
 		gDonnees.Boule.VY *= pertes;
 	}
 
-	/*if(gDonnees.Boule.VX*DUREE_CYCLE>RAYON_BOULE)
+	//sécurité
+	if(gDonnees.Boule.VX*DUREE_CYCLE>RAYON_BOULE)
 	{
 		gDonnees.Boule.VX=RAYON_BOULE/DUREE_CYCLE;
 	}
@@ -721,7 +720,7 @@ void DeplacerBouleAvecRebonds()
 	if(gDonnees.Boule.VY*DUREE_CYCLE>RAYON_BOULE)
 	{
 		gDonnees.Boule.VY=RAYON_BOULE/DUREE_CYCLE;
-	}*/
+	}
 }
 
 // Utilitaires

@@ -57,6 +57,8 @@ struct Donnees
     unsigned int CompressionRessort;
     int score[5];
  	char nom[5][20];
+ 	int tempBump1, tempBump2, tempBump3, tempTriG, tempTriD, tempPortails, tempTrouNoir;
+ 	bool ballispushed, ballintrounoir;
 
 	struct Boule Pieh;
 	struct Boule Bp1;
