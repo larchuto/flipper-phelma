@@ -2,7 +2,7 @@
 //#define MASSEBILLE 20
 #define PIXEL_TO_M 246,153846154/1000000
 #define GRAVITE 18420*0.2 //9.81*1/0.171979167*30
-#define COEFF_PERTES 0.6
+#define COEFF_PERTES 0.5
 #define NB_CYCLE_ALLUMAGE 5
 #define FLIP_ANGLE_PER_STEP 0.15
 #define DUREE_CYCLE 0.015 // 0.500 secondes, depend du materiel utilise
@@ -18,6 +18,8 @@
 #define TROUNOIR_PROBA_SORTIR 0.023
 #define RESSORT_MIN_PORPULSION 750
 #define RESSORT_STEP_PROPULSION 20
+#define GAIN_BUMPERS 1.0
+#define GAIN_TRIANGLES 1.0
 
 #define X_ZONE 20 // X de la zone
 #define Y_ZONE 20 // Y de la zone

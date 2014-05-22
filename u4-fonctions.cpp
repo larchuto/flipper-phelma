@@ -287,8 +287,9 @@ bool Touche_obb(struct Obb barre,struct Boule bille, float* ximp,float* yimp)
 	return false;
 }
 
-bool ToucheTriangle(struct Triangle triangle, float* ximp, float* yimp)
+bool ToucheTriangle(struct Triangle triangle, float* ximp, float* yimp, bool* actif)
 {
+	*actif=Touche_obb(triangle.L3,gDonnees.Boule,ximp,yimp);
 	return (Touche_pie(triangle.C1,gDonnees.Boule,ximp,yimp)
 	|| Touche_pie(triangle.C2,gDonnees.Boule,ximp,yimp)
 	|| Touche_pie(triangle.C3,gDonnees.Boule,ximp,yimp)
@@ -500,13 +501,14 @@ void GestionFinDePartie()
 	InitialiserDonnees();
 }
 
-void CollisionBumpers(bool* rebond, float* ximp, float* yimp)
+void CollisionBumpers(bool* rebond, float* ximp, float* yimp, float* gain)
 {
 	if(Touche_pie(gDonnees.Bp1,gDonnees.Boule,ximp,yimp))
 	{
 			*rebond=true;
 			gDonnees.Points += SCORE_BUMPER ;
 			gDonnees.tempBump1=1;
+			*gain=GAIN_BUMPERS;
 	}
 
 	if(Touche_pie(gDonnees.Bp2,gDonnees.Boule,ximp,yimp))
@@ -514,12 +516,14 @@ void CollisionBumpers(bool* rebond, float* ximp, float* yimp)
 			*rebond=true;
 			gDonnees.Points += SCORE_BUMPER ;
 			gDonnees.tempBump2=1;
+			*gain=GAIN_BUMPERS;
 	}
 	if(Touche_pie(gDonnees.Bp3,gDonnees.Boule,ximp,yimp))
 	{
 			*rebond=true;
 			gDonnees.Points += SCORE_BUMPER ;
 			gDonnees.tempBump3=1;
+			*gain=GAIN_BUMPERS;
 	}
 	if (gDonnees.tempBump1<NB_CYCLE_ALLUMAGE && gDonnees.tempBump1>0)
 	{
@@ -568,13 +572,29 @@ void CollisionPortails()
 	}
 }
 
-void CollisionTriangles(bool* rebond, float* ximp, float* yimp)
+void CollisionTriangles(bool* rebond, float* ximp, float* yimp, float* pertes)
 {
-	if(ToucheTriangle(gDonnees.TriG, ximp, yimp))
+	bool actifG=false;
+	bool actifD=false;
+
+	*rebond+=ToucheTriangle(gDonnees.TriG, ximp, yimp, &actifG)
+		|| ToucheTriangle(gDonnees.TriD, ximp, yimp, &actifD);
+
+	if(actifG)
 	{
-		*rebond=true;
 		gDonnees.tempTriG=1;
 		gDonnees.Points += SCORE_TRIANGLE ;
+		*pertes=GAIN_TRIANGLES;
+	}
+	else if(actifD)
+	{
+		gDonnees.tempTriD=1;
+		gDonnees.Points += SCORE_TRIANGLE ;
+		*pertes=GAIN_TRIANGLES;
+	}
+	else
+	{
+		*pertes=COEFF_PERTES;
 	}
 
 	if (gDonnees.tempTriG<NB_CYCLE_ALLUMAGE && gDonnees.tempTriG>0)
@@ -583,14 +603,6 @@ void CollisionTriangles(bool* rebond, float* ximp, float* yimp)
 		gDonnees.tempTriG+=1;
 		gDonnees.tempTriG%=NB_CYCLE_ALLUMAGE;
 	}
-
-	if(ToucheTriangle(gDonnees.TriD, ximp, yimp))
-	{
-		*rebond=true;
-		gDonnees.tempTriD=1;
-		gDonnees.Points += SCORE_TRIANGLE ;
-	}
-
 	if (gDonnees.tempTriD<NB_CYCLE_ALLUMAGE && gDonnees.tempTriD>0)
 	{
 		gInterface.Imagetriangled->draw(308+20, 394+20, 58, 118);
@@ -695,13 +707,13 @@ void DeplacerBouleAvecRebonds()
 	}
 
 	//Gestion bumpers
-	CollisionBumpers(&rebond,&ximp,&yimp);
+	CollisionBumpers(&rebond,&ximp,&yimp,&pertes);
 
 	//Gestion Teleporteurs
 	CollisionPortails();
 
 	//Gestion triangles
-	CollisionTriangles(&rebond,&ximp,&yimp);
+	CollisionTriangles(&rebond,&ximp,&yimp,&pertes);
 
 	// On actualise le postition et la vitesse de la bille ...
 	ActualiseBille(rebond, pertes, ximp, yimp);
