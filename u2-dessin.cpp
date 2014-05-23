@@ -13,7 +13,9 @@
 #include "u2-dessin.h"
 #include "u4-fonctions.h"
 #include "u5-parametres.h"
-
+// Librairie fmod pour le son
+#include <api/inc/fmod.h>
+#include <api/inc/fmod_errors.h>
 
 // Declaration pour utiliser iostream
 using namespace std;
@@ -120,9 +122,9 @@ void DessineEntier(int valeur, int posx, int posy)
 	sprintf(valeurtxt, "%d", valeur);
 	int longeur, hauteur;
 	fl_color(FL_WHITE);
-	fl_font(FL_HELVETICA_BOLD,30);   
+	fl_font(FL_HELVETICA_BOLD,30);
 	fl_measure(valeurtxt,longeur,hauteur);
-	fl_draw(valeurtxt, float(posx-longeur), float(posy)); 
+	fl_draw(valeurtxt, float(posx-longeur), float(posy));
 }
 
 void ZoneScoreDessinerCB( Fl_Widget* widget, void* data )
@@ -142,7 +144,7 @@ void ZoneMenuDessinerCB( Fl_Widget* widget, void* data )
 
 void ZoneDessinDessinerCB( Fl_Widget* widget, void* data )
 {
-	
+
 	gInterface.Imagescore->draw(X_SCORE, Y_SCORE, L_SCORE, H_SCORE);
 	gInterface.Imagemenu->draw(X_MENU, Y_MENU, L_MENU, H_MENU); //pourrais ne pas être affiché en permanence
 	// On efface toute la zone ( en dessinant dessus l'image de fond )
@@ -165,8 +167,55 @@ void ZoneDessinDessinerCB( Fl_Widget* widget, void* data )
 	{
 		int i_bip=((H_ZONE-RAYON_BOULE-46-113+20-int(gDonnees.Boule.Y))/40)%7;
 		gInterface.Imagebip[i_bip]->draw(392+20, 457+20-40*i_bip, 9, 40);
-		char path[]="media/Sons/bips/rampe/bip_1.mp3";
-		path[26]=i_bip+'1';
+		if (last_i_bip!=i_bip)
+            {
+                switch (i_bip+1)
+                {
+                    case 1:
+                    {
+                        FMOD_System_PlaySound(gInterface.system, FMOD_CHANNEL_FREE, gInterface.bip_1, 0, NULL);
+                        FMOD_System_Update(gInterface.system);
+                        break;
+                    }
+                    case 2:
+                    {
+                        FMOD_System_PlaySound(gInterface.system, FMOD_CHANNEL_FREE, gInterface.bip_2, 0, NULL);
+                        FMOD_System_Update(gInterface.system);
+                        break;
+                    }
+                    case 3:
+                    {
+                        FMOD_System_PlaySound(gInterface.system, FMOD_CHANNEL_FREE, gInterface.bip_3, 0, NULL);
+                        FMOD_System_Update(gInterface.system);
+                    break;
+                    }
+                    case 4:
+                    {
+                        FMOD_System_PlaySound(gInterface.system, FMOD_CHANNEL_FREE, gInterface.bip_4, 0, NULL);
+                        FMOD_System_Update(gInterface.system);
+                        break;
+                    }
+                    case 5:
+                    {
+                        FMOD_System_PlaySound(gInterface.system, FMOD_CHANNEL_FREE, gInterface.bip_5, 0, NULL);
+                        FMOD_System_Update(gInterface.system);
+                        break;
+                    }
+                    case 6:
+                    {
+                        FMOD_System_PlaySound(gInterface.system, FMOD_CHANNEL_FREE, gInterface.bip_6, 0, NULL);
+                        FMOD_System_Update(gInterface.system);
+                        break;
+                    }
+                    case 7:
+                    {
+                        FMOD_System_PlaySound(gInterface.system, FMOD_CHANNEL_FREE, gInterface.bip_7, 0, NULL);
+                        FMOD_System_Update(gInterface.system);
+                    break;
+                    }
+                }
+                last_i_bip=i_bip;
+            }
 		last_i_bip=i_bip;
 	}
 

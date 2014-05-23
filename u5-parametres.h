@@ -20,6 +20,9 @@
 #define RESSORT_STEP_PROPULSION 20
 #define GAIN_BUMPERS 1.0
 #define GAIN_TRIANGLES 1.0
+#define LIMITEPOINT1 15000
+#define LIMITEPOINT2 50000
+#define LIMITEPOINT3 100000
 
 #define X_ZONE 20 // X de la zone
 #define Y_ZONE 20 // Y de la zone

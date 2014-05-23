@@ -17,6 +17,9 @@
 #include <FL/Fl_Choice.H>
 #include <FL/Fl_Value_Input.H>
 #include <FL/Fl_GIF_Image.H>
+// Librairie fmod pour le son
+#include <api/inc/fmod.h>
+#include <api/inc/fmod_errors.h>
 
 // Declaration des objets de l'interface
 struct Interface
@@ -44,6 +47,33 @@ struct Interface
 	Fl_GIF_Image* Imagebip[7];
 	Fl_GIF_Image* Imageteleporteur;
 	Fl_GIF_Image* Imagetrou;
+    FMOD_SYSTEM* system;
+ 	FMOD_SOUND* bip_1 ;
+ 	FMOD_SOUND* bip_2 ;
+ 	FMOD_SOUND* bip_3 ;
+ 	FMOD_SOUND* bip_4 ;
+ 	FMOD_SOUND* bip_5 ;
+ 	FMOD_SOUND* bip_6 ;
+ 	FMOD_SOUND* bip_7 ;
+ 	FMOD_SOUND* trounoir ;
+ 	FMOD_SOUND* teleporteur ;
+ 	FMOD_SOUND* bumper ;
+ 	FMOD_SOUND* triangle ;
+ 	FMOD_SOUND* music1;
+ 	FMOD_SOUND* music2;
+ 	FMOD_SOUND* music3;
+ 	FMOD_SOUND* music4;
+ 	FMOD_SOUND* music5;
+ 	FMOD_SOUND* collision;
+ 	FMOD_SOUND* meilleurs_scores;
+
+    FMOD_CHANNEL* channelmusic1;
+    FMOD_CHANNEL* channelmusic2;
+    FMOD_CHANNEL* channelmusic3;
+    FMOD_CHANNEL* channelmusic4;
+    FMOD_CHANNEL* channelmusic5;
+    FMOD_CHANNELGROUP* channelmaster;
+
 
 } ;
 

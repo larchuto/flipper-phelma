@@ -17,6 +17,9 @@
 #include "u5-parametres.h"
 #include "u2-dessin.h"
 #include <math.h>
+// Librairie fmod pour le son
+#include <api/inc/fmod.h>
+#include <api/inc/fmod_errors.h>
 
 //to clean
 // Librairies fltk
@@ -59,6 +62,11 @@ void InitialiserBestScores()
 // Initialiser
 void InitialiserDonnees()
 {
+
+    //On lance la 1er musique
+    FMOD_System_PlaySound(gInterface.system, (FMOD_CHANNELINDEX) 1, gInterface.music1, 0, &gInterface.channelmusic1);
+    FMOD_System_Update(gInterface.system);
+
 	// On initialise le generateur de nombres aleatoires
 	srand(time(NULL));
 
@@ -417,6 +425,8 @@ void TrouNoir(struct Boule* bille)
 	float sortie=rand()/(float)RAND_MAX;
 	float anglesortie=float(rand()%361)/180*3.14159;
 	gDonnees.Points += SCORE_TROUNOIR ;
+	FMOD_System_PlaySound(gInterface.system, FMOD_CHANNEL_FREE, gInterface.trounoir, 0, NULL);
+    FMOD_System_Update(gInterface.system);
 	if(sortie<TROUNOIR_PROBA_SORTIR || gDonnees.tempTrouNoir>TROUNOIR_NBRCYCLEMAX)
 	{
 		gDonnees.ballintrounoir=false;
@@ -445,7 +455,7 @@ void ChargeBestScores()
 void SaveBestScores()
 {
 	ofstream scores("BestScores.txt");
-	if(scores)    
+	if(scores)
 	{
 	for(int i=0;i<5;i++)
 	{
@@ -484,8 +494,14 @@ void TriTab(int* score, char nom[][20])
 
 void GestionFinDePartie()
 {
+        //Arrêt de la musique si la partie est terminé= nombre de bille = 4
+    FMOD_ChannelGroup_Stop(gInterface.channelmaster);
+
 	if(gDonnees.Points>gDonnees.score[4])
 	{
+	    //Musique des meilleurs scores
+        FMOD_System_PlaySound(gInterface.system, FMOD_CHANNEL_FREE, gInterface.meilleurs_scores, 0, NULL);
+
 		do
 		{
 			const char* Saisie = fl_input("Meilleur Score! Tapez votre nom :", "" );
@@ -509,6 +525,8 @@ void CollisionBumpers(bool* rebond, float* ximp, float* yimp, float* gain)
 			gDonnees.Points += SCORE_BUMPER ;
 			gDonnees.tempBump1=1;
 			*gain=GAIN_BUMPERS;
+			FMOD_System_PlaySound(gInterface.system, FMOD_CHANNEL_FREE, gInterface.bumper, 0, NULL);
+            FMOD_System_Update(gInterface.system);
 	}
 
 	if(Touche_pie(gDonnees.Bp2,gDonnees.Boule,ximp,yimp))
@@ -517,6 +535,8 @@ void CollisionBumpers(bool* rebond, float* ximp, float* yimp, float* gain)
 			gDonnees.Points += SCORE_BUMPER ;
 			gDonnees.tempBump2=1;
 			*gain=GAIN_BUMPERS;
+			FMOD_System_PlaySound(gInterface.system, FMOD_CHANNEL_FREE, gInterface.bumper, 0, NULL);
+            FMOD_System_Update(gInterface.system);
 	}
 	if(Touche_pie(gDonnees.Bp3,gDonnees.Boule,ximp,yimp))
 	{
@@ -524,6 +544,8 @@ void CollisionBumpers(bool* rebond, float* ximp, float* yimp, float* gain)
 			gDonnees.Points += SCORE_BUMPER ;
 			gDonnees.tempBump3=1;
 			*gain=GAIN_BUMPERS;
+			FMOD_System_PlaySound(gInterface.system, FMOD_CHANNEL_FREE, gInterface.bumper, 0, NULL);
+            FMOD_System_Update(gInterface.system);
 	}
 	if (gDonnees.tempBump1<NB_CYCLE_ALLUMAGE && gDonnees.tempBump1>0)
 	{
@@ -553,6 +575,8 @@ void CollisionPortails()
 		gDonnees.Boule.X=gDonnees.PortailD.X;
 		gDonnees.Boule.Y=gDonnees.PortailD.Y;
 		gDonnees.Points += SCORE_TELEPORTEUR ;
+		FMOD_System_PlaySound(gInterface.system, FMOD_CHANNEL_FREE, gInterface.teleporteur, 0, NULL);
+        FMOD_System_Update(gInterface.system);
 		gDonnees.tempPortails=1;
 	}
 	if(Touche_pie(gDonnees.PortailD,gDonnees.Boule,&ximp,&yimp) && gDonnees.tempPortails==0)
@@ -560,6 +584,8 @@ void CollisionPortails()
 		gDonnees.Boule.X=gDonnees.PortailG.X;
 		gDonnees.Boule.Y=gDonnees.PortailG.Y;
 		gDonnees.Points += SCORE_TELEPORTEUR ;
+		FMOD_System_PlaySound(gInterface.system, FMOD_CHANNEL_FREE, gInterface.teleporteur, 0, NULL);
+        FMOD_System_Update(gInterface.system);
 		gDonnees.tempPortails=1;
 	}
 
@@ -584,12 +610,16 @@ void CollisionTriangles(bool* rebond, float* ximp, float* yimp, float* pertes)
 	{
 		gDonnees.tempTriG=1;
 		gDonnees.Points += SCORE_TRIANGLE ;
+		FMOD_System_PlaySound(gInterface.system, FMOD_CHANNEL_FREE, gInterface.triangle, 0, NULL);
+        FMOD_System_Update(gInterface.system);
 		*pertes=GAIN_TRIANGLES;
 	}
 	else if(actifD)
 	{
 		gDonnees.tempTriD=1;
 		gDonnees.Points += SCORE_TRIANGLE ;
+		FMOD_System_PlaySound(gInterface.system, FMOD_CHANNEL_FREE, gInterface.triangle, 0, NULL);
+        FMOD_System_Update(gInterface.system);
 		*pertes=GAIN_TRIANGLES;
 	}
 	else
@@ -651,6 +681,9 @@ void DeplacerBouleAvecRebonds()
 	float ximp;
 	float yimp;
 	bool rebond=false;
+
+    //Mémorisation du score avant le nouveau calcul
+    float scorebefore=gDonnees.Points;
 
 	if ( gDonnees.Boule.X >= L_ZONE-RAYON_BOULE-5)
 	{
@@ -717,6 +750,36 @@ void DeplacerBouleAvecRebonds()
 
 	// On actualise le postition et la vitesse de la bille ...
 	ActualiseBille(rebond, pertes, ximp, yimp);
+
+	//Sélection de la musique si changement de score
+	// Cette fonction sert à sélectionner la musique : si le score est compris entre 0 et 15 000, la musique 1 se joue,
+    // si le score est compris entre 15 000 et 50 000 la musique se joue. Au delà la musique 3 se joue.
+
+    float scoreafter=gDonnees.Points;
+
+    if (scorebefore < LIMITEPOINT1 && scoreafter >= LIMITEPOINT1)
+    {
+        FMOD_Channel_Stop(gInterface.channelmusic1); //Stop la première musique
+        FMOD_Channel_Stop(gInterface.channelmusic5); //Stop la musique bonus
+        FMOD_System_PlaySound(gInterface.system, (FMOD_CHANNELINDEX) 2, gInterface.music2, 0, &gInterface.channelmusic2);
+        FMOD_System_Update(gInterface.system);
+
+    }
+    if (scorebefore< LIMITEPOINT2 && scoreafter >= LIMITEPOINT2)
+    {
+        FMOD_Channel_Stop(gInterface.channelmusic2); //Stop la deuxième musique
+        FMOD_Channel_Stop(gInterface.channelmusic5); //Stop la musique bonus
+        FMOD_System_PlaySound(gInterface.system, (FMOD_CHANNELINDEX) 3, gInterface.music3, 0, &gInterface.channelmusic3);
+        FMOD_System_Update(gInterface.system);
+    }
+    if (scorebefore< LIMITEPOINT3 && scoreafter >= LIMITEPOINT3)
+    {
+        FMOD_Channel_Stop(gInterface.channelmusic3); //Stop la troisième musique
+        FMOD_Channel_Stop(gInterface.channelmusic5); //Stop la musique bonus
+        FMOD_System_PlaySound(gInterface.system, (FMOD_CHANNELINDEX) 4, gInterface.music4, 0, &gInterface.channelmusic4);
+        FMOD_System_Update(gInterface.system);
+    }
+
 }
 
 // Utilitaires
