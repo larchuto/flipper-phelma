@@ -675,6 +675,35 @@ void ActualiseBille(bool rebond, float pertes, float ximp, float yimp)
 		gDonnees.Boule.VY=RAYON_BOULE/DUREE_CYCLE;
 	}
 }
+
+void MusicSelecion(float scorebefore, float scoreafter)
+{
+
+    if (scorebefore < LIMITEPOINT1 && scoreafter >= LIMITEPOINT1)
+    {
+        FMOD_Channel_Stop(gInterface.channelmusic1); //Stop la première musique
+        FMOD_Channel_Stop(gInterface.channelmusic5); //Stop la musique bonus
+        FMOD_System_PlaySound(gInterface.system, (FMOD_CHANNELINDEX) 2, gInterface.music2, 0, &gInterface.channelmusic2);
+        FMOD_System_Update(gInterface.system);
+
+    }
+    if (scorebefore< LIMITEPOINT2 && scoreafter >= LIMITEPOINT2)
+    {
+        FMOD_Channel_Stop(gInterface.channelmusic2); //Stop la deuxième musique
+        FMOD_Channel_Stop(gInterface.channelmusic5); //Stop la musique bonus
+        FMOD_System_PlaySound(gInterface.system, (FMOD_CHANNELINDEX) 3, gInterface.music3, 0, &gInterface.channelmusic3);
+        FMOD_System_Update(gInterface.system);
+    }
+    if (scorebefore< LIMITEPOINT3 && scoreafter >= LIMITEPOINT3)
+    {
+        FMOD_Channel_Stop(gInterface.channelmusic3); //Stop la troisième musique
+        FMOD_Channel_Stop(gInterface.channelmusic5); //Stop la musique bonus
+        FMOD_System_PlaySound(gInterface.system, (FMOD_CHANNELINDEX) 4, gInterface.music4, 0, &gInterface.channelmusic4);
+        FMOD_System_Update(gInterface.system);
+    }
+}
+
+
 void DeplacerBouleAvecRebonds()
 {
 	float pertes=COEFF_PERTES;
@@ -753,32 +782,12 @@ void DeplacerBouleAvecRebonds()
 
 	//Sélection de la musique si changement de score
 	// Cette fonction sert à sélectionner la musique : si le score est compris entre 0 et 15 000, la musique 1 se joue,
-    // si le score est compris entre 15 000 et 50 000 la musique se joue. Au delà la musique 3 se joue.
+        // si le score est compris entre 15 000 et 50 000 la musique se joue. Au delà la musique 3 se joue
+        float scoreafter=gDonnees.Points;
+	MusicSelecion(scorebefore,scoreafter);
+	
 
-    float scoreafter=gDonnees.Points;
 
-    if (scorebefore < LIMITEPOINT1 && scoreafter >= LIMITEPOINT1)
-    {
-        FMOD_Channel_Stop(gInterface.channelmusic1); //Stop la première musique
-        FMOD_Channel_Stop(gInterface.channelmusic5); //Stop la musique bonus
-        FMOD_System_PlaySound(gInterface.system, (FMOD_CHANNELINDEX) 2, gInterface.music2, 0, &gInterface.channelmusic2);
-        FMOD_System_Update(gInterface.system);
-
-    }
-    if (scorebefore< LIMITEPOINT2 && scoreafter >= LIMITEPOINT2)
-    {
-        FMOD_Channel_Stop(gInterface.channelmusic2); //Stop la deuxième musique
-        FMOD_Channel_Stop(gInterface.channelmusic5); //Stop la musique bonus
-        FMOD_System_PlaySound(gInterface.system, (FMOD_CHANNELINDEX) 3, gInterface.music3, 0, &gInterface.channelmusic3);
-        FMOD_System_Update(gInterface.system);
-    }
-    if (scorebefore< LIMITEPOINT3 && scoreafter >= LIMITEPOINT3)
-    {
-        FMOD_Channel_Stop(gInterface.channelmusic3); //Stop la troisième musique
-        FMOD_Channel_Stop(gInterface.channelmusic5); //Stop la musique bonus
-        FMOD_System_PlaySound(gInterface.system, (FMOD_CHANNELINDEX) 4, gInterface.music4, 0, &gInterface.channelmusic4);
-        FMOD_System_Update(gInterface.system);
-    }
 
 }
 
