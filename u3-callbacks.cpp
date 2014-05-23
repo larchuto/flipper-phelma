@@ -157,6 +157,11 @@ void ZoneDessinClavierCB( Fl_Widget* widget, void* data, bool key_is_down)
                     FMOD_System_Update(gInterface.system);
                 }
             break;
+        case 'b' :
+            //déclanchement du WTFBOOM
+            FMOD_System_PlaySound(gInterface.system, FMOD_CHANNEL_FREE, gInterface.WTFBOOM, 0, NULL);
+            FMOD_System_Update(gInterface.system);
+            break;
 
 	}
 }

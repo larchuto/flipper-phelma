@@ -104,6 +104,8 @@ void CreerInterface()
     FMOD_System_CreateSound(gInterface.system, "media/Sons/listsons/bumper.mp3", FMOD_CREATESAMPLE, 0, &gInterface.bumper);
     //Son du téléporteur
     FMOD_System_CreateSound(gInterface.system, "media/Sons/listsons/teleporteur.mp3", FMOD_CREATESAMPLE, 0, &gInterface.teleporteur);
+    //WTFBOOM
+    FMOD_System_CreateSound(gInterface.system, "media/Sons/listsons/WTFBoum.mp3", FMOD_CREATESAMPLE, 0, &gInterface.WTFBOOM);
 
     //Chargement de la musique
     FMOD_System_CreateSound(gInterface.system, "media/Sons/listsons/MusicScore1.mp3", FMOD_SOFTWARE | FMOD_2D | FMOD_CREATESTREAM | FMOD_LOOP_NORMAL, 0, &gInterface.music1);

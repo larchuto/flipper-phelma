@@ -66,6 +66,7 @@ struct Interface
  	FMOD_SOUND* music5;
  	FMOD_SOUND* collision;
  	FMOD_SOUND* meilleurs_scores;
+ 	FMOD_SOUND* WTFBOOM;
 
     FMOD_CHANNEL* channelmusic1;
     FMOD_CHANNEL* channelmusic2;
